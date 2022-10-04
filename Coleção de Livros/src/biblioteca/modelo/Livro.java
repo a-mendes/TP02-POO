@@ -1,22 +1,23 @@
-package ao.co.a2x.biblioteca.modelo;
-import java.util.Vector;
+package biblioteca.modelo;
+
+import java.util.ArrayList;
 
 public class Livro {
 
-	private Vector<String> escritores;
-	private Vector<String> keyWords;
-	private Vector<String> capitulos;
+	private ArrayList <String> escritores;
+	private ArrayList <String> keyWords;
+	private ArrayList <String> capitulos;
 	private String titulo;
 	private String idioma;
 	private String palavraChave;
 	private int anoDePublicacao;
-	
-	
 	 
-//Sets
+	/**
+	 * Sets
+	 */
 	
-	public void setEscritores(Vector<String> escritores) {
-		this.escritores = escritores;
+	public void setEscritores(ArrayList<String> escritores) {
+		this.escritores = escritores;	
 	}
 
 	public void setTitulo(String titulo) {
@@ -36,13 +37,15 @@ public class Livro {
 		this.anoDePublicacao = anoDePublicacao;
 	}
 	
-//Gets
+	/**
+	 * Gets
+	 */
 	
 	public int getAnoDePublicacao() {
 		return anoDePublicacao;
 	}
 
-	public Vector<String> getEscritores() {
+	public ArrayList<String> getEscritores() {
 		return escritores;
 	}
 
@@ -58,27 +61,21 @@ public class Livro {
 		return palavraChave;
 	}
 
-	public Vector<String> getKeyWords() {
+	public ArrayList<String> getKeyWords() {
 		return keyWords;
 	}
 
-	public void setKeyWords(Vector<String> keyWords) {
+	public void setKeyWords(ArrayList<String> keyWords) {
 		this.keyWords = keyWords;
 	}
 
-	public Vector<String> getCapitulos() {
+	public ArrayList<String> getCapitulos() {
 		return capitulos;
 	}
 
-	public void setCapitulos(Vector<String> capitulos) {
+	public void setCapitulos(ArrayList<String> capitulos) {
 		this.capitulos = capitulos;
 	}
-
-
-
-
-	 
-	
 	
 }
 	

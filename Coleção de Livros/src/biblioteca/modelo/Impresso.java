@@ -1,26 +1,25 @@
-package ao.co.a2x.biblioteca.modelo;
-import java.util.Vector;
-import ao.co.a2x.biblioteca.modelo.Livro;
+package biblioteca.modelo;
+import java.util.ArrayList;
 
 
-public class Impresso extends Livro{
-	private Vector<String>Livrarias;
-	private int NumeroColunas;
+public class Impresso extends Livro {
 	
-
-	public void setLivrarias(Vector<String> livrarias) {
-		Livrarias = livrarias;
+	private ArrayList<String> livrarias;
+	private int numeroColunas;
+	
+	public void setLivrarias(ArrayList<String> livrarias) {
+		this.livrarias = livrarias;
 	}
 	public void setNumeroColunas(int numeroColunas) {
-		NumeroColunas = numeroColunas;
+		this.numeroColunas = numeroColunas;
 	}
 	
 	public int getNumeroColunas() {
-		return NumeroColunas;
+		return numeroColunas;
 	}
 	
-	public Vector<String> getLivrarias() {
-		return Livrarias;
+	public ArrayList<String> getLivrarias() {
+		return livrarias;
 	}
 	
 }

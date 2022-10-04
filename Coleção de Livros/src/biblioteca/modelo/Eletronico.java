@@ -1,14 +1,12 @@
-package ao.co.a2x.biblioteca.modelo;
-import java.util.Vector;
-import ao.co.a2x.biblioteca.modelo.Livro;
+package biblioteca.modelo;
 
 public class Eletronico extends Livro {
 
 	private String URL;
 	private String formato;
 	
-	public void setURL(String uRL) {
-		URL = uRL;
+	public void setURL(String url) {
+		URL = url;
 	}
 	public void setFormato(String formato) {
 		this.formato = formato;
@@ -20,6 +18,4 @@ public class Eletronico extends Livro {
 	public String getFormato() {
 		return formato;
 	}
-	
-	
 }

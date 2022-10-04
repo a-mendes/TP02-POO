@@ -2,8 +2,6 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
-import java.awt.event.FocusEvent;
-import java.awt.event.FocusListener;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -11,6 +9,8 @@ import javax.swing.JCheckBox;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+
+import biblioteca.servicos.BaseDeDados;
 
 public class Tela extends JFrame {
 
@@ -113,6 +113,7 @@ public class Tela extends JFrame {
 	
 	public static void main(String[] args) {
 		new Tela();
+		BaseDeDados.lerBaseDeDados();
 	}
 }
 

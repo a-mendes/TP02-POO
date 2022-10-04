@@ -1,6 +1,4 @@
-package ao.co.a2x.biblioteca.modelo;
-import java.util.Vector;
-import ao.co.a2x.biblioteca.modelo.Livro;
+package biblioteca.modelo;
 
 public class AudioBook extends Livro{
 	
@@ -20,8 +18,4 @@ public class AudioBook extends Livro{
 	public String getFormato() {
 		return formato;
 	}
-	
-	
-	
-
 }
