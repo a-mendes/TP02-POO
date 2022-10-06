@@ -6,6 +6,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.lang.String;
 
 import biblioteca.modelo.AudioBook;
 import biblioteca.modelo.Eletronico;
@@ -84,62 +85,146 @@ public class BaseDeDados {
 			}
 		}
 	}
+
 	
-}
 	
 
-//void lerLivro(FILE arquivo, Livro livro)
-//{
-//	/**
-//	 * Titulo
-//	 */ 
-//	String titulo;
-//	getline(arquivo, titulo);
-//	livro.setTitulo(titulo);
-//
-//	/**
-//	 * Escritores
-//	 */ 
-//	String strEscritores;
-//	getline(arquivo, strEscritores);
-//	ArrayList<string> escritores;
-//	split(strEscritores, escritores, ';');
-//	livro->setEscritores(escritores);
-//
-//	/**
-//	 * Ano
-//	 */ 
-//	string ano;
-//	getline(arquivo, ano);
-//	livro->setAnoPublicacao(stoi(ano));
-//
-//	/**
-//	 * Idioma
-//	 */ 
-//	string idioma;
-//	getline(arquivo, idioma);
-//	livro->setIdiomaOriginal(idioma);
-//
+void lerLivro(File arquivo, Livro livro) throws Exception
+{
+	/**
+	 * Titulo
+	 */ 
+	String titulo;
+    reader = new BufferedReader(new FileReader(arquivo.getPath()));
+    titulo = reader.readLine();
+    livro.setTitulo(titulo);
+
+	/**
+	 * Escritores
+	 */ 
+	String strEscritores;
+	reader = new BufferedReader(new FileReader(arquivo.getPath()));
+	strEscritores = reader.readLine();
+	String[] escritores;
+	escritores = strEscritores.split(";");
+	ArrayList<String> recebeEscritores = null;
+	for(int i=0;i<escritores.length;i++) {
+		recebeEscritores.add(escritores[i]);
+	}
+	livro.setEscritores(recebeEscritores);
+
+	/**
+	 * Ano
+	 */ 
+	String ano;
+	reader = new BufferedReader(new FileReader(arquivo.getPath()));
+	ano = reader.readLine();
+	livro.setAnoDePublicacao(Integer.parseInt(ano));
+
+	/**
+	 * Idioma
+	 */ 
+	String idioma;
+	reader = new BufferedReader(new FileReader(arquivo.getPath()));
+	idioma = reader.readLine();
+	livro.setIdioma(idioma);
+
 //	/**
 //	 * Keywords
 //	 */ 
-//	string strKeywords;
-//	getline(arquivo, strKeywords);
-//	ArrayList<string> keywords;
-//	split(strKeywords, keywords, ';');
-//	livro->setKeywords(keywords);
-//	
+	String strKeywords;
+	reader = new BufferedReader(new FileReader(arquivo.getPath()));
+	strKeywords = reader.readLine();
+	String[] keywords;
+	keywords = strKeywords.split(";");
+	ArrayList<String> recebeKeyWords = null;
+	for(int i=0;i<keywords.length;i++) {
+		recebeKeyWords.add(keywords[i]);
+	}
+	
+	livro.setKeyWords(recebeKeyWords);
+	
 //	/**
 //	 * Capitulos
 //	 */ 
-//	string strCapitulos;
-//	getline(arquivo, strCapitulos);
-//	ArrayList<string> capitulos;
-//	split(strCapitulos, capitulos, ';');
-//	livro->setCapitulos(capitulos);
-//}
-//
-//	
-//	
-//}
+	String strCapitulos;
+	reader = new BufferedReader(new FileReader(arquivo.getPath()));
+	strCapitulos = reader.readLine();
+	String[] capitulos;
+	capitulos = strCapitulos.split(";");
+	ArrayList<String> recebeCapitulos = null;
+	for(int i=0;i<capitulos.length;i++) {
+		recebeCapitulos.add(capitulos[i]);
+	}
+	
+	livro.setCapitulos(recebeCapitulos);
+	}
 
+
+void lerAudioBook(File arquivo, AudioBook audioBook) throws Exception
+{
+	lerLivro(arquivo, audioBook);
+
+	/**
+	 * Duracao Audio
+	 */ 
+	String duracao;
+	reader = new BufferedReader(new FileReader(arquivo.getPath()));
+	duracao = reader.readLine();
+	audioBook.setDuracao(Integer.parseInt(duracao));
+	
+	/**
+	 * Formato Audio
+	 */ 
+	String formato;
+	reader = new BufferedReader(new FileReader(arquivo.getPath()));
+	formato = reader.readLine();
+	audioBook.setFormato(formato);
+}
+
+void lerEletronico(File arquivo, Eletronico eletronico) throws Exception
+{
+	lerLivro(arquivo, eletronico);
+
+	/**
+	 * Url
+	 */ 
+	String url;
+	reader = new BufferedReader(new FileReader(arquivo.getPath()));
+	url = reader.readLine();
+	eletronico.setURL(url);
+	
+	/**
+	 * Formato Audio
+	 */ 
+	String formato;
+	reader = new BufferedReader(new FileReader(arquivo.getPath()));
+	formato = reader.readLine();
+	eletronico.setFormato(formato);
+}
+
+void lerImpresso(File arquivo, Impresso impresso) throws Exception
+{
+	lerLivro(arquivo, impresso);
+
+	/**
+	 * Livrarias
+	 */ 
+	String strLivrarias;
+	reader = new BufferedReader(new FileReader(arquivo.getPath()));
+	strLivrarias = reader.readLine();
+	String[] livrarias;
+	livrarias = strLivrarias.split(";");
+	ArrayList<String> recebeLivrarias = null;
+	for(int i=0;i<livrarias.length;i++) {
+		recebeLivrarias.add(livrarias[i]);
+	}
+	
+	impresso.setLivrarias(recebeLivrarias);
+	
+	String colunas;
+	reader = new BufferedReader(new FileReader(arquivo.getPath()));
+	colunas = reader.readLine();
+	impresso.setNumeroColunas(Integer.parseInt(colunas));
+}
+}
