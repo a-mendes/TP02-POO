@@ -1,18 +1,18 @@
 package biblioteca.modelo;
 
-public class AudioBook extends Livro{
+public class AudioBook extends Livro {
 	
-	private int duracao;
+	private float duracao;
 	private String formato;
 	
-	public void setDuracao(int duracao) {
+	public void setDuracao(float duracao) {
 		this.duracao = duracao;
 	}
 	public void setFormato(String formato) {
 		this.formato = formato;
 	}
 	
-	public int getDuracao() {
+	public float getDuracao() {
 		return duracao;
 	}
 	public String getFormato() {

@@ -12,8 +12,6 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-import biblioteca.servicos.BaseDeDados;
-
 public class Tela extends JFrame {
 
 	private static final long serialVersionUID = 1L;
@@ -37,7 +35,7 @@ public class Tela extends JFrame {
 	private JPanel pnlPrincipal;
 	private JPanel pnlPesquisa;
 	private JPanel pnlCheckBoxes;
-	private JPanel pnlResultados;
+	//Tabela de Resultados private JPanel pnlResultados;
 	
 	public Tela() {		
 
@@ -111,11 +109,6 @@ public class Tela extends JFrame {
 		pnlCheckBoxes.add(btnLimpar);
 		
 		pnlPrincipal.add(pnlCheckBoxes);
-	}
-	
-	public static void main(String[] args) {
-		new Tela();
-		BaseDeDados.lerBaseDeDados();
 	}
 }
 
