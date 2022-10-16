@@ -4,7 +4,7 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 
-public class teste {
+public class telaTeste {
 
 	private JFrame frame;
 
@@ -15,7 +15,7 @@ public class teste {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					teste window = new teste();
+					telaTeste window = new telaTeste();
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -27,7 +27,7 @@ public class teste {
 	/**
 	 * Create the application.
 	 */
-	public teste() {
+	public telaTeste() {
 		initialize();
 	}
 
