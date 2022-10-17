@@ -3,6 +3,9 @@ package biblioteca.main;
 import java.util.ArrayList;
 
 import biblioteca.gui.Tela;
+import biblioteca.modelo.Impresso;
+import biblioteca.modelo.Eletronico;
+import biblioteca.modelo.AudioBook;
 import biblioteca.modelo.Livro;
 import biblioteca.servicos.BaseDeDados;
 
@@ -36,13 +39,13 @@ public class Main {
 		
 		//ArrayList resultado de Livro
 		//Passa por cada filtro 
-		//Adiciona os elementos do arrayList retornado por cada filtro no arratList resultado apenas se ele nï¿½o estiver presente 
+		//Adiciona os elementos do arrayList retornado por cada filtro no arratList resultado apenas se ele não estiver presente 
 		
-		//TIPO1: selecionar apenas uma campo ou geral (pesquisar em todos os campos) em combinaï¿½ï¿½o com o tipo = Uma string geral 
+		//TIPO1: selecionar apenas uma campo ou geral (pesquisar em todos os campos) em combinação com o tipo = Uma string geral 
 
-		//TIPO2: selecionar varios campos ou geral geral (pesquisar em todos os campos) em combinaï¿½ï¿½o com o tipo = Uma string geral
+		//TIPO2: selecionar varios campos ou geral geral (pesquisar em todos os campos) em combinação com o tipo = Uma string geral
 				
-		//TIPO3: selecionar varios campos ou geral geral (pesquisar em todos os campos) em combinaï¿½ï¿½o com o tipo = Uma string para cada campo
+		//TIPO3: selecionar varios campos ou geral geral (pesquisar em todos os campos) em combinação com o tipo = Uma string para cada campo
 		
 	}
 	
