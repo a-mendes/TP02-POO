@@ -1,6 +1,7 @@
 package biblioteca.main;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 
 import biblioteca.gui.Tela;
 import biblioteca.modelo.Impresso;
@@ -14,11 +15,14 @@ public class Main {
 	public static ArrayList<Livro> livros;
 	
 	public static void main(String[] args) {
-		//tela = new Tela();
+		//Vetor dos marcados = {Tipo Impresso, Tipo Eletronico, Tipo AudioBook, Nome, Escritor, Ano, Idioma, Palavra Chave, Capitulos, Livraria, Coluna, URL, Formato do Texto, Duracao, Formato do Audio}
+		//Vetor das strings =  {Nome, Escritor, Ano, Idioma, Palavra Chave, Capitulos, Livraria, Coluna, URL, Formato do Texto, Duracao, Formato do Audio}
 		
-		String stringGeral = "Martine";
-		int itemSelecionado[] = {1,0,0,0,0,0,0,0,0,0,0,0};
-		int tipoMarcado[] = {1,0,0};
+		//Nenhum tipo marcado = Todos marcados 
+		//Na pesquisa Especifica = Se marcar algum dos tipo numéricos (Ano, Coluna, Duração) verificar se o valor é um numero
+		//Na pesquisa Especifica = Se não marcar nenhum campo não faz pesquisa
+		//Na pesquisa Geral = Pesquisa em todos os campo menos nos de valores numericos se o valor digitado não é numero 
+		//tela = new Tela();
 				
 		try {
 			livros = BaseDeDados.lerBaseDeDados();
@@ -31,116 +35,35 @@ public class Main {
 //			System.out.println(livro.getClass());
 //			System.out.println(livro.getTitulo());
 //			System.out.println();
-//		}
-
-		ArrayList<Livro> filtrado = new ArrayList<Livro>();
-		ArrayList<Livro> tmp = new ArrayList<Livro>();
-						
-		//Filtrar Tipo
-		if(tipoMarcado[0] == 1) { //Impresso
-			tmp.clear();
-			tmp = (filtraTipo(livros, 0));
-			resultado(filtrado, tmp);
-		}
-		if(tipoMarcado[1] == 1) { //Eletronico
-			tmp.clear();
-			tmp = (filtraTipo(livros, 1));
-			resultado(filtrado, tmp);
-		}
-		if(tipoMarcado[2] == 1) { //Audio Book
-			tmp.clear();
-			tmp = (filtraTipo(livros, 2));
-			resultado(filtrado, tmp);
-		}
+//		}		
 		
-		//Filtrar Coisas Gerais
-		if(itemSelecionado[0] == 1) { //Nome 
-			filtrado.retainAll(filtraNome(livros, stringGeral));
-			
-			//tmp.clear();
-			//tmp = filtraNome(filtrado, stringGeral);
-			//resultado(filtrado, tmp);
-		}
-		if(itemSelecionado[1] == 1) { //Escritor 
-			//tmp.clear();
-			//tmp = filtraEscritores(filtrado, stringGeral);
-			//resultado(filtrado, tmp);
-		}
-		if(itemSelecionado[2] == 1) { //Ano
-			//tmp.clear();
-			//tmp = filtraAno(filtrado, numeroGeral);
-			//resultado(filtrado, tmp);
-		}
-		if(itemSelecionado[3] == 1) { //Idioma
-			//tmp.clear();
-			//tmp = filtraIdioma(filtrado, stringGeral);
-			//resultado(filtrado, tmp);
-		}
-		if(itemSelecionado[4] == 1) { //Palavra Chave
-			//tmp.clear();
-			//tmp = filtraPalavra(filtrado, stringGeral);
-			//resultado(filtrado, tmp);
-		}
-		if(itemSelecionado[5] == 1) {//Capitulo
-			//tmp.clear();
-			//tmp = filtraCapitulos(filtrado, stringGeral);
-			//resultado(filtrado, tmp);
-		}
+		ArrayList<Livro> testeFiltrado = new ArrayList<Livro>();
 		
-		//Filtrar Coisas Especificas do tipo
-		if(itemSelecionado[6] == 1 && tipoMarcado[0] == 1) { //Livraria
-			//tmp.clear();
-			//tmp = filtraLivraria(filtrado, stringGeral);
-			//resultado(filtrado, tmp);
-		}
-		if(itemSelecionado[7] == 1 && tipoMarcado[0] == 1) { //Coluna
-			//tmp.clear();
-			//tmp = filtraColuna(filtrado, numeroGeral);
-			//resultado(filtrado, tmp);
-		}
+//		String[] stringGeral = new String[]{"Harry Potter e a Pedra Filosofal","teste","","","","","","","","","","",};
+//		int itemSelecionado[] = {1,1,1,1,0,0,0,0,0,0,0,0,0,0,0};
+//		testeFiltrado = pesquisaEspecifica(livros, stringGeral, itemSelecionado);
 		
-		if(itemSelecionado[8] == 1 && tipoMarcado[1] == 1) { //URL
-			//tmp.clear();
-			//tmp = filtraURL(filtrado, stringGeral);
-			//resultado(filtrado, tmp);
-		}
-		if(itemSelecionado[9] == 1 && tipoMarcado[1] == 1) { //Formato Texto
-			//tmp.clear();
-			//tmp = filtraFormatoTexto(filtrado, stringGeral);
-			//resultado(filtrado, tmp);
-		}
+		String stringGeral = "O Senhor dos Aneis";
+		int itemSelecionado[] = {1,1,1,1,1,0,1,1,1,1,0,1,1,0,1};
+		testeFiltrado = pesquisaGeral(livros, stringGeral, itemSelecionado);
 		
-		if(itemSelecionado[10] == 1 && tipoMarcado[2] == 1) { //Duracao
-			//tmp.clear();
-			//tmp = filtraDuracao(filtrado, numeroGeral);
-			//resultado(filtrado, tmp);
-		}
-		if(itemSelecionado[11] == 1 && tipoMarcado[2] == 1) { //Formato Audio
-			//tmp.clear();
-			//tmp = filtraFormatoAudio(filtrado, stringGeral);
-			//resultado(filtrado, tmp);
-		}
-			
-		for (Livro livro : filtrado) {
+		System.out.println("--------------Filtado--------------");
+		for (Livro livro : testeFiltrado) {
 			System.out.println(livro.getClass());
 			System.out.println(livro.getTitulo());
 			System.out.println();
 		}
-	
-		//TIPO1: selecionar apenas uma campo ou geral (pesquisar em todos os campos) em combinação com o tipo = Uma string geral 
-		
-		//TIPO2: selecionar varios campos ou geral geral (pesquisar em todos os campos) em combinação com o tipo = Uma string geral
-		
-		//TIPO3: selecionar varios campos ou geral geral (pesquisar em todos os campos) em combinação com o tipo = Uma string para cada campo
-		
+
 	}
 	
 	public static void resultado (ArrayList<Livro> filtrada, ArrayList<Livro> tmp){
-		for (Livro element : tmp){
-            if (!filtrada.contains(element)) { 
-            	filtrada.add(element); 
-            } 
-        }		
+		HashSet<Livro> hashSetTeste = new HashSet<Livro>(filtrada);
+		
+		for (Livro element : tmp)
+        	hashSetTeste.add(element); 
+		
+		filtrada.clear();
+		filtrada.addAll(hashSetTeste);
 	}
 	
 	public static ArrayList<Livro> filtraTipo(ArrayList<Livro> livros, int tipo){
@@ -174,9 +97,8 @@ public class Main {
 	public static ArrayList<Livro> filtraNome(ArrayList<Livro> livros, String texto){
 		ArrayList<Livro> retorno = new ArrayList<Livro>();
 		for (Livro livro : livros) {
-			if(livro.getTitulo().equals(texto)){
+			if(livro.getTitulo().equals(texto))
 				retorno.add(livro);
-			}
 		}
 		return retorno;
 	}
@@ -191,9 +113,9 @@ public class Main {
 				}
 		}
 		return retorno;
-	}
+	}	
 	
-	public static ArrayList<Livro> filtraAno(ArrayList<Livro> livros, int ano){//recever String e converter para inteiro se possivel
+public static ArrayList<Livro> filtraAno(ArrayList<Livro> livros, int ano){
 		ArrayList<Livro> retorno = new ArrayList<Livro>();
 		for (Livro livro : livros) {
 			if(livro.getAnoDePublicacao() == ano){
@@ -254,7 +176,7 @@ public class Main {
 		return retorno;
 	}
 	
-	public static ArrayList<Livro> filtraColuna(ArrayList<Livro> livros, int texto){//recever String e converter para inteiro se possivel
+	public static ArrayList<Livro> filtraColuna(ArrayList<Livro> livros, int texto){
 		ArrayList<Livro> retorno = new ArrayList<Livro>();
 		Impresso tmp = new Impresso();
 		
@@ -296,7 +218,7 @@ public class Main {
 		return retorno;
 	}
 	
-	public static ArrayList<Livro> filtraDuracao(ArrayList<Livro> livros, double texto){//recever String e converter para double se possivel
+	public static ArrayList<Livro> filtraDuracao(ArrayList<Livro> livros, double texto){
 		ArrayList<Livro> retorno = new ArrayList<Livro>();
 		AudioBook tmp = new AudioBook();
 		
@@ -322,6 +244,122 @@ public class Main {
 			}
 		}
 		return retorno;
+	}
+	
+	public static ArrayList<Livro> pesquisaEspecifica(ArrayList<Livro> livros, String[] stringGeral, int itemSelecionado[]){
+		ArrayList<Livro> filtrado = new ArrayList<Livro>();
+							
+		//Filtrar Tipo
+		if(itemSelecionado[0] == 1) //Impresso
+			resultado(filtrado, filtraTipo(livros, 0));
+		
+		if(itemSelecionado[1] == 1) //Eletronico
+			resultado(filtrado, filtraTipo(livros, 1));
+		
+		if(itemSelecionado[2] == 1) //Audio Book
+			resultado(filtrado, filtraTipo(livros, 2));
+		
+		//Filtrar Coisas Gerais
+		if(itemSelecionado[3] == 1) //Nome 
+			filtrado = filtraNome(filtrado, stringGeral[0]);
+		
+		
+		if(itemSelecionado[4] == 1) //Escritor 
+			filtrado = filtraEscritores(filtrado, stringGeral[1]);
+		
+		
+		if(itemSelecionado[5] == 1) //Ano
+			filtrado = filtraAno(filtrado, Integer.parseInt(stringGeral[2])); //Nao vai lancar exeção porque ja for testado antes 
+		
+		if(itemSelecionado[6] == 1) //Idioma
+			filtrado = filtraIdioma(filtrado, stringGeral[3]);
+					
+		if(itemSelecionado[7] == 1) //Palavra Chave
+			filtrado = filtraPalavra(filtrado, stringGeral[4]);
+					
+		if(itemSelecionado[8] == 1) //Capitulo
+			filtrado = filtraCapitulos(filtrado, stringGeral[5]);
+		
+		//Filtrar Coisas Especificas do tipo
+		if(itemSelecionado[9] == 1 && itemSelecionado[0] == 1) //Livraria
+			filtrado = filtraLivraria(filtrado, stringGeral[6]);
+			
+		if(itemSelecionado[10] == 1 && itemSelecionado[0] == 1) //Coluna
+			filtrado = filtraColuna(filtrado, Integer.parseInt(stringGeral[7])); //Nao vai lancar exeção porque ja for testado antes 
+				
+		if(itemSelecionado[11] == 1 && itemSelecionado[1] == 1) //URL
+			filtrado = filtraURL(filtrado, stringGeral[8]);
+
+		if(itemSelecionado[12] == 1 && itemSelecionado[1] == 1) //Formato Texto
+			filtrado = filtraFormatoTexto(filtrado, stringGeral[9]);
+		
+		if(itemSelecionado[13] == 1 && itemSelecionado[2] == 1) //Duracao
+			filtrado = filtraDuracao(filtrado, Integer.parseInt(stringGeral[10])); //Nao vai lancar exeção porque ja for testado antes
+			
+		if(itemSelecionado[14] == 1 && itemSelecionado[2] == 1) //Formato Audio
+			filtrado = filtraFormatoAudio(filtrado, stringGeral[11]);
+			
+			
+		return filtrado;		
+	}
+	
+	public static ArrayList<Livro> pesquisaGeral(ArrayList<Livro> livros, String stringGeral, int itemSelecionado[]){
+		ArrayList<Livro> filtradoTipo = new ArrayList<Livro>();
+		ArrayList<Livro> filtradoCoisas = new ArrayList<Livro>();
+							
+		//Filtrar Tipo
+		if(itemSelecionado[0] == 1) //Impresso
+			resultado(filtradoTipo, filtraTipo(livros, 0));
+		
+		if(itemSelecionado[1] == 1) //Eletronico
+			resultado(filtradoTipo, filtraTipo(livros, 1));
+		
+		if(itemSelecionado[2] == 1) //Audio Book
+			resultado(filtradoTipo, filtraTipo(livros, 2));
+		
+		
+		//Filtrar Coisas Gerais
+		if(itemSelecionado[3] == 1) //Nome 
+			resultado(filtradoCoisas, filtraNome(filtradoTipo, stringGeral));
+		
+		if(itemSelecionado[4] == 1) //Escritor 
+			resultado(filtradoCoisas, filtraEscritores(filtradoTipo, stringGeral));
+		
+		if(itemSelecionado[5] == 1) //Ano
+			resultado(filtradoCoisas, filtraAno(filtradoTipo, Integer.parseInt(stringGeral)));
+		
+		if(itemSelecionado[6] == 1) //Idioma
+			resultado(filtradoCoisas, filtraIdioma(filtradoTipo, stringGeral));
+		
+		if(itemSelecionado[7] == 1) //Palavra Chave
+			resultado(filtradoCoisas, filtraPalavra(filtradoTipo, stringGeral));
+		
+		if(itemSelecionado[8] == 1)//Capitulo
+			resultado(filtradoCoisas, filtraCapitulos(filtradoTipo, stringGeral));
+		
+		
+		//Filtrar Coisas Especificas do tipo
+		if(itemSelecionado[9] == 1 && itemSelecionado[0] == 1) //Livraria
+			resultado(filtradoCoisas, filtraLivraria(filtradoTipo, stringGeral));
+		
+		if(itemSelecionado[10] == 1 && itemSelecionado[0] == 1) //Coluna
+			resultado(filtradoCoisas, filtraColuna(filtradoTipo, Integer.parseInt(stringGeral)));
+		
+		if(itemSelecionado[11] == 1 && itemSelecionado[1] == 1) //URL
+			resultado(filtradoCoisas, filtraURL(filtradoTipo, stringGeral));
+		
+		if(itemSelecionado[12] == 1 && itemSelecionado[1] == 1) //Formato Texto
+			resultado(filtradoCoisas, filtraFormatoTexto(filtradoTipo, stringGeral));
+		
+		
+		if(itemSelecionado[13] == 1 && itemSelecionado[2] == 1) //Duracao
+			resultado(filtradoCoisas, filtraDuracao(filtradoTipo, Integer.parseInt(stringGeral)));
+		
+		if(itemSelecionado[14] == 1 && itemSelecionado[2] == 1) //Formato Audio
+			resultado(filtradoCoisas, filtraFormatoAudio(filtradoTipo, stringGeral));
+		
+		
+		return filtradoCoisas;		
 	}
 
 }

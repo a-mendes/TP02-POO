@@ -39,7 +39,7 @@ public class Impresso extends Livro {
 	
     @Override
     public int hashCode() {
-        int result = 17;
+        int result = 17 + super.hashCode();
 
         result = 31 * result + livrarias.hashCode();
         result = 31 * result + Integer.valueOf(numeroColunas).hashCode();

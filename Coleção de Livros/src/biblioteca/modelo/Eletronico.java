@@ -36,7 +36,7 @@ public class Eletronico extends Livro {
 	
     @Override
     public int hashCode() {
-        int result = 17;
+        int result = 17 + super.hashCode();
 
         result = 31 * result + URL.hashCode();
         result = 31 * result + formato.hashCode();

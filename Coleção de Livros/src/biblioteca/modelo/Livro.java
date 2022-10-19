@@ -1,9 +1,6 @@
 package biblioteca.modelo;
 
 import java.util.ArrayList;
-import biblioteca.modelo.Impresso;
-import biblioteca.modelo.Eletronico;
-import biblioteca.modelo.AudioBook;
 
 public class Livro {
 
