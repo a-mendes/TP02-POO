@@ -238,10 +238,8 @@ public class Filtragem {
 		if(itemSelecionado[3] == 1) //Nome 
 			filtrado = filtraNome(filtrado, stringGeral[0]);
 		
-		
 		if(itemSelecionado[4] == 1) //Escritor 
 			filtrado = filtraEscritores(filtrado, stringGeral[1]);
-		
 		
 		if(itemSelecionado[5] == 1) //Ano
 			filtrado = filtraAno(filtrado, Integer.parseInt(stringGeral[2])); //Nao vai lancar exeção porque ja for testado antes 
@@ -325,7 +323,6 @@ public class Filtragem {
 		
 		if(itemSelecionado[12] == 1 && itemSelecionado[1] == 1) //Formato Texto
 			resultado(filtradoCoisas, filtraFormatoTexto(filtradoTipo, stringGeral));
-		
 		
 		if(itemSelecionado[13] == 1 && itemSelecionado[2] == 1) //Duracao
 			resultado(filtradoCoisas, filtraDuracao(filtradoTipo, Integer.parseInt(stringGeral)));
