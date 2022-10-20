@@ -68,6 +68,20 @@ public class Livro {
 	}
 	
 	@Override
+    public String toString() {
+		String retorno =
+        
+		  "Nome: --------------- " + titulo + "\n"
+    	+ "Escritor: ----------- " + escritores + "\n"
+    	+ "Ano: ---------------- " + anoDePublicacao + "\n"
+    	+ "Idioma: ------------- " + idioma + "\n"
+    	+ "Palavra Chave: ------ " + keyWords + "\n"
+    	+ "Capitulo: ----------- " + capitulos + "\n";
+
+        return retorno;
+    }
+	
+	@Override
     public boolean equals(Object obj) {
 		if (!(obj instanceof Livro))
             return false;

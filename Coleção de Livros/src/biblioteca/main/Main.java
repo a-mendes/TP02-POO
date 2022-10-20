@@ -5,8 +5,8 @@ import java.util.ArrayList;
 import biblioteca.gui.Tela;
 import biblioteca.modelo.Livro;
 import biblioteca.servicos.BaseDeDados;
-
 import biblioteca.servicos.Filtragem;
+import biblioteca.servicos.Relatorio;
 
 public class Main {
 	public static Tela tela;
@@ -28,7 +28,10 @@ public class Main {
 			System.out.println(livro.getTitulo());
 			System.out.println();
 		}
+		
 		Filtragem.testeFiltragem(livros);
+		//Relatorio.relatorioEspecifica(livros);
 	}
+
 
 }

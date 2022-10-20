@@ -20,6 +20,18 @@ public class Eletronico extends Livro {
 	}
 	
 	@Override
+    public String toString() {
+		String retorno =
+				
+		  super.toString()
+     	+ "Tipo: --------------- " + "Eletronico" + "\n"
+		+ "URL: ---------------- " + URL + "\n"
+    	+ "Formato Texto: ------ " + formato + "\n";
+
+        return retorno;
+    }
+	
+	@Override
     public boolean equals(Object obj) {
 		if (!(obj instanceof Livro))
             return false;

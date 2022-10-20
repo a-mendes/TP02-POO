@@ -23,6 +23,18 @@ public class Impresso extends Livro {
 	}
 
 	@Override
+    public String toString() {
+		String retorno =
+				
+		  super.toString()
+    	+ "Tipo: --------------- " + "Impresso" + "\n"
+		+ "Livrarias: ---------- " + livrarias + "\n"
+    	+ "Colunas: ------------ " + numeroColunas + "\n";
+
+        return retorno;
+    }
+	
+	@Override
     public boolean equals(Object obj) {
 		if (!(obj instanceof Livro))
             return false;

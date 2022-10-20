@@ -7,6 +7,9 @@ import biblioteca.modelo.AudioBook;
 import biblioteca.modelo.Eletronico;
 import biblioteca.modelo.Impresso;
 import biblioteca.modelo.Livro;
+import biblioteca.servicos.CasamentoAproximado;
+
+import java.math.*;
 
 public class Filtragem {
 	
@@ -14,13 +17,13 @@ public class Filtragem {
 		
 		ArrayList<Livro> testeFiltrado = new ArrayList<Livro>();
 		
-//		String[] stringGeral = new String[]{"Harry Potter e a Pedra Filosofal","teste","","","","","","","","","","",};
-//		int itemSelecionado[] = {1,1,1,1,0,0,0,0,0,0,0,0,0,0,0};
-//		testeFiltrado = pesquisaEspecifica(livros, stringGeral, itemSelecionado);
+		String[] stringGeral = new String[]{"o hobit","","","","","","","","","","","",};
+		int itemSelecionado[] = {1,1,1,1,0,0,0,0,0,0,0,0,0,0,0};
+		testeFiltrado = pesquisaEspecifica(livros, stringGeral, itemSelecionado);
 		
-		String stringGeral = "O Senhor dos Aneis";
-		int itemSelecionado[] = {1,1,1,1,1,0,1,1,1,1,0,1,1,0,1};
-		testeFiltrado = pesquisaGeral(livros, stringGeral, itemSelecionado);
+//		String stringGeral = "O Senhor dos Aneis";
+//		int itemSelecionado[] = {1,1,1,1,1,0,1,1,1,1,0,1,1,0,1};
+//		testeFiltrado = pesquisaGeral(livros, stringGeral, itemSelecionado);
 		
 		System.out.println("--------------Filtado--------------");
 		for (Livro livro : testeFiltrado) {
@@ -72,7 +75,10 @@ public class Filtragem {
 	public static ArrayList<Livro> filtraNome(ArrayList<Livro> livros, String texto){
 		ArrayList<Livro> retorno = new ArrayList<Livro>();
 		for (Livro livro : livros) {
-			if(livro.getTitulo().equals(texto))
+			int errosMaximos = (int) (livro.getTitulo().length()/2 - 1);
+			if(errosMaximos < 0)
+				errosMaximos = 0;
+			if(CasamentoAproximado.computeLevenshtein(livro.getTitulo().toLowerCase(), texto.toLowerCase()) <= 3)
 				retorno.add(livro);
 		}
 		return retorno;
@@ -82,7 +88,7 @@ public class Filtragem {
 		ArrayList<Livro> retorno = new ArrayList<Livro>();
 		for (Livro livro : livros) {
 			for(String escritor : livro.getEscritores())
-				if(escritor.equals(texto)){
+				if(CasamentoAproximado.computeLevenshtein(escritor.toLowerCase(), texto.toLowerCase()) <= 3) {
 					retorno.add(livro);
 					break;
 				}
@@ -103,9 +109,9 @@ public class Filtragem {
 	public static ArrayList<Livro> filtraIdioma(ArrayList<Livro> livros, String texto){
 		ArrayList<Livro> retorno = new ArrayList<Livro>();
 		for (Livro livro : livros) {
-			if(livro.getIdioma().equals(texto)){
+			if(CasamentoAproximado.computeLevenshtein(livro.getIdioma().toLowerCase(), texto.toLowerCase()) <= 3)
 				retorno.add(livro);
-			}
+			
 		}
 		return retorno;
 	}
@@ -114,7 +120,7 @@ public class Filtragem {
 		ArrayList<Livro> retorno = new ArrayList<Livro>();
 		for (Livro livro : livros) {
 			for(String palavraChave : livro.getKeyWords())
-				if(palavraChave.equals(texto)){
+				if(CasamentoAproximado.computeLevenshtein(palavraChave.toLowerCase(), texto.toLowerCase()) <= 3) {
 					retorno.add(livro);
 					break;
 				}
@@ -125,11 +131,15 @@ public class Filtragem {
 	public static ArrayList<Livro> filtraCapitulos(ArrayList<Livro> livros, String texto){
 		ArrayList<Livro> retorno = new ArrayList<Livro>();
 		for (Livro livro : livros) {
-			for(String capitulos : livro.getCapitulos())
-				if(capitulos.equals(texto)){
+			for(String capitulos : livro.getCapitulos()) {
+				int errosMaximos = (int) (capitulos.length()/2 - 1);
+				if(errosMaximos < 0)
+					errosMaximos = 0;
+				if(CasamentoAproximado.computeLevenshtein(capitulos.toLowerCase(), texto.toLowerCase()) <= 3) {
 					retorno.add(livro);
 					break;
 				}
+			}
 		}
 		return retorno;
 	}
@@ -142,12 +152,13 @@ public class Filtragem {
 			if(livro instanceof Impresso){
 				tmp = (Impresso)livro;
 				for(String livraria : tmp.getLivrarias())
-					if(livraria.equals(texto)) {
+					if(CasamentoAproximado.computeLevenshtein(livraria.toLowerCase(), texto.toLowerCase()) <= 3) {
 						retorno.add(livro);
 						break;
 					}
+				}
 			}
-		}
+		
 		return retorno;
 	}
 	
@@ -172,7 +183,7 @@ public class Filtragem {
 		for (Livro livro : livros) {
 			if(livro instanceof Eletronico){
 				tmp = (Eletronico)livro;
-				if(tmp.getURL().equals(texto)) 
+				if(CasamentoAproximado.computeLevenshtein(tmp.getURL().toLowerCase(), texto.toLowerCase()) <= 3)
 					retorno.add(livro);					
 			}
 		}
@@ -186,8 +197,8 @@ public class Filtragem {
 		for (Livro livro : livros) {
 			if(livro instanceof Eletronico){
 				tmp = (Eletronico)livro;
-				if(tmp.getFormato().equals(texto)) 
-					retorno.add(livro);					
+				if(CasamentoAproximado.computeLevenshtein(tmp.getFormato().toLowerCase(), texto.toLowerCase()) <= 3)
+					retorno.add(livro);	;				
 			}
 		}
 		return retorno;
@@ -214,7 +225,7 @@ public class Filtragem {
 		for (Livro livro : livros) {
 			if(livro instanceof AudioBook){
 				tmp = (AudioBook)livro;
-				if(tmp.getFormato().equals(texto)) 
+				if(CasamentoAproximado.computeLevenshtein(tmp.getFormato().toLowerCase(), texto.toLowerCase()) <= 3)
 					retorno.add(livro);					
 			}
 		}

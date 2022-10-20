@@ -20,6 +20,18 @@ public class AudioBook extends Livro {
 	}
 	
 	@Override
+    public String toString() {
+		String retorno =
+				
+		  super.toString()
+     	+ "Tipo: --------------- " + "AudioBook" + "\n"
+		+ "Duracao: ------------ " + duracao + "\n"
+    	+ "Formato: ------------ " + formato + "\n";
+
+        return retorno;
+    }
+
+	@Override
     public boolean equals(Object obj) {
 		if (!(obj instanceof Livro))
             return false;
