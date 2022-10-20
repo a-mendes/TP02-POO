@@ -9,8 +9,6 @@ import biblioteca.modelo.Impresso;
 import biblioteca.modelo.Livro;
 import biblioteca.servicos.CasamentoAproximado;
 
-import java.math.*;
-
 public class Filtragem {
 	
 	public static void testeFiltragem(ArrayList<Livro> livros) {
