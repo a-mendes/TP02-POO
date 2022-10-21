@@ -15,8 +15,8 @@ public class Filtragem {
 		
 		ArrayList<Livro> testeFiltrado = new ArrayList<Livro>();
 		
-		String[] stringGeral = new String[]{"o hobit","","","","","","","","","","","",};
-		int itemSelecionado[] = {1,1,1,1,0,0,0,0,0,0,0,0,0,0,0};
+		String[] stringGeral = new String[]{"","","","","","YXX","","","","","","",};
+		int itemSelecionado[] = {1,1,1,0,0,0,0,0,1,0,0,0,0,0,0};
 		testeFiltrado = pesquisaEspecifica(livros, stringGeral, itemSelecionado);
 		
 //		String stringGeral = "O Senhor dos Aneis";
@@ -29,8 +29,6 @@ public class Filtragem {
 			System.out.println(livro.getTitulo());
 			System.out.println();
 		}
-		
-
 
 	}
 	
