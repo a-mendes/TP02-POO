@@ -2,7 +2,7 @@ package biblioteca.main;
 
 import java.util.ArrayList;
 
-import biblioteca.gui.Teste;
+import biblioteca.gui.Tela;
 import biblioteca.modelo.Livro;
 import biblioteca.servicos.BaseDeDados;
 import biblioteca.servicos.Filtragem;
@@ -10,11 +10,11 @@ import biblioteca.servicos.Relatorio;
 
 
 public class Main {
-	public static Teste tela;
+	public static Tela tela;
 	public static ArrayList<Livro> livros;
 	
 	public static void main(String[] args) {
-		new Teste().setVisible(true);
+		tela = new Tela();
                 
 		try {
 			livros = BaseDeDados.lerBaseDeDados();
