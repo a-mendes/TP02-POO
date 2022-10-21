@@ -14,8 +14,9 @@ public class Main {
 	public static ArrayList<Livro> livros;
 	
 	public static void main(String[] args) {
-		tela = new Teste();
-				
+		//tela = new Teste();
+		new Teste().setVisible(true);
+                
 		try {
 			livros = BaseDeDados.lerBaseDeDados();
 		} catch (Exception e) {
