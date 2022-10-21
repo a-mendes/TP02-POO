@@ -2,18 +2,19 @@ package biblioteca.main;
 
 import java.util.ArrayList;
 
-import biblioteca.gui.Tela;
+import biblioteca.gui.Teste;
 import biblioteca.modelo.Livro;
 import biblioteca.servicos.BaseDeDados;
 import biblioteca.servicos.Filtragem;
 import biblioteca.servicos.Relatorio;
 
+
 public class Main {
-	public static Tela tela;
+	public static Teste tela;
 	public static ArrayList<Livro> livros;
 	
 	public static void main(String[] args) {
-		//tela = new Tela();
+		tela = new Teste();
 				
 		try {
 			livros = BaseDeDados.lerBaseDeDados();
@@ -29,8 +30,8 @@ public class Main {
 			System.out.println();
 		}
 		
-		Filtragem.testeFiltragem(livros);
-		//Relatorio.relatorioEspecifica(livros);
+		//Filtragem.testeFiltragem(livros);
+		//Relatorio.geradorRelatorio(livros);
 	}
 
 

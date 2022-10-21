@@ -29,6 +29,8 @@ public class Filtragem {
 			System.out.println(livro.getTitulo());
 			System.out.println();
 		}
+		
+
 
 	}
 	
@@ -73,10 +75,7 @@ public class Filtragem {
 	public static ArrayList<Livro> filtraNome(ArrayList<Livro> livros, String texto){
 		ArrayList<Livro> retorno = new ArrayList<Livro>();
 		for (Livro livro : livros) {
-			int errosMaximos = (int) (livro.getTitulo().length()/2 - 1);
-			if(errosMaximos < 0)
-				errosMaximos = 0;
-			if(CasamentoAproximado.computeLevenshtein(livro.getTitulo().toLowerCase(), texto.toLowerCase()) <= 3)
+			if(CasamentoAproximado.computeLevenshtein(livro.getTitulo().toLowerCase(), texto.toLowerCase()) <= Math.max((int)(livro.getTitulo().length()/2) - 1, 0))
 				retorno.add(livro);
 		}
 		return retorno;
@@ -86,7 +85,7 @@ public class Filtragem {
 		ArrayList<Livro> retorno = new ArrayList<Livro>();
 		for (Livro livro : livros) {
 			for(String escritor : livro.getEscritores())
-				if(CasamentoAproximado.computeLevenshtein(escritor.toLowerCase(), texto.toLowerCase()) <= 3) {
+				if(CasamentoAproximado.computeLevenshtein(escritor.toLowerCase(), texto.toLowerCase()) <= Math.max((int)(livro.getTitulo().length()/2) - 1, 0)) {
 					retorno.add(livro);
 					break;
 				}
@@ -107,7 +106,7 @@ public class Filtragem {
 	public static ArrayList<Livro> filtraIdioma(ArrayList<Livro> livros, String texto){
 		ArrayList<Livro> retorno = new ArrayList<Livro>();
 		for (Livro livro : livros) {
-			if(CasamentoAproximado.computeLevenshtein(livro.getIdioma().toLowerCase(), texto.toLowerCase()) <= 3)
+			if(CasamentoAproximado.computeLevenshtein(livro.getIdioma().toLowerCase(), texto.toLowerCase()) <= Math.max((int)(livro.getIdioma().length()/2) - 1, 0))
 				retorno.add(livro);
 			
 		}
@@ -118,7 +117,7 @@ public class Filtragem {
 		ArrayList<Livro> retorno = new ArrayList<Livro>();
 		for (Livro livro : livros) {
 			for(String palavraChave : livro.getKeyWords())
-				if(CasamentoAproximado.computeLevenshtein(palavraChave.toLowerCase(), texto.toLowerCase()) <= 3) {
+				if(CasamentoAproximado.computeLevenshtein(palavraChave.toLowerCase(), texto.toLowerCase()) <= Math.max((int)(palavraChave.length()/2) - 1, 0)) {
 					retorno.add(livro);
 					break;
 				}
@@ -130,10 +129,7 @@ public class Filtragem {
 		ArrayList<Livro> retorno = new ArrayList<Livro>();
 		for (Livro livro : livros) {
 			for(String capitulos : livro.getCapitulos()) {
-				int errosMaximos = (int) (capitulos.length()/2 - 1);
-				if(errosMaximos < 0)
-					errosMaximos = 0;
-				if(CasamentoAproximado.computeLevenshtein(capitulos.toLowerCase(), texto.toLowerCase()) <= 3) {
+				if(CasamentoAproximado.computeLevenshtein(capitulos.toLowerCase(), texto.toLowerCase()) <= Math.max((int)(capitulos.length()/2) - 1, 0)) {
 					retorno.add(livro);
 					break;
 				}
@@ -150,7 +146,7 @@ public class Filtragem {
 			if(livro instanceof Impresso){
 				tmp = (Impresso)livro;
 				for(String livraria : tmp.getLivrarias())
-					if(CasamentoAproximado.computeLevenshtein(livraria.toLowerCase(), texto.toLowerCase()) <= 3) {
+					if(CasamentoAproximado.computeLevenshtein(livraria.toLowerCase(), texto.toLowerCase()) <= Math.max((int)(livraria.length()/2) - 1, 0)) {
 						retorno.add(livro);
 						break;
 					}
@@ -181,7 +177,7 @@ public class Filtragem {
 		for (Livro livro : livros) {
 			if(livro instanceof Eletronico){
 				tmp = (Eletronico)livro;
-				if(CasamentoAproximado.computeLevenshtein(tmp.getURL().toLowerCase(), texto.toLowerCase()) <= 3)
+				if(CasamentoAproximado.computeLevenshtein(tmp.getURL().toLowerCase(), texto.toLowerCase()) <= Math.max((int)(tmp.getURL().length()/2) - 1, 0))
 					retorno.add(livro);					
 			}
 		}
@@ -195,8 +191,8 @@ public class Filtragem {
 		for (Livro livro : livros) {
 			if(livro instanceof Eletronico){
 				tmp = (Eletronico)livro;
-				if(CasamentoAproximado.computeLevenshtein(tmp.getFormato().toLowerCase(), texto.toLowerCase()) <= 3)
-					retorno.add(livro);	;				
+				if(CasamentoAproximado.computeLevenshtein(tmp.getFormato().toLowerCase(), texto.toLowerCase()) <= Math.max((int)(tmp.getFormato().length()/2) - 1, 0))
+					retorno.add(livro);					
 			}
 		}
 		return retorno;
@@ -223,7 +219,7 @@ public class Filtragem {
 		for (Livro livro : livros) {
 			if(livro instanceof AudioBook){
 				tmp = (AudioBook)livro;
-				if(CasamentoAproximado.computeLevenshtein(tmp.getFormato().toLowerCase(), texto.toLowerCase()) <= 3)
+				if(CasamentoAproximado.computeLevenshtein(tmp.getFormato().toLowerCase(), texto.toLowerCase()) <= Math.max((int)(tmp.getFormato().length()/2) - 1, 0))
 					retorno.add(livro);					
 			}
 		}
