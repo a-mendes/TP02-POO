@@ -5,8 +5,6 @@ import java.util.ArrayList;
 import biblioteca.gui.Tela;
 import biblioteca.modelo.Livro;
 import biblioteca.servicos.BaseDeDados;
-import biblioteca.servicos.Filtragem;
-import biblioteca.servicos.Relatorio;
 
 
 public class Main {
@@ -14,15 +12,10 @@ public class Main {
 	public static ArrayList<Livro> livros;
 	
 	public static void main(String[] args) {
-		/**
-		 * Instância da interface gráfica
-		 */
-		tela = new Tela();
 
 		/**
 		 * Leitura da Base de Dados
 		 */
-
 		try {
 			livros = BaseDeDados.lerBaseDeDados();
 		} catch (Exception e) {
@@ -31,9 +24,9 @@ public class Main {
 		}
 		
 		/**
-		 * A Tabela de resultados da pesquisa se inicia com todos os registros
+		 * Instancia da interface gráfica
 		 */
-		tela.setResultadoPesquisa(livros);
+		tela = new Tela(livros);
 
 
 		System.out.println("--------------Completo--------------");
@@ -46,6 +39,5 @@ public class Main {
 		//Filtragem.testeFiltragem(livros);
 		//Relatorio.geradorRelatorio(livros);
 	}
-
 
 }

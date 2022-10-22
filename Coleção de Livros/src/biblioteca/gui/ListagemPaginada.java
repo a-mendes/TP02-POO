@@ -36,29 +36,34 @@ public class ListagemPaginada extends JPanel {
 	
 	public ListagemPaginada(int qtdItensPagina, ArrayList<Livro> listLivros) {
 
-		this.qtdItensPagina = qtdItensPagina;
+		this.qtdItensPagina = (qtdItensPagina <= 0) ? (1) : (qtdItensPagina);
 		this.listLivros = listLivros;
 		this.maxPage = listLivros.size() / qtdItensPagina;
 		
 		
 		setLayout(new FlowLayout()); 
-		setPreferredSize(new Dimension(800, 600));
+		setPreferredSize(new Dimension(800, 500));
 		
-		
-		
+		initPnlElementos();
 		initPnlNavegacao();
 	}
 	
 	private void initPnlElementos() {
-		pnlElementos = new JPanel(new GridLayout(qtdItensPagina, 3));
-		pnlElementos.setPreferredSize(new Dimension(800, 500));
+		pnlElementos = new JPanel(new GridLayout(qtdItensPagina, 1));
+		pnlElementos.setPreferredSize(new Dimension(800, 400));
+		
+		listElementos = new ArrayList<Button>();
 		
 		for (int i = 0; i < qtdItensPagina; i++) {
 			Livro livro = listLivros.get(i + (qtdItensPagina * (currentPage - 1)));
 			Button btnElemento = new Button(livro.getTitulo());
+			btnElemento.setVisible(true);
+			
 			listElementos.add(btnElemento);
 			pnlElementos.add(btnElemento);
 		}
+		
+		add(pnlElementos);
 	}
 	
 	private void initPnlNavegacao() {
@@ -81,9 +86,16 @@ public class ListagemPaginada extends JPanel {
 	}
 	
 	private void prevPage() {
+		
+		/**
+		 * Remove os elementos da página atual
+		 */
+		remove(pnlElementos);
+		
 		/**
 		 * Diminui valor da pagina atual
 		 */
+		
 		currentPage--;
 		lblCurrentPage.setText(String.valueOf(currentPage));
 		
@@ -101,11 +113,17 @@ public class ListagemPaginada extends JPanel {
 		/**
 		 * Atualiza os componentes redesenhando o panel
 		 */
+		initPnlElementos();
 		validate();
 		repaint();
 	}
 
 	private void nextPage() {
+		
+		/**
+		 * Remove os itens da página atual
+		 */
+		remove(pnlElementos);
 		/**
 		 * Aumenta valor da pagina atual
 		 */
@@ -126,6 +144,7 @@ public class ListagemPaginada extends JPanel {
 		/**
 		 * Atualiza os componentes redesenhando o panel
 		 */
+		initPnlElementos();
 		validate();
 		repaint();
 	}

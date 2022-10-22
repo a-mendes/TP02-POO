@@ -31,7 +31,7 @@ public class BaseDeDados {
 			}
 
 			/** 
-			 * Faz verificação de tipo de livro e cria instancia adequada
+			 * Faz verificacao de tipo de livro e cria instancia adequada
 			 */ 
 
 			String strTipoLivro;
