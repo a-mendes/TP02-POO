@@ -178,6 +178,9 @@ public class BaseDeDados {
 		ArrayList<String> livrarias = new ArrayList<String>(Arrays.asList(strLivrarias.split(";")));
 		impresso.setLivrarias(livrarias);
 		
+		/**
+		 * Colunas
+		 */
 		String colunas;
 		colunas = reader.readLine();
 		impresso.setNumeroColunas(Integer.parseInt(colunas));

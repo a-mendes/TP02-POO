@@ -11,8 +11,14 @@ public class Main {
 	public static ArrayList<Livro> livros;
 	
 	public static void main(String[] args) {
+		/**
+		 * Iniciação da interface gráfica
+		 */
 		tela = new Tela();
-		
+
+		/**
+		 * Leitura da Base de Dados
+		 */
 		try {
 			livros = BaseDeDados.lerBaseDeDados();
 		} catch (Exception e) {
@@ -20,6 +26,12 @@ public class Main {
 			e.printStackTrace();
 		}
 		
+		/**
+		 * A Tabela de resultados da pesquisa se inicia com todos os registros
+		 */
+		tela.setResultadoPesquisa(livros);
+		
+
 		for (Livro livro : livros) {
 			System.out.println(livro.getClass());
 			System.out.println(livro.getTitulo());

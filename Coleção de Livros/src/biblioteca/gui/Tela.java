@@ -4,6 +4,9 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -11,6 +14,8 @@ import javax.swing.JCheckBox;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+
+import biblioteca.modelo.Livro;
 
 public class Tela extends JFrame {
 
@@ -24,7 +29,9 @@ public class Tela extends JFrame {
 	private JButton btnPesquisar;
 	private JButton btnLimpar;
 	
-	private JCheckBox cbxTipo;
+	private JCheckBox cbxTipoAudioBook;
+	private JCheckBox cbxTipoEletronico;
+	private JCheckBox cbxTipoImpresso;
 	private JCheckBox cbxNome;
 	private JCheckBox cbxEscritores;
 	private JCheckBox cbxAnoPublicacao;
@@ -32,10 +39,14 @@ public class Tela extends JFrame {
 	private JCheckBox cbxKeywords;
 	private JCheckBox cbxLivraria;
 	
+	private ListagemPaginada listResultados;
+	
 	private JPanel pnlPrincipal;
 	private JPanel pnlPesquisa;
 	private JPanel pnlCheckBoxes;
-	//Tabela de Resultados private JPanel pnlResultados;
+	private JPanel pnlResultados;
+	
+	private ArrayList<Livro> listLivros;
 	
 	public Tela() {		
 
@@ -43,8 +54,9 @@ public class Tela extends JFrame {
 		pnlPrincipal.setLayout(new FlowLayout());
 		pnlPrincipal.setPreferredSize(new Dimension(WIDTH, HEIGHT));
 		
-		initPanelPesquisa(pnlPrincipal);
-		initPanelCheckBoxes(pnlPrincipal);
+		initPanelPesquisa();
+		initPanelCheckBoxes();
+		initPanelResultados();
 		
 		setPreferredSize(new Dimension(WIDTH, HEIGHT));
 		add(pnlPrincipal);
@@ -54,12 +66,16 @@ public class Tela extends JFrame {
 		setVisible(true);
 
 	}
+	
+	public void setResultadoPesquisa(ArrayList<Livro> livros) {
+		
+	}
 
-	private void initPanelPesquisa(JPanel pnlPrincipal) {
+	private void initPanelPesquisa() {
 		pnlPesquisa = new JPanel();
 		pnlPesquisa.setPreferredSize(new Dimension(WIDTH - 50, 100));
 		pnlPesquisa.setLayout(new FlowLayout());
-		pnlPesquisa.setBorder(BorderFactory.createTitledBorder("Texto Pesquisa"));
+		pnlPesquisa.setBorder(BorderFactory.createTitledBorder("Texto para pesquisar"));
 		
 		txtPesquisa = new JTextField("Ex.: 'Hobbit'");
 		txtPesquisa.setPreferredSize(new Dimension(800, 50));
@@ -74,16 +90,20 @@ public class Tela extends JFrame {
 		pnlPrincipal.add(pnlPesquisa);
 	}
 	
-	private void initPanelCheckBoxes(JPanel pnlPrincipal) {
+	private void initPanelCheckBoxes() {
 		pnlCheckBoxes = new JPanel();
 		pnlCheckBoxes.setPreferredSize(new Dimension(WIDTH - 50, 100));
-		pnlCheckBoxes.setLayout(new GridLayout(2, 4));
+		pnlCheckBoxes.setLayout(new GridLayout(2, 5));
 		pnlCheckBoxes.setBorder(BorderFactory.createTitledBorder("Filtros de Pesquisa"));
 		
-		//Talvez precise adicionar os checkboxes a um buttonGroup
+		cbxTipoAudioBook = new JCheckBox("Livros \"AudioBooks\"");
+		pnlCheckBoxes.add(cbxTipoAudioBook);
 
-		cbxTipo = new JCheckBox("Tipo");
-		pnlCheckBoxes.add(cbxTipo);
+		cbxTipoEletronico = new JCheckBox("Livros \"Eletronicos\"");
+		pnlCheckBoxes.add(cbxTipoEletronico);
+		
+		cbxTipoImpresso = new JCheckBox("Livros \"Impressos\"");
+		pnlCheckBoxes.add(cbxTipoImpresso);
 		
 		cbxNome = new JCheckBox("Nome");
 		pnlCheckBoxes.add(cbxNome);
@@ -105,10 +125,59 @@ public class Tela extends JFrame {
 
 		btnLimpar = new JButton("Limpar");
 		btnLimpar.setMaximumSize(new Dimension(100, 50));
-		//Add ActionListeners
+		btnLimpar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				limparPesquisa();
+			}
+		});
 		pnlCheckBoxes.add(btnLimpar);
 		
 		pnlPrincipal.add(pnlCheckBoxes);
+	}
+	
+	private void initPanelResultados() {
+		pnlResultados = new JPanel();
+		pnlResultados.setPreferredSize(new Dimension(WIDTH - 50, 600));
+		pnlResultados.setLayout(new FlowLayout());
+		pnlResultados.setBorder(BorderFactory.createTitledBorder("Resultados da Pesquisa"));
+		
+		/*ArrayList<String> colunas = new ArrayList<>();
+		colunas.toArray(new String[0]);
+		colunas.add("Título");
+		colunas.add("Escritores");
+		colunas.add("Ano de Publicação");
+		colunas.add("Idioma");
+		colunas.add("Palavras-chave");
+		colunas.add("Capitulos");*/
+		
+		/*listResultados = new ListagemPaginada(0, listLivros);
+		pnlResultados.add(listResultados);*/
+		
+		pnlPrincipal.add(pnlResultados);
+	}
+	
+	private void limparPesquisa() {
+		/**
+		 * Desselecionar os filtros de pesquisa
+		 */
+		cbxTipoAudioBook.setSelected(false);
+		cbxTipoEletronico.setSelected(false);
+		cbxTipoImpresso.setSelected(false);
+		cbxNome.setSelected(false);
+		cbxEscritores.setSelected(false);
+		cbxAnoPublicacao.setSelected(false);
+		cbxIdioma.setSelected(false);
+		cbxKeywords.setSelected(false);
+		cbxLivraria.setSelected(false);
+		
+		/**
+		 * Remover textos de pesquisa
+		 */
+		txtPesquisa.setText("");
+		
+		/**
+		 * TODO: Limpar tabela de resultados mostrando todos os registros
+		 */
 	}
 }
 
