@@ -18,4 +18,41 @@ public class Eletronico extends Livro {
 	public String getFormato() {
 		return formato;
 	}
+	
+	@Override
+    public String toString() {
+		String retorno =
+				
+		  super.toString()
+     	+ "Tipo: --------------- " + "Eletronico" + "\n"
+		+ "URL: ---------------- " + URL + "\n"
+    	+ "Formato Texto: ------ " + formato + "\n";
+
+        return retorno;
+    }
+	
+	@Override
+    public boolean equals(Object obj) {
+		if (!(obj instanceof Livro))
+            return false;
+        if (obj == this)
+            return true;
+
+        Eletronico livro = (Eletronico) obj;
+  
+        return super.equals(obj) && 
+        	   (URL == livro.URL) &&
+        	   (formato == livro.formato);
+        	   
+	}
+	
+    @Override
+    public int hashCode() {
+        int result = 17 + super.hashCode();
+
+        result = 31 * result + URL.hashCode();
+        result = 31 * result + formato.hashCode();
+        
+        return result;
+    }
 }

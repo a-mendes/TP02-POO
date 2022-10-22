@@ -9,7 +9,6 @@ public class Livro {
 	private ArrayList <String> capitulos;
 	private String titulo;
 	private String idioma;
-	private String palavraChave;
 	private int anoDePublicacao;
 	 
 	/**
@@ -28,13 +27,16 @@ public class Livro {
 		this.idioma = idioma;
 	}
 
-	public void setPalavraChave(String palavraChave) {
-		this.palavraChave = palavraChave;
-	}
-
-
 	public void setAnoDePublicacao(int anoDePublicacao) {
 		this.anoDePublicacao = anoDePublicacao;
+	}
+	
+	public void setCapitulos(ArrayList<String> capitulos) {
+		this.capitulos = capitulos;
+	}
+
+	public void setKeyWords(ArrayList<String> keyWords) {
+		this.keyWords = keyWords;
 	}
 	
 	/**
@@ -57,25 +59,59 @@ public class Livro {
 		return idioma;
 	}
 
-	public String getPalavraChave() {
-		return palavraChave;
-	}
-
 	public ArrayList<String> getKeyWords() {
 		return keyWords;
-	}
-
-	public void setKeyWords(ArrayList<String> keyWords) {
-		this.keyWords = keyWords;
 	}
 
 	public ArrayList<String> getCapitulos() {
 		return capitulos;
 	}
+	
+	@Override
+    public String toString() {
+		String retorno =
+        
+		  "Nome: --------------- " + titulo + "\n"
+    	+ "Escritor: ----------- " + escritores + "\n"
+    	+ "Ano: ---------------- " + anoDePublicacao + "\n"
+    	+ "Idioma: ------------- " + idioma + "\n"
+    	+ "Palavra Chave: ------ " + keyWords + "\n"
+    	+ "Capitulo: ----------- " + capitulos + "\n";
 
-	public void setCapitulos(ArrayList<String> capitulos) {
-		this.capitulos = capitulos;
+        return retorno;
+    }
+	
+	@Override
+    public boolean equals(Object obj) {
+		if (!(obj instanceof Livro))
+            return false;
+        if (obj == this)
+            return true;
+
+        Livro livro = (Livro) obj;
+  
+        return (titulo == livro.titulo) &&
+        	   (idioma == livro.idioma) &&
+        	   (anoDePublicacao == livro.anoDePublicacao) &&
+        	   (escritores.equals(livro.escritores)) &&
+        	   (keyWords.equals(livro.keyWords)) &&
+        	   (capitulos.equals(livro.capitulos));
+       		
 	}
+
+	@Override
+    public int hashCode() {
+        int result = 17;
+
+        result = 31 * result + titulo.hashCode();
+        result = 31 * result + idioma.hashCode();
+        result = 31 * result + Integer.valueOf(anoDePublicacao).hashCode();
+        result = 31 * result + escritores.hashCode();
+        result = 31 * result + keyWords.hashCode();
+        result = 31 * result + capitulos.hashCode();
+        
+        return result;
+    }
 	
 }
 	
