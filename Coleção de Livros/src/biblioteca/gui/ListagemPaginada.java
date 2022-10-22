@@ -38,14 +38,14 @@ public class ListagemPaginada extends JPanel {
 
 		this.qtdItensPagina = (qtdItensPagina <= 0) ? (1) : (qtdItensPagina);
 		this.listLivros = listLivros;
-		this.maxPage = listLivros.size() / qtdItensPagina;
+		int paginaIncompleta = (listLivros.size() % qtdItensPagina >= 1) ? (1) : (0);
+		this.maxPage = listLivros.size() / qtdItensPagina + paginaIncompleta;
 		
 		
 		setLayout(new FlowLayout()); 
 		setPreferredSize(new Dimension(800, 500));
 		
 		initPnlElementos();
-		initPnlNavegacao();
 	}
 	
 	private void initPnlElementos() {
@@ -54,8 +54,18 @@ public class ListagemPaginada extends JPanel {
 		
 		listElementos = new ArrayList<Button>();
 		
+		atualizarElementos();
+	}
+	
+	private void atualizarElementos() {
+		pnlElementos.removeAll();
+		
 		for (int i = 0; i < qtdItensPagina; i++) {
-			Livro livro = listLivros.get(i + (qtdItensPagina * (currentPage - 1)));
+			int indexLivro = i + (qtdItensPagina * (currentPage - 1));
+			if(indexLivro >= listLivros.size())
+				break;
+			
+			Livro livro = listLivros.get(indexLivro);
 			Button btnElemento = new Button(livro.getTitulo());
 			btnElemento.setVisible(true);
 			
@@ -64,10 +74,12 @@ public class ListagemPaginada extends JPanel {
 		}
 		
 		add(pnlElementos);
+		if(pnlNavegacao != null)
+			remove(pnlNavegacao);
+		initPnlNavegacao();
 	}
 	
 	private void initPnlNavegacao() {
-		
 		pnlNavegacao = new JPanel(new GridLayout(1, 3));
 		pnlNavegacao.setPreferredSize(new Dimension(200, 40));
 		
@@ -81,6 +93,19 @@ public class ListagemPaginada extends JPanel {
 		btnNextPage = new JButton(">");
 		btnNextPage.addActionListener((ActionEvent e) -> nextPage());
 		pnlNavegacao.add(btnNextPage);
+		
+		/**
+		 * Desativa o botao de prévia caso esteja na primeira pagina
+		 */
+		if(currentPage == 1)
+			btnPrevPage.setEnabled(false);
+		
+		/**
+		 * Desativa o botao de next caso esteja na ultima pagina
+		 */
+		if(currentPage == maxPage)
+			btnNextPage.setEnabled(false);
+		
 		
 		add(pnlNavegacao);
 	}
@@ -98,22 +123,11 @@ public class ListagemPaginada extends JPanel {
 		
 		currentPage--;
 		lblCurrentPage.setText(String.valueOf(currentPage));
-		
-		/**
-		 * Desativa o botao de prévia caso esteja na primeira pagina
-		 */
-		if(currentPage == 1)
-			btnPrevPage.setEnabled(false);
-		
-		/**
-		 * Força a ativação do botão de next 
-		 */
-		btnNextPage.setEnabled(true);
-		
+	
 		/**
 		 * Atualiza os componentes redesenhando o panel
 		 */
-		initPnlElementos();
+		atualizarElementos();
 		validate();
 		repaint();
 	}
@@ -131,20 +145,9 @@ public class ListagemPaginada extends JPanel {
 		lblCurrentPage.setText(String.valueOf(currentPage));
 		
 		/**
-		 * Desativa o botao de next caso esteja na ultima pagina
-		 */
-		if(currentPage == maxPage)
-			btnNextPage.setEnabled(false);
-		
-		/**
-		 * Força a ativação do botão de prévia 
-		 */
-		btnPrevPage.setEnabled(true);
-		
-		/**
 		 * Atualiza os componentes redesenhando o panel
 		 */
-		initPnlElementos();
+		atualizarElementos();
 		validate();
 		repaint();
 	}
