@@ -1,0 +1,4 @@
+    stringGeral       {								 Nome,Escritor,Ano,Idioma,Plavra-Chave,Capitulo,Livraria,Colunas,URL,Formato,Duração,Dormato}
+	itemSelecionado   {Impresso,Eletronico,AudioBook,Nome,Escritor,Ano,Idioma,Plavra-Chave,Capitulo,Livraria,Colunas,URL,Formato,Duração,Dormato}
+					  {0,		1,		   2,		 3,	  4,	   5,  6,	  7,		   8,	    9,	     10,	 11, 12,	 13,	 14}				  
+					  

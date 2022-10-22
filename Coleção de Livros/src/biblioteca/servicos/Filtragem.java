@@ -15,8 +15,8 @@ public class Filtragem {
 		
 		ArrayList<Livro> testeFiltrado = new ArrayList<Livro>();
 		
-		String[] stringGeral = new String[]{"","","","","","YXX","","","","","","",};
-		int itemSelecionado[] = {1,1,1,0,0,0,0,0,1,0,0,0,0,0,0};
+		String[] stringGeral = new String[]{"","","","","","","","","","","","",};
+		int itemSelecionado[] = {1,1,1,0,0,0,0,0,0,0,0,0,0,0,0};
 		testeFiltrado = pesquisaEspecifica(livros, stringGeral, itemSelecionado);
 		
 //		String stringGeral = "O Senhor dos Aneis";
@@ -83,7 +83,7 @@ public class Filtragem {
 		ArrayList<Livro> retorno = new ArrayList<Livro>();
 		for (Livro livro : livros) {
 			for(String escritor : livro.getEscritores())
-				if(CasamentoAproximado.computeLevenshtein(escritor.toLowerCase(), texto.toLowerCase()) <= Math.max((int)(livro.getTitulo().length()/2) - 1, 0)) {
+				if(CasamentoAproximado.computeLevenshtein(escritor.toLowerCase(), texto.toLowerCase()) <= Math.max((int)(escritor.length()/2) - 1, 0)) {
 					retorno.add(livro);
 					break;
 				}
