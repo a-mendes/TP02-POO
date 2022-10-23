@@ -14,6 +14,7 @@ import javax.swing.JCheckBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
@@ -76,6 +77,7 @@ public class Tela extends JFrame {
 	private JPanel pnlPrincipal;
 	private JPanel pnlPesquisa;
 	private JPanel pnlFiltroPesquisaGeral;
+	private JPanel pnlPesquisaEspecifica;
 	private JPanel pnlFiltroPesquisaEspecifica;
 	private JPanel pnlFiltroTipoLivro;
 	private JPanel pnlResultados;
@@ -91,22 +93,38 @@ public class Tela extends JFrame {
 		
 		pnlPrincipal = new JPanel();
 		pnlPrincipal.setLayout(new FlowLayout());
-		pnlPrincipal.setPreferredSize(new Dimension(WIDTH, HEIGHT));
+		pnlPrincipal.setPreferredSize(new Dimension(WIDTH-50, HEIGHT-50));
 		
 		initPanelPesquisa();
 		initPanelFiltroPesquisaGeral();
-		initPanelTipoLivro();
-		initPanelFiltroPesquisaEspecifica();
+		initPanelPesquisaEspecifica();
 		initPanelResultados();
 		
+		/**
+		 * Habilita barra de rolagem
+		 */
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setPreferredSize(new Dimension(WIDTH, HEIGHT));
+		scrollPane.setViewportView(pnlPrincipal);
+		getContentPane().add(scrollPane);
+		
+		/**
+		 * Configurações de exibição do JFrame
+		 */
 		setPreferredSize(new Dimension(WIDTH, HEIGHT));
-		add(pnlPrincipal);
 		pack();
 		setLocationRelativeTo(null);
-		setResizable(false);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setVisible(true);
 
+	}
+
+	private void initPanelPesquisaEspecifica() {
+		pnlPesquisaEspecifica = new JPanel();
+		initPanelTipoLivro();
+		initPanelFiltroPesquisaEspecifica();
+		pnlPrincipal.add(pnlPesquisaEspecifica);
+		
 	}
 
 	private void initPanelPesquisa() {
@@ -219,7 +237,7 @@ public class Tela extends JFrame {
 		cbxTipoImpresso = new JCheckBox("Impressos");
 		pnlFiltroTipoLivro.add(cbxTipoImpresso);
 		
-		pnlPrincipal.add(pnlFiltroTipoLivro);
+		pnlPesquisaEspecifica.add(pnlFiltroTipoLivro);
 	}
 	
 	private void initPanelFiltroPesquisaEspecifica() {
@@ -270,7 +288,7 @@ public class Tela extends JFrame {
 		JPanel pnlFormatoAudioBook = getLabelxTextFieldPanel(txtFormatoAudioBook, "Formato \"AudioBook\" ");
 		pnlFiltroPesquisaEspecifica.add(pnlFormatoAudioBook);
 		
-		pnlPrincipal.add(pnlFiltroPesquisaEspecifica);
+		pnlPesquisaEspecifica.add(pnlFiltroPesquisaEspecifica);
 	}
 	
 	private void initPanelResultados() {

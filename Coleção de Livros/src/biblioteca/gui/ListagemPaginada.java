@@ -48,14 +48,14 @@ public class ListagemPaginada extends JPanel {
 		
 		
 		setLayout(new FlowLayout()); 
-		setPreferredSize(new Dimension(800, 500));
+		setPreferredSize(new Dimension(700, 500));
 		
 		initPnlElementos();
 	}
 	
 	private void initPnlElementos() {
 		pnlElementos = new JPanel(new GridLayout(qtdItensPagina, 1));
-		pnlElementos.setPreferredSize(new Dimension(800, 400));
+		pnlElementos.setPreferredSize(new Dimension(700, 400));
 		
 		listElementos = new ArrayList<JButton>();
 		

@@ -16,18 +16,18 @@ public class DetalhesLivroDialog extends JDialog {
 
 	private static final long serialVersionUID = 1L;
 
-	private JScrollPane panel;
+	private JScrollPane scrollPane;
 	
 	public DetalhesLivroDialog(Livro livro) {
 		setSize(700, 700);
         setLayout(new FlowLayout());
         setResizable(false);
         
-        panel = new JScrollPane();
-        panel.setPreferredSize(new Dimension(650, 640));
-        panel.setAutoscrolls(true);
-        panel.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-        panel.setBorder(null);
+        scrollPane = new JScrollPane();
+        scrollPane.setPreferredSize(new Dimension(650, 640));
+        scrollPane.setAutoscrolls(true);
+        scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+        scrollPane.setBorder(null);
         
         String content = ""; 
         if(livro.getClass().equals(AudioBook.class)) {
@@ -46,9 +46,9 @@ public class DetalhesLivroDialog extends JDialog {
 		if(getFont() != null)
 			lblContent.setFont(getFont().deriveFont((float) 20));
 
-		panel.setViewportView(lblContent);
+		scrollPane.setViewportView(lblContent);
 		
-		getContentPane().add(panel);
+		getContentPane().add(scrollPane);
 		
 		setTitle("Detalhes do Livro");
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
@@ -60,17 +60,52 @@ public class DetalhesLivroDialog extends JDialog {
 	private String detalhesAudioBook(AudioBook audiobook) {
 		String content = detalhesLivro(audiobook);
 		
+		/**
+		 * Duração
+		 */
+		content += "<h1>Duração </h1> " + audiobook.getDuracao() + "<br/> <br/> <hr/>";
+		
+		/**
+		 * Formato
+		 */
+		content += "<h1>Formato do arquivo </h1> " + audiobook.getFormato() + "<br/> <br/> <hr/>";
+		
 		return content;
 	}
 	
 	private String detalhesImpresso(Impresso impresso) {
 		String content = detalhesLivro(impresso);
 		
+		/**
+		 * Numero de colunas
+		 */
+		content += "<h1>Número de Colunas </h1> " + impresso.getNumeroColunas() + "<br/> <br/> <hr/>";
+		
+		/**
+		 * Livrarias
+		 */
+		content += "<h1>Livrarias </h1> "; 
+		for (String livraria : impresso.getLivrarias()) {
+			content += "-  " + livraria + "<br/>";
+		}
+		
+		content += "<br/> <hr/>";
 		return content;
 	}
 	
 	private String detalhesEletronico(Eletronico eletronico) {
 		String content = detalhesLivro(eletronico);
+		
+		/**
+		 * URL
+		 */
+		content += "<h1>URL de acesso </h1> " + eletronico.getURL() + "<br/> <br/> <hr/>";
+		
+		/**
+		 * Formato
+		 */
+		content += "<h1>Formato do arquivo </h1> " + eletronico.getFormato() + "<br/> <br/> <hr/>";
+		
 		
 		return content;
 	}
