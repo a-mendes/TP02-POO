@@ -1,14 +1,20 @@
 package biblioteca.gui;
 
+import java.awt.Desktop;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JFrame;
@@ -36,8 +42,9 @@ public class Tela extends JFrame {
 	 * Botões
 	 */
 	private JButton btnPesquisaEspecifica;
-	private JButton btnPesquisaGeral;
+	private JButton btnRelatorio;
 	private JButton btnLimpar;
+	private JButton btnAjuda;
 	
 	/**
 	 * Filtros de tipo de livro
@@ -88,9 +95,12 @@ public class Tela extends JFrame {
 	private ArrayList<Livro> listLivros;
 	
 	public Tela(ArrayList<Livro> livros) {
-		
+        
 		listLivros = livros;
-		
+
+		/**
+		 * Configuração de panels
+		 */
 		pnlPrincipal = new JPanel();
 		pnlPrincipal.setLayout(new FlowLayout());
 		pnlPrincipal.setPreferredSize(new Dimension(WIDTH-50, HEIGHT-50));
@@ -128,21 +138,38 @@ public class Tela extends JFrame {
 	}
 
 	private void initPanelPesquisa() {
+		/**
+		 * Configura o panel 
+		 */
 		pnlPesquisa = new JPanel();
 		pnlPesquisa.setPreferredSize(new Dimension(WIDTH - 50, 100));
 		pnlPesquisa.setLayout(new FlowLayout());
 		pnlPesquisa.setBorder(BorderFactory.createTitledBorder("Pesquisar"));
 		
+		/**
+		 * Configuração de TextField Para pesquisa master
+		 */
 		txtPesquisa = new JTextField("Ex.: 'Hobbit'");
-		txtPesquisa.setPreferredSize(new Dimension(800, 50));
+		txtPesquisa.setPreferredSize(new Dimension(600, 50));
 		txtPesquisa.setFont(new Font("ARIAL", Font.ITALIC, 26));
 		pnlPesquisa.add(txtPesquisa);
 		
+		/**
+		 * Botão Pesquisa
+		 */
 		btnPesquisaEspecifica = new JButton("Pesquisar");
 		btnPesquisaEspecifica.setPreferredSize(new Dimension(100, 50));
-		//Add actionListeners 
+		//TODO Add actionListeners 
 		pnlPesquisa.add(btnPesquisaEspecifica);
 		
+		btnRelatorio = new JButton("Relatório");
+		btnRelatorio.setPreferredSize(new Dimension(100, 50));
+		//TODO Add actionListeners 
+		pnlPesquisa.add(btnRelatorio);
+		
+		/**
+		 * Botão Limpar
+		 */
 		btnLimpar = new JButton("Limpar");
 		btnLimpar.setPreferredSize(new Dimension(100, 50));
 		btnLimpar.addActionListener(new ActionListener() {
@@ -151,6 +178,26 @@ public class Tela extends JFrame {
 			}
 		});
 		pnlPesquisa.add(btnLimpar);
+		
+		/**
+		 * Botão Ajuda
+		 */
+		Icon icon = new ImageIcon("res/Icons/ajuda.png");
+		btnAjuda = new JButton("Ajuda", icon);
+		btnAjuda.setPreferredSize(new Dimension(100, 50));
+		btnAjuda.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (Desktop.isDesktopSupported() && Desktop.getDesktop().isSupported(Desktop.Action.BROWSE)) {
+				    try {
+				    	//TODO set url 
+						Desktop.getDesktop().browse(new URI("http://www.google.com"));
+					} catch (IOException|URISyntaxException e1) {
+						e1.printStackTrace();
+					} 
+				}
+			}
+		});
+		pnlPesquisa.add(btnAjuda);
 		
 		pnlPrincipal.add(pnlPesquisa);
 	}

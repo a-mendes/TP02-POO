@@ -7,7 +7,6 @@ import biblioteca.modelo.AudioBook;
 import biblioteca.modelo.Eletronico;
 import biblioteca.modelo.Impresso;
 import biblioteca.modelo.Livro;
-import biblioteca.servicos.CasamentoAproximado;
 
 public class Filtragem {
 	
