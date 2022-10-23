@@ -279,7 +279,7 @@ public class Tela extends JFrame {
 		pnlResultados.setLayout(new FlowLayout());
 		pnlResultados.setBorder(BorderFactory.createTitledBorder("Resultados da Pesquisa"));
 		
-		listResultados = new ListagemPaginada(6, listLivros);
+		listResultados = new ListagemPaginada(5, listLivros);
 		pnlResultados.add(listResultados);
 		
 		pnlPrincipal.add(pnlResultados);

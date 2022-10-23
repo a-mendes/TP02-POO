@@ -1,17 +1,22 @@
 package biblioteca.gui;
 
-import java.awt.Button;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
+import biblioteca.modelo.AudioBook;
+import biblioteca.modelo.Eletronico;
+import biblioteca.modelo.Impresso;
 import biblioteca.modelo.Livro;
 
 public class ListagemPaginada extends JPanel {
@@ -26,7 +31,7 @@ public class ListagemPaginada extends JPanel {
 	private JPanel pnlNavegacao;
 	private JPanel pnlElementos;
 	
-	private ArrayList<Button> listElementos;
+	private ArrayList<JButton> listElementos;
 	
 	private int currentPage = 1;
 	private int maxPage;
@@ -52,7 +57,7 @@ public class ListagemPaginada extends JPanel {
 		pnlElementos = new JPanel(new GridLayout(qtdItensPagina, 1));
 		pnlElementos.setPreferredSize(new Dimension(800, 400));
 		
-		listElementos = new ArrayList<Button>();
+		listElementos = new ArrayList<JButton>();
 		
 		atualizarElementos();
 	}
@@ -60,14 +65,27 @@ public class ListagemPaginada extends JPanel {
 	private void atualizarElementos() {
 		pnlElementos.removeAll();
 		
+		/**
+		 * Recupera os livros a serem exibidos de acordo com a paginação
+		 */
 		for (int i = 0; i < qtdItensPagina; i++) {
 			int indexLivro = i + (qtdItensPagina * (currentPage - 1));
 			if(indexLivro >= listLivros.size())
 				break;
 			
 			Livro livro = listLivros.get(indexLivro);
-			Button btnElemento = new Button(livro.getTitulo());
-			btnElemento.setVisible(true);
+			
+			Icon icon = new ImageIcon("res/Icons/PretoBranco/" + getIconLivro(livro));
+			JButton btnElemento = new JButton(livro.getTitulo(), icon);
+			btnElemento.setIconTextGap(50);
+			btnElemento.setHorizontalAlignment(SwingConstants.LEFT);
+			btnElemento.setFocusPainted(false);
+			btnElemento.setContentAreaFilled(false);
+			btnElemento.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					new DetalhesLivroDialog(livro);
+				}
+			});
 			
 			listElementos.add(btnElemento);
 			pnlElementos.add(btnElemento);
@@ -77,6 +95,22 @@ public class ListagemPaginada extends JPanel {
 		if(pnlNavegacao != null)
 			remove(pnlNavegacao);
 		initPnlNavegacao();
+	}
+	
+	private String getIconLivro(Livro livro) {
+		if(livro.getClass().equals(AudioBook.class)) {
+			return "audiobook.png";
+		}
+		
+		if(livro.getClass().equals(Impresso.class)) {
+			return "impresso.png";
+		}
+		
+		if(livro.getClass().equals(Eletronico.class)) {
+			return "eletronico.png";
+		}
+		
+		return null;
 	}
 	
 	private void initPnlNavegacao() {
