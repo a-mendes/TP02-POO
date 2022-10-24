@@ -61,9 +61,9 @@ public class DetalhesLivroDialog extends JDialog {
 		String content = detalhesLivro(audiobook);
 		
 		/**
-		 * Duração
+		 * Duraï¿½ï¿½o
 		 */
-		content += "<h1>Duração </h1> " + audiobook.getDuracao() + "<br/> <br/> <hr/>";
+		content += "<h1>DuraÃ§Ã£o </h1> " + audiobook.getDuracao() + "<br/> <br/> <hr/>";
 		
 		/**
 		 * Formato
@@ -79,7 +79,7 @@ public class DetalhesLivroDialog extends JDialog {
 		/**
 		 * Numero de colunas
 		 */
-		content += "<h1>Número de Colunas </h1> " + impresso.getNumeroColunas() + "<br/> <br/> <hr/>";
+		content += "<h1>NÃºmero de Colunas </h1> " + impresso.getNumeroColunas() + "<br/> <br/> <hr/>";
 		
 		/**
 		 * Livrarias
@@ -113,14 +113,14 @@ public class DetalhesLivroDialog extends JDialog {
 	private String detalhesLivro(Livro livro) {
 		
 		/**
-		 * Usamos HTML para fazer a formatação correta da String de exibição dos detalhes 
+		 * Usamos HTML para fazer a formataï¿½ï¿½o correta da String de exibiï¿½ï¿½o dos detalhes 
 		 */
 		String content = "<html><body>";
 		
 		/**
-		 * Título
+		 * Tï¿½tulo
 		 */
-		content += "<h1>Título </h1> " + livro.getTitulo() + "<br/> <br/> <hr/>";
+		content += "<h1>TÃ­tulo </h1> " + livro.getTitulo() + "<br/> <br/> <hr/>";
 		
 		/**
 		 * Escritores
@@ -133,9 +133,9 @@ public class DetalhesLivroDialog extends JDialog {
 		content += "<br/> <hr/>";
 		
 		/**
-		 * Ano Publicação
+		 * Ano Publicaï¿½ï¿½o
 		 */
-		content += "<h1>Ano de Publicação </h1> " + livro.getAnoDePublicacao() + "<br/> <br/> <hr/>";
+		content += "<h1>Ano de PublicaÃ§Ã£o </h1> " + livro.getAnoDePublicacao() + "<br/> <br/> <hr/>";
 
 		/**
 		 * Idioma 
@@ -146,7 +146,7 @@ public class DetalhesLivroDialog extends JDialog {
 		 * Capitulos
 		 */
 		
-		content += "<h1>Capítulos </h1> "; 
+		content += "<h1>CapÃ­tulos </h1> "; 
 		for (String capitulo : livro.getCapitulos()) {
 			content += "-  " + capitulo + "<br/>";
 		}

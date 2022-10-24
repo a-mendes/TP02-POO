@@ -33,7 +33,7 @@ public class Tela extends JFrame {
 	private JTextField txtPesquisa;
 	
 	/**
-	 * Botões
+	 * Botï¿½es
 	 */
 	private JButton btnPesquisaEspecifica;
 	private JButton btnPesquisaGeral;
@@ -57,7 +57,7 @@ public class Tela extends JFrame {
 	private JTextField txtCapitulo;
 	
 	/**
-	 * Campos Específicos
+	 * Campos Especï¿½ficos
 	 */
 	private JTextField txtLivrarias;
 	private JTextField txtColunas;
@@ -67,7 +67,7 @@ public class Tela extends JFrame {
 	private JTextField txtFormatoAudioBook;
 	
 	/**
-	 * Exibição dos resultados
+	 * Exibiï¿½ï¿½o dos resultados
 	 */
 	private ListagemPaginada listResultados;
 	
@@ -109,7 +109,7 @@ public class Tela extends JFrame {
 		getContentPane().add(scrollPane);
 		
 		/**
-		 * Configurações de exibição do JFrame
+		 * Configuraï¿½ï¿½es de exibiï¿½ï¿½o do JFrame
 		 */
 		setPreferredSize(new Dimension(WIDTH, HEIGHT));
 		pack();
@@ -244,7 +244,7 @@ public class Tela extends JFrame {
  		pnlFiltroPesquisaEspecifica = new JPanel();
  		pnlFiltroPesquisaEspecifica.setPreferredSize(new Dimension(945, 200));
  		pnlFiltroPesquisaEspecifica.setLayout(new GridLayout(2, 3));
- 		pnlFiltroPesquisaEspecifica.setBorder(BorderFactory.createTitledBorder("Filtros específicos por \"Tipo de Livro\""));
+ 		pnlFiltroPesquisaEspecifica.setBorder(BorderFactory.createTitledBorder("Filtros especÃ­ficos por \"Tipo de Livro\""));
  		
  		/**
  		 * Livrarias
@@ -278,7 +278,7 @@ public class Tela extends JFrame {
 		 * Duracao
 		 */
 		txtDuracao = new JTextField();
-		JPanel pnlDuracao = getLabelxTextFieldPanel(txtDuracao, "Duracao ");
+		JPanel pnlDuracao = getLabelxTextFieldPanel(txtDuracao, "DuraÃ§Ã£o ");
 		pnlFiltroPesquisaEspecifica.add(pnlDuracao);
 		
 		/**

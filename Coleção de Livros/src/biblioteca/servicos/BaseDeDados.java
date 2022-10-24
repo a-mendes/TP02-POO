@@ -16,11 +16,14 @@ import biblioteca.modelo.Livro;
 public class BaseDeDados {
 
 	private static BufferedReader reader;
-	
+	static ArrayList<Livro> livros = new ArrayList<Livro>();
 	public static ArrayList<Livro> lerBaseDeDados() throws Exception {
-		ArrayList<Livro> livros = new ArrayList<Livro>();
-
-		for (int i = 0; i < 16; ++i)
+	
+		File file = new File("data/");
+		int count = file.listFiles().length;
+		
+		
+		for (int i = 0; i < count ; ++i)
 		{
 			String path = "data/" + (i+1) + ".txt";
 			File arquivo = new File(path);
@@ -38,47 +41,67 @@ public class BaseDeDados {
 			strTipoLivro = reader.readLine();
 		
 			int tipoLivro = Integer.parseInt(strTipoLivro);
+			
+			adicionaLivro(tipoLivro);
 
-			switch(tipoLivro)
-			{
-				/**
-				 * Impresso
-				 */ 
-				case 1:
-				{
-					Impresso livro = new Impresso();
-					lerImpresso(livro);
-					livros.add(livro);
-				}
-				break;
-
-				/**
-				 * Eletronico
-				 */ 
-				case 2:
-				{
-					Eletronico livro = new Eletronico();
-					lerEletronico(livro);
-					livros.add(livro);
-				}
-				break;
-
-				/**
-				 * AudioBook
-				 */ 
-				case 3:
-				{
-					AudioBook livro = new AudioBook();
-					lerAudioBook(livro);
-					livros.add(livro);
-				}
-				break;
-			}
 		}
 		
 		return livros;
 	}
 
+	public static void adicionaLivro(int tipoLivro) {
+		switch(tipoLivro)
+		{
+			/**
+			 * Impresso
+			 */ 
+			case 1:
+			{
+				Impresso livro = new Impresso();
+				try {
+					lerImpresso(livro);
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				livros.add(livro);
+			}
+			break;
+
+			/**
+			 * 
+			 * Eletronico
+			 */ 
+			case 2:
+			{
+				Eletronico livro = new Eletronico();
+				try {
+					lerEletronico(livro);
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				livros.add(livro);
+			}
+			break;
+
+			/**
+			 * AudioBook
+			 */ 
+			case 3:
+			{
+				AudioBook livro = new AudioBook();
+				try {
+					lerAudioBook(livro);
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				livros.add(livro);
+			}
+			break;
+		}
+	}
 	private static void lerLivro(Livro livro) throws IOException 
 	{
 		/**

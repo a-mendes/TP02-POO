@@ -22,7 +22,7 @@ public class Relatorio {
 
 		try {
 		    BufferedWriter writer = new BufferedWriter(new FileWriter(caminhoArquivoPadrao));
-		    writer.write("ESPECIFICAÇÕES DA PESQUISA\n");
+		    writer.write("ESPECIFICAï¿½ï¿½ES DA PESQUISA\n");
 		    
 		    writer.write("Tipo: --------------- ");
 		    if(itemSelecionado[0] == 1)
@@ -44,7 +44,11 @@ public class Relatorio {
 		    	writer.write("Idioma: ------------- " + stringGeral[3] + "\n");
 		    if(itemSelecionado[7] == 1)
 		    	writer.write("Palavra Chave: ------ " + stringGeral[4] + "\n");
+		    
+		    
 		    if(itemSelecionado[8] == 1)
+		    	
+		    	
 		    	writer.write("Capitulo: ----------- " + stringGeral[5] + "\n");
 		    if(itemSelecionado[9] == 1)
 		    	writer.write("Livraria: ----------- " + stringGeral[6] + "\n");
