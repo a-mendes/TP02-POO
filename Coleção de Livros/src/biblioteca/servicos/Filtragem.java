@@ -7,7 +7,6 @@ import biblioteca.modelo.AudioBook;
 import biblioteca.modelo.Eletronico;
 import biblioteca.modelo.Impresso;
 import biblioteca.modelo.Livro;
-import biblioteca.servicos.CasamentoAproximado;
 
 public class Filtragem {
 	
@@ -15,13 +14,13 @@ public class Filtragem {
 		
 		ArrayList<Livro> testeFiltrado = new ArrayList<Livro>();
 		
-		String[] stringGeral = new String[]{"o hobit","","","","","","","","","","","",};
-		int itemSelecionado[] = {1,1,1,1,0,0,0,0,0,0,0,0,0,0,0};
-		testeFiltrado = pesquisaEspecifica(livros, stringGeral, itemSelecionado);
+//		String[] stringGeral = new String[]{"o hobit","","","","","","","","","","","",};
+//		int itemSelecionado[] = {1,1,1,1,0,0,0,0,0,0,0,0,0,0,0};
+//		testeFiltrado = pesquisaEspecifica(livros, stringGeral, itemSelecionado);
 		
-//		String stringGeral = "O Senhor dos Aneis";
-//		int itemSelecionado[] = {1,1,1,1,1,0,1,1,1,1,0,1,1,0,1};
-//		testeFiltrado = pesquisaGeral(livros, stringGeral, itemSelecionado);
+		String stringGeral = "Hobbit";
+		int itemSelecionado[] = {1,1,1,1,1,0,1,1,1,1,0,1,1,0,1};
+		testeFiltrado = pesquisaGeral(livros, stringGeral, itemSelecionado);
 		
 		System.out.println("--------------Filtado--------------");
 		for (Livro livro : testeFiltrado) {
@@ -85,7 +84,7 @@ public class Filtragem {
 		ArrayList<Livro> retorno = new ArrayList<Livro>();
 		for (Livro livro : livros) {
 			for(String escritor : livro.getEscritores())
-				if(CasamentoAproximado.computeLevenshtein(escritor.toLowerCase(), texto.toLowerCase()) <= Math.max((int)(livro.getTitulo().length()/2) - 1, 0)) {
+				if(CasamentoAproximado.computeLevenshtein(escritor.toLowerCase(), texto.toLowerCase()) <= Math.max((int)(escritor.length()/2) - 1, 0)) {
 					retorno.add(livro);
 					break;
 				}
@@ -228,6 +227,16 @@ public class Filtragem {
 	
 	public static ArrayList<Livro> pesquisaEspecifica(ArrayList<Livro> livros, String[] stringGeral, int itemSelecionado[]){
 		ArrayList<Livro> filtrado = new ArrayList<Livro>();
+		
+//		System.out.println("Especifica");
+//		System.out.println("String Geral1");
+//		for(String item : stringGeral) {
+//			System.out.print(item + "*");
+//		}
+//		System.out.println("Item Selecionado");
+//		for(int item : itemSelecionado) {
+//			System.out.print(item + "*");
+//		}
 							
 		//Filtrar Tipo
 		if(itemSelecionado[0] == 1) //Impresso
@@ -247,7 +256,7 @@ public class Filtragem {
 			filtrado = filtraEscritores(filtrado, stringGeral[1]);
 		
 		if(itemSelecionado[5] == 1) //Ano
-			filtrado = filtraAno(filtrado, Integer.parseInt(stringGeral[2])); //Nao vai lancar exeção porque ja for testado antes 
+			filtrado = filtraAno(filtrado, Integer.parseInt(stringGeral[2])); //Nao vai lancar exeÃ§Ã£o porque ja for testado antes 
 		
 		if(itemSelecionado[6] == 1) //Idioma
 			filtrado = filtraIdioma(filtrado, stringGeral[3]);
@@ -263,7 +272,7 @@ public class Filtragem {
 			filtrado = filtraLivraria(filtrado, stringGeral[6]);
 			
 		if(itemSelecionado[10] == 1 && itemSelecionado[0] == 1) //Coluna
-			filtrado = filtraColuna(filtrado, Integer.parseInt(stringGeral[7])); //Nao vai lancar exeção porque ja for testado antes 
+			filtrado = filtraColuna(filtrado, Integer.parseInt(stringGeral[7])); //Nao vai lancar exeÃ§Ã£o porque ja for testado antes 
 				
 		if(itemSelecionado[11] == 1 && itemSelecionado[1] == 1) //URL
 			filtrado = filtraURL(filtrado, stringGeral[8]);
@@ -272,7 +281,7 @@ public class Filtragem {
 			filtrado = filtraFormatoTexto(filtrado, stringGeral[9]);
 		
 		if(itemSelecionado[13] == 1 && itemSelecionado[2] == 1) //Duracao
-			filtrado = filtraDuracao(filtrado, Integer.parseInt(stringGeral[10])); //Nao vai lancar exeção porque ja for testado antes
+			filtrado = filtraDuracao(filtrado, Integer.parseInt(stringGeral[10])); //Nao vai lancar exeÃ§Ã£o porque ja for testado antes
 			
 		if(itemSelecionado[14] == 1 && itemSelecionado[2] == 1) //Formato Audio
 			filtrado = filtraFormatoAudio(filtrado, stringGeral[11]);
@@ -284,7 +293,14 @@ public class Filtragem {
 	public static ArrayList<Livro> pesquisaGeral(ArrayList<Livro> livros, String stringGeral, int itemSelecionado[]){
 		ArrayList<Livro> filtradoTipo = new ArrayList<Livro>();
 		ArrayList<Livro> filtradoCoisas = new ArrayList<Livro>();
-							
+		
+//		System.out.println("Geral");
+//		System.out.println("String Geral2: " + stringGeral);
+//		System.out.println("Item Selecionado");
+//		for(int item : itemSelecionado) {
+//			System.out.print(item + "*");
+//		}
+
 		//Filtrar Tipo
 		if(itemSelecionado[0] == 1) //Impresso
 			resultado(filtradoTipo, filtraTipo(livros, 0));

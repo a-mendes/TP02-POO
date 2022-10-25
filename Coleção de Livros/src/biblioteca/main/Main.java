@@ -29,12 +29,12 @@ public class Main {
 		tela = new Tela(livros);
 
 
-		System.out.println("--------------Completo--------------");
-		for (Livro livro : livros) {
-			System.out.println(livro.getClass());
-			System.out.println(livro.getTitulo());
-			System.out.println();
-		}
+//		System.out.println("--------------Completo--------------");
+//		for (Livro livro : livros) {
+//			System.out.println(livro.getClass());
+//			System.out.println(livro.getTitulo());
+//			System.out.println();
+//		}
 		
 		//Filtragem.testeFiltragem(livros);
 		//Relatorio.geradorRelatorio(livros);

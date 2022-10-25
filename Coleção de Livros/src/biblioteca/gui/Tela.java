@@ -1,24 +1,33 @@
 package biblioteca.gui;
 
+import java.awt.Desktop;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
 import biblioteca.modelo.Livro;
+import biblioteca.servicos.Filtragem;
+import biblioteca.servicos.Relatorio;
 
 public class Tela extends JFrame {
 
@@ -35,9 +44,10 @@ public class Tela extends JFrame {
 	/**
 	 * Botï¿½es
 	 */
-	private JButton btnPesquisaEspecifica;
-	private JButton btnPesquisaGeral;
+	private JButton btnPesquisa;
+	private JButton btnRelatorio;
 	private JButton btnLimpar;
+	private JButton btnAjuda;
 	
 	/**
 	 * Filtros de tipo de livro
@@ -85,12 +95,17 @@ public class Tela extends JFrame {
 	/**
 	 * Lista contendo os livros fornecidos
 	 */
-	private ArrayList<Livro> listLivros;
+	private ArrayList<Livro> listLivrosOriginal;
+	private ArrayList<Livro> listLivrosFiltro;
 	
 	public Tela(ArrayList<Livro> livros) {
-		
-		listLivros = livros;
-		
+        
+		listLivrosOriginal = livros;
+		listLivrosFiltro = listLivrosOriginal;
+
+		/**
+		 * Configuração de panels
+		 */
 		pnlPrincipal = new JPanel();
 		pnlPrincipal.setLayout(new FlowLayout());
 		pnlPrincipal.setPreferredSize(new Dimension(WIDTH-50, HEIGHT-50));
@@ -128,29 +143,72 @@ public class Tela extends JFrame {
 	}
 
 	private void initPanelPesquisa() {
+		/**
+		 * Configura o panel 
+		 */
 		pnlPesquisa = new JPanel();
 		pnlPesquisa.setPreferredSize(new Dimension(WIDTH - 50, 100));
 		pnlPesquisa.setLayout(new FlowLayout());
 		pnlPesquisa.setBorder(BorderFactory.createTitledBorder("Pesquisar"));
 		
+		/**
+		 * Configuração de TextField Para pesquisa master
+		 */
 		txtPesquisa = new JTextField("Ex.: 'Hobbit'");
-		txtPesquisa.setPreferredSize(new Dimension(800, 50));
+		txtPesquisa.setPreferredSize(new Dimension(600, 50));
 		txtPesquisa.setFont(new Font("ARIAL", Font.ITALIC, 26));
 		pnlPesquisa.add(txtPesquisa);
 		
-		btnPesquisaEspecifica = new JButton("Pesquisar");
-		btnPesquisaEspecifica.setPreferredSize(new Dimension(100, 50));
-		//Add actionListeners 
-		pnlPesquisa.add(btnPesquisaEspecifica);
-		
-		btnLimpar = new JButton("Limpar");
-		btnLimpar.setPreferredSize(new Dimension(100, 50));
-		btnLimpar.addActionListener(new ActionListener() {
+		/**
+		 * Botão Pesquisa
+		 */
+		btnPesquisa = new JButton("Pesquisar");
+		btnPesquisa.setPreferredSize(new Dimension(100, 50));
+		btnPesquisa.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				limparPesquisa();
+				doPesquisa();	
+				validate();
+				repaint();
 			}
 		});
+		pnlPesquisa.add(btnPesquisa);
+		
+		btnRelatorio = new JButton("Relatório");
+		btnRelatorio.setPreferredSize(new Dimension(100, 50));
+		btnRelatorio.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				emitirRelatorio();
+			}
+		});
+		pnlPesquisa.add(btnRelatorio);
+		
+		/**
+		 * Botão Limpar
+		 */
+		btnLimpar = new JButton("Limpar");
+		btnLimpar.setPreferredSize(new Dimension(100, 50));
+		btnLimpar.addActionListener((ActionEvent e) -> limparPesquisa());
 		pnlPesquisa.add(btnLimpar);
+		
+		/**
+		 * Botão Ajuda
+		 */
+		Icon icon = new ImageIcon("res/Icons/ajuda.png");
+		btnAjuda = new JButton("Ajuda", icon);
+		btnAjuda.setPreferredSize(new Dimension(100, 50));
+		btnAjuda.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (Desktop.isDesktopSupported() && Desktop.getDesktop().isSupported(Desktop.Action.BROWSE)) {
+				    try {
+				    	//TODO set url 
+						Desktop.getDesktop().browse(new URI("http://www.google.com"));
+					} catch (IOException|URISyntaxException e1) {
+						e1.printStackTrace();
+					} 
+				}
+			}
+		});
+		pnlPesquisa.add(btnAjuda);
 		
 		pnlPrincipal.add(pnlPesquisa);
 	}
@@ -297,7 +355,7 @@ public class Tela extends JFrame {
 		pnlResultados.setLayout(new FlowLayout());
 		pnlResultados.setBorder(BorderFactory.createTitledBorder("Resultados da Pesquisa"));
 		
-		listResultados = new ListagemPaginada(5, listLivros);
+		listResultados = new ListagemPaginada(5, listLivrosFiltro);
 		pnlResultados.add(listResultados);
 		
 		pnlPrincipal.add(pnlResultados);
@@ -327,10 +385,166 @@ public class Tela extends JFrame {
 		txtFormatoEletronico.setText("");
 		txtDuracao.setText("");
 		txtFormatoAudioBook.setText("");
+	}
+	
+	private boolean validaNumeros(int itemSelecionado[], String[] stringGeral) {
 		
+		try {
+			if(itemSelecionado[5] == 1)
+				Integer.parseInt(stringGeral[2]);
+			if(itemSelecionado[10] == 1)
+				Integer.parseInt(stringGeral[7]);
+			if(itemSelecionado[13] == 1)
+				Integer.parseInt(stringGeral[10]);
+		}
+		catch (Exception x) {
+			return false;
+		}
+		return true;
+	}
+	
+	private void emitirRelatorio() {
+		int itemSelecionado[] = getIndicesFiltrados();
+		
+		boolean todosNulos = true;
+		for(int i = 3; i < itemSelecionado.length; i++) {
+			if(itemSelecionado[i] == 1) {
+				todosNulos = false;
+				break;
+			}
+		}
+		
+		if(itemSelecionado[0] == 0 && itemSelecionado[1] == 0 && itemSelecionado[2] == 0) {
+			itemSelecionado[0] = 1; 
+			itemSelecionado[1] = 1;
+			itemSelecionado[2] = 1;
+		}
+		
+		if(todosNulos) {
+			String filtro = txtPesquisa.getText();
+			for(int i = 3; i < itemSelecionado.length; i++)
+				itemSelecionado[i] = 1;
+			
+			try {
+				Integer.parseInt(filtro);
+			}
+			catch (Exception x) {
+				itemSelecionado[5] = 0; 
+				itemSelecionado[10] = 0;
+				itemSelecionado[13] = 0;
+			}
+			
+			listLivrosFiltro = Filtragem.pesquisaGeral(listLivrosOriginal, filtro, itemSelecionado);
+			Relatorio.geradorRelatorioGeral(listLivrosFiltro, filtro, itemSelecionado);
+			JOptionPane.showMessageDialog(null, "O 'relatorio.txt' foi gerado com sucesso!");
+		}
+			
+		else {
+			String[] stringGeral = getStringFiltros();
+							 
+			if(validaNumeros(itemSelecionado, stringGeral)) {
+				listLivrosFiltro = Filtragem.pesquisaEspecifica(listLivrosOriginal, stringGeral, itemSelecionado);
+				Relatorio.geradorRelatorio(listLivrosFiltro, stringGeral, itemSelecionado);
+				JOptionPane.showMessageDialog(null, "O 'relatorio.txt' foi gerado com sucesso!");
+			}
+			else
+				JOptionPane.showMessageDialog(null, "Digite uma valor numerico nos campo correspondentes");
+		}
+
+	}
+	
+	private void doPesquisa() {
+		int itemSelecionado[] = getIndicesFiltrados();
+		
+		boolean todosNulos = true;
+		for(int i = 3; i < itemSelecionado.length; i++) {
+			if(itemSelecionado[i] == 1) {
+				todosNulos = false;
+				break;
+			}
+		}
+		
+		if(itemSelecionado[0] == 0 && itemSelecionado[1] == 0 && itemSelecionado[2] == 0) {
+			itemSelecionado[0] = 1; 
+			itemSelecionado[1] = 1;
+			itemSelecionado[2] = 1;
+		}
+		
+		if(todosNulos) {
+			String filtro = txtPesquisa.getText();
+			for(int i = 3; i < itemSelecionado.length; i++)
+				itemSelecionado[i] = 1;
+			
+			try {
+				Integer.parseInt(filtro);
+			}
+			catch (Exception x) {
+				itemSelecionado[5] = 0; 
+				itemSelecionado[10] = 0;
+				itemSelecionado[13] = 0;
+			}
+			
+			listLivrosFiltro = Filtragem.pesquisaGeral(listLivrosOriginal, filtro, itemSelecionado);
+			listResultados.setListLivros(listLivrosFiltro);
+		}
+			
+		else {
+			String[] stringGeral = getStringFiltros();
+			
+			if(validaNumeros(itemSelecionado, stringGeral)) {
+				listLivrosFiltro = Filtragem.pesquisaEspecifica(listLivrosOriginal, stringGeral, itemSelecionado);
+				listResultados.setListLivros(listLivrosFiltro);
+			}
+			else
+				JOptionPane.showMessageDialog(null, "Digite uma valor numerico nos campo correspondentes");
+		}
+	}
+	
+	private String[] getStringFiltros() {
 		/**
-		 * TODO: Limpar tabela de resultados mostrando todos os registros
+		 * Cria um vetor indicando com os valores dos campos a serem pesquisados
 		 */
+		String[] stringGeral = new String[12];
+				 stringGeral[0] = txtNome.getText();
+				 stringGeral[1] = txtEscritores.getText();
+				 stringGeral[2] = txtAnoPublicacao.getText();
+				 stringGeral[3] = txtIdioma.getText();
+				 stringGeral[4] = txtKeywords.getText();
+				 stringGeral[5] = txtCapitulo.getText();
+				 stringGeral[6] = txtLivrarias.getText();
+				 stringGeral[7] = txtColunas.getText();
+				 stringGeral[8] = txtURL.getText();
+				 stringGeral[9] = txtFormatoEletronico.getText();
+				 stringGeral[10] = txtDuracao.getText();
+				 stringGeral[11] = txtFormatoAudioBook.getText();
+	
+		return stringGeral;
+	}
+	
+	private int[] getIndicesFiltrados() {
+
+		/**
+		 * Cria um vetor indicando com "1" os campos a serem pesquisados e 0
+		 * campos a ignorar
+		 */
+		int[] itemSelecionado = new int[15];
+			itemSelecionado[0] = (cbxTipoImpresso.isSelected()) ? (1) : (0);
+			itemSelecionado[1] = (cbxTipoEletronico.isSelected()) ? (1) : (0);
+			itemSelecionado[2] = (cbxTipoAudioBook.isSelected()) ? (1) : (0);
+			itemSelecionado[3] = (!txtNome.getText().isEmpty())? (1) : (0);
+			itemSelecionado[4] = (!txtEscritores.getText().isEmpty())? (1) : (0);
+			itemSelecionado[5] = (!txtAnoPublicacao.getText().isEmpty())? (1) : (0);
+			itemSelecionado[6] = (!txtIdioma.getText().isEmpty())? (1) : (0);
+			itemSelecionado[7] = (!txtKeywords.getText().isEmpty())? (1) : (0);
+			itemSelecionado[8] = (!txtCapitulo.getText().isEmpty())? (1) : (0);
+			itemSelecionado[9] = (!txtLivrarias.getText().isEmpty())? (1) : (0);
+			itemSelecionado[10] = (!txtColunas.getText().isEmpty())? (1) : (0);
+			itemSelecionado[11] = (!txtURL.getText().isEmpty())? (1) : (0);
+			itemSelecionado[12] = (!txtFormatoEletronico.getText().isEmpty())? (1) : (0);
+			itemSelecionado[13] = (!txtDuracao.getText().isEmpty())? (1) : (0);
+			itemSelecionado[14] = (!txtFormatoAudioBook.getText().isEmpty())? (1) : (0);
+		
+		return itemSelecionado;
 	}
 }
 
