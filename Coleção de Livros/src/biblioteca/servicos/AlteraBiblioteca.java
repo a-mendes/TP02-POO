@@ -20,15 +20,40 @@ import biblioteca.modelo.Livro;
 
 public class AlteraBiblioteca extends BaseDeDados {
 	
-	public static void Exec(ArrayList<Livro> livros, String []stringToda, int itemSelecionado[],int tipo) {
+	public static void testa(ArrayList<Livro> livros) {
+//		String stringToda[] = new String[8];
+//		stringToda[0] = "O Leao, a Feiticeira e o Guarda-Roupa 17";
+//		stringToda[1] = "Clive Staples Lewis";
+//		stringToda[2] = "1950";
+//		stringToda[3] = "Ingles";
+//		stringToda[4] = "romance;infantojuvenil;ficcao;narnia";
+//		stringToda[5] = "Uma Estranha Descoberta;O Que Lucia Descobriu;Edmundo e o Guarda-Roupa;Manjar Turco;Outra Vez do Lado de Ca;Na Floresta;Um Dia com os Castores;Depois do Jantar;Na Casa da Feiticeira;O Encantamento Começa a Quebrar-se;A Aproximacao de Aslam;A Primeira Batalha de Pedro;Magia Profunda na Aurora do Tempo;O Triunfo da Feiticeira;Magia Ainda Mais Profunda de Antes da Aurora do Tempo;O Que Aconteceu com as Estatuas;A Cacada ao Veado Branco";
+//		stringToda[6] = "saraiva;leitura";
+//		stringToda[7] = "1";
+//		
+//		Exec(livros, stringToda, 1, 1);
+		
+		String stringToda[] = new String[8];
+		stringToda[0] = "O Hobbit";
+		stringToda[1] = "Clive Staples Lewis";
+		stringToda[2] = "1950";
+		stringToda[3] = "Ingles";
+		stringToda[4] = "romance;infantojuvenil;ficcao;narnia";
+		stringToda[5] = "Uma Estranha Descoberta;O Que Lucia Descobriu;Edmundo e o Guarda-Roupa;Manjar Turco;Outra Vez do Lado de Ca;Na Floresta;Um Dia com os Castores;Depois do Jantar;Na Casa da Feiticeira;O Encantamento Começa a Quebrar-se;A Aproximacao de Aslam;A Primeira Batalha de Pedro;Magia Profunda na Aurora do Tempo;O Triunfo da Feiticeira;Magia Ainda Mais Profunda de Antes da Aurora do Tempo;O Que Aconteceu com as Estatuas;A Cacada ao Veado Branco";
+		stringToda[6] = "saraiva;leitura";
+		stringToda[7] = "1";
+		
+		Exec(livros, stringToda, 2, 3);
+	}
+	
+	public static void Exec(ArrayList<Livro> livros, String []stringToda, int op,int tipo) {
 		//Filtrar Comando
 	
-		if(itemSelecionado[0] == 1) {//Adiconar
+		if(op == 1) {//Adiconar
 			criaArquivoLivro(stringToda,tipo);
 			try {
 				lerBaseDeDados();
 			} catch (Exception e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			
@@ -38,119 +63,107 @@ public class AlteraBiblioteca extends BaseDeDados {
 			try {
 				lerBaseDeDados();
 			} catch (Exception e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
 	}
+	
 	private static void remove(String[] stringToda, int tipo) {
 		BufferedReader re = null;
 		File file = new File("data/");
 		int count = file.listFiles().length;
+		int numeroDeletado = count;
 		
-		for (int i = 0; i < count ; ++i)
-		{
+		int tipoLivro = 0;
+		String tituloLivro = null;
+		
+		for (int i = 0; i < count ; ++i){
+			
 			String path = "data/" + (i+1) + ".txt";
 			File arquivo = new File(path);
 			try {
 				re = new BufferedReader(new FileReader(arquivo.getPath()));
-			} catch (FileNotFoundException e1) {
+			} 
+			catch (FileNotFoundException e1) {
 				e1.printStackTrace();
 			}
-
-			/** 
-			 * Faz verificacao de tipo de livro e cria instancia adequada
-			 */ 
-
-			String strTipoLivro = null;
+			
 			try {
-				strTipoLivro =re.readLine();
+				tipoLivro = Integer.parseInt(re.readLine());
+				tituloLivro = re.readLine();
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-		
-			int tipoLivro = Integer.parseInt(strTipoLivro);
-			if(tipoLivro == tipo) {
-				String titulo = null;
-			    try {
-					titulo = re.readLine();
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				if(titulo == stringToda[0]) {
-					String strEscritores = null;
-					try {
-						strEscritores = re.readLine();
-					} catch (IOException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-					if(strEscritores == stringToda[1]) {
-						Path pathOfFile1
-			            = Paths.get(path);
-						try {
-							Files.delete(pathOfFile1);
-						} catch (IOException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						}
-						return ;
-					}
-				}
+			
+			
+			if(tipoLivro == tipo && stringToda[0].equals(tituloLivro)) {
+				arquivo.delete();
+				numeroDeletado = i;
+				break;
 			}
+				
 		}
+		for (int i = numeroDeletado+1; i < count ; ++i) {
+			String path = "data/" + (i+1) + ".txt";
+			String pathNovo = "data/" + (i) + ".txt";
+			
+			try {
+				File arquivo = new File(path);
+				File arquivoNovo = new File(path);
+				arquivo.renameTo(arquivoNovo);
+			} 
+			catch (Exception e1) {
+				e1.printStackTrace();
+			}
+				
+		}
+		
 		System.out.println("Arquivo NÃ£o Encontrado");
 	}
-	
-	
-	
-	
-	
 	
 	private static void criaArquivoLivro(String[] stringGeral,int tipo) {
 		
 		File file = new File("data/");
 		int count = file.listFiles().length;
+		int countPlus = count+1;
 		
-		String caminhoArquivoPadrao = "data/" + count+1 + ".txt";
+		String caminhoArquivoPadrao = "data/" + countPlus + ".txt";
 
 		try {
 		    BufferedWriter writer = new BufferedWriter(new FileWriter(caminhoArquivoPadrao));
 		    
 		    if(tipo == 1)
-		    	writer.write(1);
+		    	writer.write("1");
 		    else if(tipo == 2)
-		    	writer.write(2);
+		    	writer.write("2");
 		    else 
-		    	writer.write(3);
+		    	writer.write("3");
 		    
 			writer.write("\n");
 		    
 		    
-		    	writer.write(stringGeral[0] + "\n");
-		   
-		    	writer.write(stringGeral[1] + "\n");
-		   
-		    	writer.write(stringGeral[2] + "\n");
-		   
-		    	writer.write(stringGeral[3] + "\n");
-		   
-		    	writer.write(stringGeral[4] + "\n");
-		    
-		    	writer.write(stringGeral[5] + "\n");
-		    	
-		    	if(tipo == 1){
-		    		writer.write(stringGeral[6] + "\n");
-		    		writer.write(stringGeral[7] + "\n");}
-		    	
-		    	else if(tipo == 2) {
-		    		writer.write(stringGeral[8] + "\n");
-		    		writer.write(stringGeral[9] + "\n");}
-		    	else {
-		    		writer.write(stringGeral[10] + "\n");
-		    		writer.write(stringGeral[11] + "\n");}
+	    	writer.write(stringGeral[0] + "\n");
+	   
+	    	writer.write(stringGeral[1] + "\n");
+	   
+	    	writer.write(stringGeral[2] + "\n");
+	   
+	    	writer.write(stringGeral[3] + "\n");
+	   
+	    	writer.write(stringGeral[4] + "\n");
+	    
+	    	writer.write(stringGeral[5] + "\n");
+	    	
+	    	if(tipo == 1){
+	    		writer.write(stringGeral[6] + "\n");
+	    		writer.write(stringGeral[7] + "\n");}
+	    	
+	    	else if(tipo == 2) {
+	    		writer.write(stringGeral[8] + "\n");
+	    		writer.write(stringGeral[9] + "\n");}
+	    	else {
+	    		writer.write(stringGeral[10] + "\n");
+	    		writer.write(stringGeral[11] + "\n");}
 		    	
 		    
 	    	writer.close();	      

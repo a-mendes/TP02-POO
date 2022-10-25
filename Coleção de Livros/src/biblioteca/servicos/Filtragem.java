@@ -10,29 +10,6 @@ import biblioteca.modelo.Livro;
 
 public class Filtragem {
 	
-	public static void testeFiltragem(ArrayList<Livro> livros) {
-		
-		ArrayList<Livro> testeFiltrado = new ArrayList<Livro>();
-		
-//		String[] stringGeral = new String[]{"o hobit","","","","","","","","","","","",};
-//		int itemSelecionado[] = {1,1,1,1,0,0,0,0,0,0,0,0,0,0,0};
-//		testeFiltrado = pesquisaEspecifica(livros, stringGeral, itemSelecionado);
-		
-		String stringGeral = "Hobbit";
-		int itemSelecionado[] = {1,1,1,1,1,0,1,1,1,1,0,1,1,0,1};
-		testeFiltrado = pesquisaGeral(livros, stringGeral, itemSelecionado);
-		
-		System.out.println("--------------Filtado--------------");
-		for (Livro livro : testeFiltrado) {
-			System.out.println(livro.getClass());
-			System.out.println(livro.getTitulo());
-			System.out.println();
-		}
-		
-
-
-	}
-	
 	public static void resultado (ArrayList<Livro> filtrada, ArrayList<Livro> tmp){
 		HashSet<Livro> hashSetTeste = new HashSet<Livro>(filtrada);
 		
@@ -43,6 +20,7 @@ public class Filtragem {
 		filtrada.addAll(hashSetTeste);
 	}
 	
+	//Filtros retornam os elementos do arrayList "livros" que contei o atributo desejado 
 	public static ArrayList<Livro> filtraTipo(ArrayList<Livro> livros, int tipo){
 		ArrayList<Livro> retorno = new ArrayList<Livro>();
 		
@@ -225,18 +203,9 @@ public class Filtragem {
 		return retorno;
 	}
 	
+	//Filtra os elementos 
 	public static ArrayList<Livro> pesquisaEspecifica(ArrayList<Livro> livros, String[] stringGeral, int itemSelecionado[]){
 		ArrayList<Livro> filtrado = new ArrayList<Livro>();
-		
-//		System.out.println("Especifica");
-//		System.out.println("String Geral1");
-//		for(String item : stringGeral) {
-//			System.out.print(item + "*");
-//		}
-//		System.out.println("Item Selecionado");
-//		for(int item : itemSelecionado) {
-//			System.out.print(item + "*");
-//		}
 							
 		//Filtrar Tipo
 		if(itemSelecionado[0] == 1) //Impresso
@@ -294,13 +263,6 @@ public class Filtragem {
 		ArrayList<Livro> filtradoTipo = new ArrayList<Livro>();
 		ArrayList<Livro> filtradoCoisas = new ArrayList<Livro>();
 		
-//		System.out.println("Geral");
-//		System.out.println("String Geral2: " + stringGeral);
-//		System.out.println("Item Selecionado");
-//		for(int item : itemSelecionado) {
-//			System.out.print(item + "*");
-//		}
-
 		//Filtrar Tipo
 		if(itemSelecionado[0] == 1) //Impresso
 			resultado(filtradoTipo, filtraTipo(livros, 0));
@@ -354,6 +316,6 @@ public class Filtragem {
 		
 		return filtradoCoisas;		
 	}
-
+	
 
 }

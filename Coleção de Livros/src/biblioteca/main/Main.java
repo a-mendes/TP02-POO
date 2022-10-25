@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import biblioteca.gui.Tela;
 import biblioteca.modelo.Livro;
 import biblioteca.servicos.BaseDeDados;
+import biblioteca.servicos.AlteraBiblioteca;
 
 
 public class Main {
@@ -26,18 +27,10 @@ public class Main {
 		/**
 		 * Instancia da interface gráfica
 		 */
-		tela = new Tela(livros);
-
-
-//		System.out.println("--------------Completo--------------");
-//		for (Livro livro : livros) {
-//			System.out.println(livro.getClass());
-//			System.out.println(livro.getTitulo());
-//			System.out.println();
-//		}
+		//tela = new Tela(livros);
 		
-		//Filtragem.testeFiltragem(livros);
-		//Relatorio.geradorRelatorio(livros);
+		AlteraBiblioteca.testa(livros);
+
 	}
 
 }
