@@ -414,15 +414,11 @@ public class Tela extends JFrame {
 			}
 		}
 		
-<<<<<<< Updated upstream
 		if(itemSelecionado[0] == 0 && itemSelecionado[1] == 0 && itemSelecionado[2] == 0) {
 			itemSelecionado[0] = 1; 
 			itemSelecionado[1] = 1;
 			itemSelecionado[2] = 1;
 		}
-=======
-		Relatorio.geradorRelatorio(listLivrosFiltro, stringGeral, itemSelecionado);
->>>>>>> Stashed changes
 		
 		if(todosNulos) {
 			String filtro = txtPesquisa.getText();

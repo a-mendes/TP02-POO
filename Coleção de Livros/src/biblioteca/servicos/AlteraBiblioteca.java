@@ -34,8 +34,8 @@ public class AlteraBiblioteca extends BaseDeDados {
 //		Exec(livros, stringToda, 1, 1);
 		
 		String stringToda[] = new String[8];
-		stringToda[0] = "O Hobbit";
-		stringToda[1] = "Clive Staples Lewis";
+		stringToda[0] = "Harry Potter e a Pedra Filosofal";
+		stringToda[1] = "J. K. Rowling";
 		stringToda[2] = "1950";
 		stringToda[3] = "Ingles";
 		stringToda[4] = "romance;infantojuvenil;ficcao;narnia";
@@ -43,7 +43,7 @@ public class AlteraBiblioteca extends BaseDeDados {
 		stringToda[6] = "saraiva;leitura";
 		stringToda[7] = "1";
 		
-		Exec(livros, stringToda, 2, 3);
+		Exec(livros, stringToda, 2, 1);
 	}
 	
 	public static void Exec(ArrayList<Livro> livros, String []stringToda, int op,int tipo) {
@@ -73,10 +73,12 @@ public class AlteraBiblioteca extends BaseDeDados {
 		File file = new File("data/");
 		int count = file.listFiles().length;
 		int numeroDeletado = count;
+		boolean encontrado = false;
 		
 		int tipoLivro = 0;
 		String tituloLivro = null;
-		
+		String AutoresLivro = null;
+
 		for (int i = 0; i < count ; ++i){
 			
 			String path = "data/" + (i+1) + ".txt";
@@ -91,34 +93,52 @@ public class AlteraBiblioteca extends BaseDeDados {
 			try {
 				tipoLivro = Integer.parseInt(re.readLine());
 				tituloLivro = re.readLine();
+				AutoresLivro = re.readLine();
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
 			
-			
-			if(tipoLivro == tipo && stringToda[0].equals(tituloLivro)) {
-				arquivo.delete();
-				numeroDeletado = i;
-				break;
-			}
-				
-		}
-		for (int i = numeroDeletado+1; i < count ; ++i) {
-			String path = "data/" + (i+1) + ".txt";
-			String pathNovo = "data/" + (i) + ".txt";
-			
 			try {
-				File arquivo = new File(path);
-				File arquivoNovo = new File(path);
-				arquivo.renameTo(arquivoNovo);
-			} 
-			catch (Exception e1) {
+				re.close();
+			} catch (IOException e1) {
 				e1.printStackTrace();
+			}	
+			
+			if(tipoLivro == tipo && stringToda[0].equals(tituloLivro) && stringToda[1].equals(AutoresLivro)) {
+				encontrado = true;
+				try {
+					Files.deleteIfExists(Paths.get(path));
+					numeroDeletado = i;
+					break;
+				}
+				catch (Exception e) {
+					e.printStackTrace();
+		        }
+				
 			}
 				
 		}
+		if(encontrado) {
+			for (int i = numeroDeletado+2; i <= count ; ++i) {
+				String path = "data/" + (i) + ".txt";
+				String pathNovo = "data/" + (i-1) + ".txt";
+				
+				try {
+					File arquivo = new File(path);
+					File arquivoNovo = new File(pathNovo);
+					arquivo.renameTo(arquivoNovo);
+				} 
+				catch (Exception e1) {
+					e1.printStackTrace();
+				}
+					
+			}
+			System.out.println("Arquivo Encontrado");
+		}
+		else 
+			System.out.println("Arquivo Não Encontrado");
 		
-		System.out.println("Arquivo Não Encontrado");
+		
 	}
 	
 	private static void criaArquivoLivro(String[] stringGeral,int tipo) {

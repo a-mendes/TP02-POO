@@ -43,7 +43,8 @@ public class BaseDeDados {
 			int tipoLivro = Integer.parseInt(strTipoLivro);
 			
 			adicionaLivro(tipoLivro);
-
+			
+			reader.close();
 		}
 		
 		return livros;
@@ -102,7 +103,8 @@ public class BaseDeDados {
 			break;
 		}
 	}
-	private static void lerLivro(Livro livro) throws IOException 
+	
+private static void lerLivro(Livro livro) throws IOException 
 	{
 		/**
 		 * Titulo
@@ -149,7 +151,6 @@ public class BaseDeDados {
 		ArrayList<String> capitulos = new ArrayList<String>(Arrays.asList(strCapitulos.split(";")));
 		livro.setCapitulos(capitulos);
 	}
-	
 	
 	private static void lerAudioBook(AudioBook audioBook) throws Exception
 	{
