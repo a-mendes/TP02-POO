@@ -506,17 +506,17 @@ public class Tela extends JFrame {
 		if((itemSelecionado[0] == 0) && (itemSelecionado[9] == 1 || itemSelecionado[10] == 1)) {
 			itemSelecionado[9] = 0;
 			itemSelecionado[10] = 0;
-			JOptionPane.showMessageDialog(null, "Item Especificos de tipo impresso digitados sem marcar tipo impresso. \nEles foram desmarcados internamente");
+			JOptionPane.showMessageDialog(null, "Itens especificos de tipo \"IMPRESSO\" informados sem marcar tipo \"IMPRESSO\". \nItens foram desmarcados internamente");
 		}
 		if((itemSelecionado[1] == 0) && (itemSelecionado[11] == 1 || itemSelecionado[12] == 1)) {
 			itemSelecionado[11] = 0;
 			itemSelecionado[12] = 0;
-			JOptionPane.showMessageDialog(null, "Item Especificos de tipo eletronico digitados sem marcar tipo impresso. \nEles foram desmarcados internamente");
+			JOptionPane.showMessageDialog(null, "Itens especificos de tipo \"ELETRONICO\" digitados sem marcar tipo \"ELETRONICO\". \nItens foram desmarcados internamente");
 		}
 		if((itemSelecionado[2] == 0) && (itemSelecionado[13] == 1 || itemSelecionado[14] == 1)) {
 			itemSelecionado[13] = 0;
 			itemSelecionado[14] = 0;
-			JOptionPane.showMessageDialog(null, "Item Especificos de tipo audioBook digitados sem marcar tipo impresso. \nEles foram desmarcados internamente");
+			JOptionPane.showMessageDialog(null, "Itens especificos de tipo \"AudioBook\" digitados sem marcar tipo \"AudioBook\". \nItens foram desmarcados internamente");
 		}
 
 
