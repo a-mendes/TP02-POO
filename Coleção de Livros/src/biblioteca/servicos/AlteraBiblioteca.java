@@ -19,7 +19,7 @@ import biblioteca.modelo.Impresso;
 import biblioteca.modelo.Livro;
 
 public class AlteraBiblioteca extends BaseDeDados {
-	
+	//Função para testes 
 	public static void testa(ArrayList<Livro> livros) {
 //		String stringToda[] = new String[8];
 //		stringToda[0] = "O Leao, a Feiticeira e o Guarda-Roupa 17";
@@ -27,7 +27,7 @@ public class AlteraBiblioteca extends BaseDeDados {
 //		stringToda[2] = "1950";
 //		stringToda[3] = "Ingles";
 //		stringToda[4] = "romance;infantojuvenil;ficcao;narnia";
-//		stringToda[5] = "Uma Estranha Descoberta;O Que Lucia Descobriu;Edmundo e o Guarda-Roupa;Manjar Turco;Outra Vez do Lado de Ca;Na Floresta;Um Dia com os Castores;Depois do Jantar;Na Casa da Feiticeira;O Encantamento Come�a a Quebrar-se;A Aproximacao de Aslam;A Primeira Batalha de Pedro;Magia Profunda na Aurora do Tempo;O Triunfo da Feiticeira;Magia Ainda Mais Profunda de Antes da Aurora do Tempo;O Que Aconteceu com as Estatuas;A Cacada ao Veado Branco";
+//		stringToda[5] = "Uma Estranha Descoberta;O Que Lucia Descobriu;Edmundo e o Guarda-Roupa;Manjar Turco;Outra Vez do Lado de Ca;Na Floresta;Um Dia com os Castores;Depois do Jantar;Na Casa da Feiticeira;O Encantamento Come�a a Quebrar-se;A Aproximacao de Aslam;A Primeira Batalha de Pedro;Magia Profunda na Aurora do Tempo;O Triunfo da Feiticeira;Magia Ainda Mais Profunda de Antes da Aurora do Tempo;O Que Aconteceu com as Estatuas;A Cacada ao Veado Branco";
 //		stringToda[6] = "saraiva;leitura";
 //		stringToda[7] = "1";
 //		
@@ -39,29 +39,30 @@ public class AlteraBiblioteca extends BaseDeDados {
 		stringToda[2] = "1950";
 		stringToda[3] = "Ingles";
 		stringToda[4] = "romance;infantojuvenil;ficcao;narnia";
-		stringToda[5] = "Uma Estranha Descoberta;O Que Lucia Descobriu;Edmundo e o Guarda-Roupa;Manjar Turco;Outra Vez do Lado de Ca;Na Floresta;Um Dia com os Castores;Depois do Jantar;Na Casa da Feiticeira;O Encantamento Come�a a Quebrar-se;A Aproximacao de Aslam;A Primeira Batalha de Pedro;Magia Profunda na Aurora do Tempo;O Triunfo da Feiticeira;Magia Ainda Mais Profunda de Antes da Aurora do Tempo;O Que Aconteceu com as Estatuas;A Cacada ao Veado Branco";
+		stringToda[5] = "Uma Estranha Descoberta;O Que Lucia Descobriu;Edmundo e o Guarda-Roupa;Manjar Turco;Outra Vez do Lado de Ca;Na Floresta;Um Dia com os Castores;Depois do Jantar;Na Casa da Feiticeira;O Encantamento Come�a a Quebrar-se;A Aproximacao de Aslam;A Primeira Batalha de Pedro;Magia Profunda na Aurora do Tempo;O Triunfo da Feiticeira;Magia Ainda Mais Profunda de Antes da Aurora do Tempo;O Que Aconteceu com as Estatuas;A Cacada ao Veado Branco";
 		stringToda[6] = "saraiva;leitura";
 		stringToda[7] = "1";
 		
 		Exec(livros, stringToda, 2, 1);
 	}
 	
+	//Executa a ação de adicionar ou de remover livros 
 	public static void Exec(ArrayList<Livro> livros, String []stringToda, int op,int tipo) {
 		//Filtrar Comando
 	
 		if(op == 1) {//Adiconar
-			criaArquivoLivro(stringToda,tipo);
+			criaArquivoLivro(stringToda,tipo); // Cria o arquivo com dados do livro
 			try {
-				lerBaseDeDados();
+				lerBaseDeDados();// Reinicia Base de dados atualizada 
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
 			
 		}
 		else { //Remover
-			remove(stringToda,tipo);
+			remove(stringToda,tipo); //Remove arquivo do livro
 			try {
-				lerBaseDeDados();
+				lerBaseDeDados();//Reinicia Base de dados atualizada 
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -69,10 +70,14 @@ public class AlteraBiblioteca extends BaseDeDados {
 	}
 	
 	private static void remove(String[] stringToda, int tipo) {
+		//Leitor
 		BufferedReader re = null;
+		//Quantidade de arquivos 
 		File file = new File("data/");
 		int count = file.listFiles().length;
+		//Variavel para saber qual arquivo será deletado
 		int numeroDeletado = count;
+		//Variavel para saber se encontrou o arquivo que deve ser deletado
 		boolean encontrado = false;
 		
 		int tipoLivro = 0;
@@ -89,7 +94,7 @@ public class AlteraBiblioteca extends BaseDeDados {
 			catch (FileNotFoundException e1) {
 				e1.printStackTrace();
 			}
-			
+			//leitura de dados que serão usados para comparar 
 			try {
 				tipoLivro = Integer.parseInt(re.readLine());
 				tituloLivro = re.readLine();
@@ -97,13 +102,13 @@ public class AlteraBiblioteca extends BaseDeDados {
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
-			
+			//Fecha arquivo
 			try {
 				re.close();
 			} catch (IOException e1) {
 				e1.printStackTrace();
 			}	
-			
+			//Caso seja compativel será excluido
 			if(tipoLivro == tipo && stringToda[0].equals(tituloLivro) && stringToda[1].equals(AutoresLivro)) {
 				encontrado = true;
 				try {
@@ -117,7 +122,7 @@ public class AlteraBiblioteca extends BaseDeDados {
 				
 			}
 				
-		}
+		}//Caso encontrado os arquivos posteriores serão renomeados para manter a ordem 
 		if(encontrado) {
 			for (int i = numeroDeletado+2; i <= count ; ++i) {
 				String path = "data/" + (i) + ".txt";
@@ -149,9 +154,9 @@ public class AlteraBiblioteca extends BaseDeDados {
 		
 		String caminhoArquivoPadrao = "data/" + countPlus + ".txt";
 
-		try {
+		try {//Cria arquivo
 		    BufferedWriter writer = new BufferedWriter(new FileWriter(caminhoArquivoPadrao));
-		    
+		    //Escreve dados  dados digitados pelo usuario 
 		    if(tipo == 1)
 		    	writer.write("1");
 		    else if(tipo == 2)
@@ -186,7 +191,7 @@ public class AlteraBiblioteca extends BaseDeDados {
 	    		writer.write(stringGeral[11] + "\n");}
 		    	
 		    
-	    	writer.close();	      
+	    	writer.close();	      //Fecha arquivo
 		    
 	    } catch (IOException e) {
 	      System.out.println("Erro de Abertura");

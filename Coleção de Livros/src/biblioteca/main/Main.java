@@ -28,9 +28,9 @@ public class Main {
 		/**
 		 * Instancia da interface gráfica
 		 */
-		//tela = new Tela(livros);
+		tela = new Tela(livros);
 		
-		AlteraBiblioteca.testa(livros);
+	
 
 	}
 

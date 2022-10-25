@@ -1,7 +1,7 @@
 package biblioteca.servicos;
 
 import java.util.*;
-
+//Utilizada para pesquisar por livros mesmo com pequenas diferenças do digitado com o que existe na base de dados
 class CasamentoAproximado{
 
  static int computeLevenshtein(String str1, String str2){
