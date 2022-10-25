@@ -7,6 +7,9 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -17,17 +20,95 @@ import biblioteca.modelo.Livro;
 
 public class AlteraBiblioteca extends BaseDeDados {
 	
-	public static Livro Exec(ArrayList<Livro> livros, String []stringToda, int itemSelecionado[],int tipo) {
+	public static void Exec(ArrayList<Livro> livros, String []stringToda, int itemSelecionado[],int tipo) {
 		//Filtrar Comando
 	
 		if(itemSelecionado[0] == 1) {//Adiconar
 			criaArquivoLivro(stringToda,tipo);
-			lerBaseDeDados();
+			try {
+				lerBaseDeDados();
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			
 		}
-		else //Remover
-			remove(livros,stringGeral,tipo);
+		else { //Remover
+			remove(stringToda,tipo);
+			try {
+				lerBaseDeDados();
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 	}
+	private static void remove(String[] stringToda, int tipo) {
+		BufferedReader re = null;
+		File file = new File("data/");
+		int count = file.listFiles().length;
+		
+		for (int i = 0; i < count ; ++i)
+		{
+			String path = "data/" + (i+1) + ".txt";
+			File arquivo = new File(path);
+			try {
+				re = new BufferedReader(new FileReader(arquivo.getPath()));
+			} catch (FileNotFoundException e1) {
+				e1.printStackTrace();
+			}
+
+			/** 
+			 * Faz verificacao de tipo de livro e cria instancia adequada
+			 */ 
+
+			String strTipoLivro = null;
+			try {
+				strTipoLivro =re.readLine();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		
+			int tipoLivro = Integer.parseInt(strTipoLivro);
+			if(tipoLivro == tipo) {
+				String titulo = null;
+			    try {
+					titulo = re.readLine();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				if(titulo == stringToda[0]) {
+					String strEscritores = null;
+					try {
+						strEscritores = re.readLine();
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					if(strEscritores == stringToda[1]) {
+						Path pathOfFile1
+			            = Paths.get(path);
+						try {
+							Files.delete(pathOfFile1);
+						} catch (IOException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+						return ;
+					}
+				}
+			}
+		}
+		System.out.println("Arquivo Não Encontrado");
+	}
+	
+	
+	
+	
+	
+	
 	private static void criaArquivoLivro(String[] stringGeral,int tipo) {
 		
 		File file = new File("data/");
