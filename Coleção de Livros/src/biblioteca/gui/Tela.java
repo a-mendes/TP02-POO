@@ -77,7 +77,7 @@ public class Tela extends JFrame {
 	private JTextField txtFormatoAudioBook;
 	
 	/**
-	 * Exibiï¿½ï¿½o dos resultados
+	 * Exibicao dos resultados
 	 */
 	private ListagemPaginada listResultados;
 	
@@ -96,6 +96,10 @@ public class Tela extends JFrame {
 	 * Lista contendo os livros fornecidos
 	 */
 	private ArrayList<Livro> listLivrosOriginal;
+	
+	/**
+	 * Lista contendo os Livros filtrados
+	 */
 	private ArrayList<Livro> listLivrosFiltro;
 	
 	public Tela(ArrayList<Livro> livros) {
@@ -135,6 +139,9 @@ public class Tela extends JFrame {
 	}
 
 	private void initPanelPesquisaEspecifica() {
+		/**
+		 * Configura o panel 
+		 */
 		pnlPesquisaEspecifica = new JPanel();
 		initPanelTipoLivro();
 		initPanelFiltroPesquisaEspecifica();
@@ -152,7 +159,7 @@ public class Tela extends JFrame {
 		pnlPesquisa.setBorder(BorderFactory.createTitledBorder("Pesquisar"));
 		
 		/**
-		 * Configuração de TextField Para pesquisa master
+		 * Configuracao de TextField para pesquisa geral
 		 */
 		txtPesquisa = new JTextField("Ex.: 'Hobbit'");
 		txtPesquisa.setPreferredSize(new Dimension(600, 50));
@@ -160,7 +167,7 @@ public class Tela extends JFrame {
 		pnlPesquisa.add(txtPesquisa);
 		
 		/**
-		 * Botão Pesquisa
+		 * Botao Pesquisa
 		 */
 		btnPesquisa = new JButton("Pesquisar");
 		btnPesquisa.setPreferredSize(new Dimension(100, 50));
@@ -173,11 +180,15 @@ public class Tela extends JFrame {
 		});
 		pnlPesquisa.add(btnPesquisa);
 		
+		/**
+		 * Botao de Relatorio
+		 */
 		btnRelatorio = new JButton("Relatório");
 		btnRelatorio.setPreferredSize(new Dimension(100, 50));
 		btnRelatorio.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				emitirRelatorio();
+				JOptionPane.showMessageDialog(null, "Relatorio gerado com sucesso no arquivo 'relatorio.txt'");
 			}
 		});
 		pnlPesquisa.add(btnRelatorio);
@@ -214,6 +225,9 @@ public class Tela extends JFrame {
 	}
 	
 	private void initPanelFiltroPesquisaGeral() {
+		/**
+		 * Configura o panel 
+		 */
 		pnlFiltroPesquisaGeral = new JPanel();
 		pnlFiltroPesquisaGeral.setPreferredSize(new Dimension(WIDTH - 50, 100));
 		pnlFiltroPesquisaGeral.setLayout(new GridLayout(2, 3));
@@ -234,9 +248,9 @@ public class Tela extends JFrame {
 		pnlFiltroPesquisaGeral.add(pnlEscritores);
 		
 		/**
-		 * Ano Publicacao 
+		 * Ano Publicacao (apenas inteiros)
 		 */
-		//TODO Filtro de numeros
+
 		txtAnoPublicacao = new JTextField();
 		JPanel pnlAno = getLabelxTextFieldPanel(txtAnoPublicacao, "Ano ");
 		pnlFiltroPesquisaGeral.add(pnlAno);
@@ -264,7 +278,13 @@ public class Tela extends JFrame {
 		
 		pnlPrincipal.add(pnlFiltroPesquisaGeral);
 	}
-	
+
+	/**
+	 * Realiza o dimensionamento dos campos de texto com relação as labels
+	 * @param txtField - campo de texto
+	 * @param nomeCampo - label correpondente ao campo
+	 * @return Jpanel com o dimensionamento correto
+	 */
 	private JPanel getLabelxTextFieldPanel(JTextField txtField, String nomeCampo) {
 		JPanel jpanel = new JPanel();
 		jpanel.setLayout(new FlowLayout());
@@ -281,11 +301,17 @@ public class Tela extends JFrame {
 	}
 	
 	private void initPanelTipoLivro() {
+		/**
+		 * Configura o panel 
+		 */
 		pnlFiltroTipoLivro = new JPanel();
 		pnlFiltroTipoLivro.setPreferredSize(new Dimension(200, 200));
 		pnlFiltroTipoLivro.setLayout(new GridLayout(3, 1));
 		pnlFiltroTipoLivro.setBorder(BorderFactory.createTitledBorder("Filtro por \"Tipo de Livro\""));
 		
+		/**
+		 * Checkboxes para tipo de livro
+		 */
 		cbxTipoAudioBook = new JCheckBox("AudioBooks");
 		pnlFiltroTipoLivro.add(cbxTipoAudioBook);
 
@@ -298,63 +324,111 @@ public class Tela extends JFrame {
 		pnlPesquisaEspecifica.add(pnlFiltroTipoLivro);
 	}
 	
+	
 	private void initPanelFiltroPesquisaEspecifica() {
+		/**
+		 * Configura o panel 
+		 */
  		pnlFiltroPesquisaEspecifica = new JPanel();
  		pnlFiltroPesquisaEspecifica.setPreferredSize(new Dimension(945, 200));
- 		pnlFiltroPesquisaEspecifica.setLayout(new GridLayout(2, 3));
- 		pnlFiltroPesquisaEspecifica.setBorder(BorderFactory.createTitledBorder("Filtros especÃ­ficos por \"Tipo de Livro\""));
+ 		pnlFiltroPesquisaEspecifica.setLayout(new GridLayout(1, 3));
+ 		pnlFiltroPesquisaEspecifica.setBorder(BorderFactory.createTitledBorder("Filtros especificos por \"Tipo de Livro\""));
+ 		
+ 		/*****
+ 		 * 
+ 		 * Livros Impressos
+ 		 * 
+ 		 *****/
+ 		
+ 		JPanel pnlFiltroImpresso = new JPanel();
+ 		pnlFiltroImpresso.setPreferredSize(new Dimension(300, 180));
+ 		pnlFiltroImpresso.setLayout(new GridLayout(2, 1));
+ 		pnlFiltroImpresso.setBorder(BorderFactory.createTitledBorder("Impresso"));
  		
  		/**
  		 * Livrarias
  		 */
  		txtLivrarias = new JTextField();
  		JPanel pnlLivrarias = getLabelxTextFieldPanel(txtLivrarias, "Livrarias ");
- 		pnlFiltroPesquisaEspecifica.add(pnlLivrarias);
+ 		pnlFiltroImpresso.add(pnlLivrarias);
 
  		/**
-		 * Colunas
+		 * Colunas (apenas inteiros)
 		 */
 		txtColunas = new JTextField();
 		JPanel pnlColunas = getLabelxTextFieldPanel(txtColunas, "Colunas ");
-		pnlFiltroPesquisaEspecifica.add(pnlColunas);
+		pnlFiltroImpresso.add(pnlColunas);
 		
+		pnlFiltroPesquisaEspecifica.add(pnlFiltroImpresso);
+		
+		/*****
+ 		 * 
+ 		 * Livros Eletronicos
+ 		 * 
+ 		 *****/
+		JPanel pnlFiltroEletronico = new JPanel();
+		pnlFiltroEletronico.setPreferredSize(new Dimension(300, 180));
+		pnlFiltroEletronico.setLayout(new GridLayout(2, 1));
+		pnlFiltroEletronico.setBorder(BorderFactory.createTitledBorder("Eletronico"));
+ 		
 		/**
 		 * URL
 		 */
 		txtURL = new JTextField();
 		JPanel pnlURL = getLabelxTextFieldPanel(txtURL, "URL ");
-		pnlFiltroPesquisaEspecifica.add(pnlURL);
+		pnlFiltroEletronico.add(pnlURL);
 		
 		/**
 		 * Formato Eletronico
 		 */
 		txtFormatoEletronico = new JTextField();
 		JPanel pnlFormatoEletronico = getLabelxTextFieldPanel(txtFormatoEletronico, "Formato \"Eletronico\" ");
-		pnlFiltroPesquisaEspecifica.add(pnlFormatoEletronico);
+		pnlFiltroEletronico.add(pnlFormatoEletronico);
+		
+		pnlFiltroPesquisaEspecifica.add(pnlFiltroEletronico);
+		
+		
+		/*****
+ 		 * 
+ 		 * Livros AudioBooks
+ 		 * 
+ 		 *****/
+		JPanel pnlFiltroAudioBook = new JPanel();
+		pnlFiltroAudioBook.setPreferredSize(new Dimension(300, 180));
+		pnlFiltroAudioBook.setLayout(new GridLayout(2, 1));
+		pnlFiltroAudioBook.setBorder(BorderFactory.createTitledBorder("AudioBook"));
 		
 		/**
-		 * Duracao
+		 * Duracao (numeros decimais)
 		 */
 		txtDuracao = new JTextField();
-		JPanel pnlDuracao = getLabelxTextFieldPanel(txtDuracao, "DuraÃ§Ã£o ");
-		pnlFiltroPesquisaEspecifica.add(pnlDuracao);
+		JPanel pnlDuracao = getLabelxTextFieldPanel(txtDuracao, "Duracao ");
+		pnlFiltroAudioBook.add(pnlDuracao);
 		
 		/**
 		 * FormatoAudioBook
 		 */
 		txtFormatoAudioBook = new JTextField();
 		JPanel pnlFormatoAudioBook = getLabelxTextFieldPanel(txtFormatoAudioBook, "Formato \"AudioBook\" ");
-		pnlFiltroPesquisaEspecifica.add(pnlFormatoAudioBook);
+		pnlFiltroAudioBook.add(pnlFormatoAudioBook);
+		
+		pnlFiltroPesquisaEspecifica.add(pnlFiltroAudioBook);
 		
 		pnlPesquisaEspecifica.add(pnlFiltroPesquisaEspecifica);
 	}
 	
 	private void initPanelResultados() {
+		/**
+		 * Configura o panel 
+		 */
 		pnlResultados = new JPanel();
 		pnlResultados.setPreferredSize(new Dimension(WIDTH - 50, 500));
 		pnlResultados.setLayout(new FlowLayout());
 		pnlResultados.setBorder(BorderFactory.createTitledBorder("Resultados da Pesquisa"));
 		
+		/**
+		 * Lista de resultados
+		 */
 		listResultados = new ListagemPaginada(5, listLivrosFiltro);
 		pnlResultados.add(listResultados);
 		
@@ -387,92 +461,41 @@ public class Tela extends JFrame {
 		txtFormatoAudioBook.setText("");
 	}
 	
-	private boolean validaNumeros(int itemSelecionado[], String[] stringGeral) {
-		
-		try {
-			if(itemSelecionado[5] == 1)
-				Integer.parseInt(stringGeral[2]);
-			if(itemSelecionado[10] == 1)
-				Integer.parseInt(stringGeral[7]);
-			if(itemSelecionado[13] == 1)
-				Integer.parseInt(stringGeral[10]);
-		}
-		catch (Exception x) {
-			return false;
-		}
-		return true;
-	}
-	
 	private void emitirRelatorio() {
+		/**
+		 * Lista de campos a serem pesquisados
+		 */
 		int itemSelecionado[] = getIndicesFiltrados();
-		
-		if(itemSelecionado[0] == 0 && itemSelecionado[1] == 0 && itemSelecionado[2] == 0) {
-			itemSelecionado[0] = 1; 
-			itemSelecionado[1] = 1;
-			itemSelecionado[2] = 1;
-			JOptionPane.showMessageDialog(null, "Nenhum tipo Marcado. Todos foram marcados internamente");
-		}
-		
-		if((itemSelecionado[0] == 0) && (itemSelecionado[9] == 1 || itemSelecionado[10] == 1)) {
-			itemSelecionado[9] = 0;
-			itemSelecionado[10] = 0;
-			JOptionPane.showMessageDialog(null, "Item Especificos de tipo impresso digitados sem marcar tipo impresso. \nEles foram desmarcados internamente");
-		}
-		if((itemSelecionado[1] == 0) && (itemSelecionado[11] == 1 || itemSelecionado[12] == 1)) {
-			itemSelecionado[11] = 0;
-			itemSelecionado[12] = 0;
-			JOptionPane.showMessageDialog(null, "Item Especificos de tipo eletronico digitados sem marcar tipo impresso. \nEles foram desmarcados internamente");
-		}
-		if((itemSelecionado[2] == 0) && (itemSelecionado[13] == 1 || itemSelecionado[14] == 1)) {
-			itemSelecionado[13] = 0;
-			itemSelecionado[14] = 0;
-			JOptionPane.showMessageDialog(null, "Item Especificos de tipo audioBook digitados sem marcar tipo impresso. \nEles foram desmarcados internamente");
-		}
 
-		boolean todosNulos = true;
-		for(int i = 3; i < itemSelecionado.length; i++) {
-			if(itemSelecionado[i] == 1) {
-				todosNulos = false;
-				break;
-			}
-		}
+		char tipoPesquisa = doPesquisa();
 		
-		if(todosNulos) {
-			String filtro = txtPesquisa.getText();
-			for(int i = 0; i < itemSelecionado.length; i++)
-				itemSelecionado[i] = 1;
-			
-			try {
-				Integer.parseInt(filtro);
-			}
-			catch (Exception x) {
-				itemSelecionado[5] = 0; 
-				itemSelecionado[10] = 0;
-				itemSelecionado[13] = 0;
-			}
-			
-			listLivrosFiltro = Filtragem.pesquisaGeral(listLivrosOriginal, filtro, itemSelecionado);
-			Relatorio.geradorRelatorioGeral(listLivrosFiltro, filtro, itemSelecionado);
-			JOptionPane.showMessageDialog(null, "O 'relatorio.txt' foi gerado com sucesso!");
-		}
-			
-		else {
+		/**
+		 * Relatorios diferentes de acordo com a pesquisa
+		 * E - pesquisa Específica
+		 * G - pesquisa Geral
+		 */
+		if(tipoPesquisa == 'E') {
 			String[] stringGeral = getStringFiltros();
-							 
-			if(validaNumeros(itemSelecionado, stringGeral)) {
-				listLivrosFiltro = Filtragem.pesquisaEspecifica(listLivrosOriginal, stringGeral, itemSelecionado);
-				Relatorio.geradorRelatorio(listLivrosFiltro, stringGeral, itemSelecionado);
-				JOptionPane.showMessageDialog(null, "O 'relatorio.txt' foi gerado com sucesso!");
-			}
-			else
-				JOptionPane.showMessageDialog(null, "Digite uma valor numerico nos campo correspondentes");
-		}
+			Relatorio.geradorRelatorio(listLivrosFiltro, stringGeral, itemSelecionado);
 
+		}
+		else {
+			Relatorio.geradorRelatorioGeral(listLivrosFiltro, txtPesquisa.getText(), itemSelecionado);
+		}
+			
 	}
 	
-	private void doPesquisa() {
+	/**
+	 * 
+	 * @return char - tipo de pesquisa feita
+	 */
+	private char doPesquisa() {
 		int itemSelecionado[] = getIndicesFiltrados();
 	
+		/**
+		 * Valida as escolhas do usuário de modo a evitar erros 
+		 * e problemas de uso.
+		 */
 		if(itemSelecionado[0] == 0 && itemSelecionado[1] == 0 && itemSelecionado[2] == 0) {
 			itemSelecionado[0] = 1; 
 			itemSelecionado[1] = 1;
@@ -496,6 +519,8 @@ public class Tela extends JFrame {
 			JOptionPane.showMessageDialog(null, "Item Especificos de tipo audioBook digitados sem marcar tipo impresso. \nEles foram desmarcados internamente");
 		}
 
+
+		
 		boolean todosNulos = true;
 		for(int i = 3; i < itemSelecionado.length; i++) {
 			if(itemSelecionado[i] == 1) {
@@ -503,35 +528,28 @@ public class Tela extends JFrame {
 				break;
 			}
 		}
-		
+
+		/**
+		 * Se nenhum campo foi preenchido, realiza-se uma pesquisa geral
+		 */
 		if(todosNulos) {
 			String filtro = txtPesquisa.getText();
 			for(int i = 3; i < itemSelecionado.length; i++)
 				itemSelecionado[i] = 1;
-			
-			try {
-				Integer.parseInt(filtro);
-			}
-			catch (Exception x) {
-				itemSelecionado[5] = 0; 
-				itemSelecionado[10] = 0;
-				itemSelecionado[13] = 0;
-			}
-			
+		
+			validaNumeros(itemSelecionado, filtro);
 			listLivrosFiltro = Filtragem.pesquisaGeral(listLivrosOriginal, filtro, itemSelecionado);
 			listResultados.setListLivros(listLivrosFiltro);
-		}
 			
-		else {
-			String[] stringGeral = getStringFiltros();
-			
-			if(validaNumeros(itemSelecionado, stringGeral)) {
-				listLivrosFiltro = Filtragem.pesquisaEspecifica(listLivrosOriginal, stringGeral, itemSelecionado);
-				listResultados.setListLivros(listLivrosFiltro);
-			}
-			else
-				JOptionPane.showMessageDialog(null, "Digite uma valor numerico nos campo correspondentes");
+			return 'G';
 		}
+		
+		String[] stringGeral = getStringFiltros();
+		validaNumeros(itemSelecionado, stringGeral);
+		listLivrosFiltro = Filtragem.pesquisaEspecifica(listLivrosOriginal, stringGeral, itemSelecionado);
+		listResultados.setListLivros(listLivrosFiltro);
+			
+		return 'E';
 	}
 	
 	private String[] getStringFiltros() {
@@ -578,7 +596,66 @@ public class Tela extends JFrame {
 			itemSelecionado[13] = (!txtDuracao.getText().isEmpty())? (1) : (0);
 			itemSelecionado[14] = (!txtFormatoAudioBook.getText().isEmpty())? (1) : (0);
 		
+		/**
+		 * Se nenhum tipo de livro for selecionado, todos serão pesquisados
+		 */
+		if(itemSelecionado[0] == 0 && itemSelecionado[1] == 0 && itemSelecionado[2] == 0) {
+			itemSelecionado[0] = 1; 
+			itemSelecionado[1] = 1;
+			itemSelecionado[2] = 1;
+		}
+			
 		return itemSelecionado;
+	}
+
+	/**
+	 * Tenta converter a string de pesquisa geral para numero, se falhar, inabilita 
+	 * as pesquisas para os campos numericos
+	 * 
+	 * @param itemSelecionado
+	 * @param stringGeral
+	 */
+	private void validaNumeros(int itemSelecionado[], String stringGeral) {
+		
+		try {
+			if(itemSelecionado[5] == 1 || itemSelecionado[10] == 1 || itemSelecionado[13] == 1)
+				Integer.parseInt(stringGeral);
+		}
+		catch (Exception x) {
+			itemSelecionado[5] = 0;
+			itemSelecionado[10] = 0;
+			itemSelecionado[13] = 0;
+		}
+	}
+	
+private void validaNumeros(int itemSelecionado[], String[] stringGeral) {
+		
+		try {
+			if(itemSelecionado[5] == 1)
+				Integer.parseInt(stringGeral[2]);
+			}
+			catch (Exception x) {
+				itemSelecionado[5] = 0;
+				JOptionPane.showMessageDialog(null, "Alguns dos valores informados não correspondem ao tipo esperado, portanto, foram ignorados na pesquisa");
+			}
+			
+		try {
+			if(itemSelecionado[10] == 1)
+				Integer.parseInt(stringGeral[7]);
+			}
+		catch (Exception x) {
+				itemSelecionado[10] = 0;
+				JOptionPane.showMessageDialog(null, "Alguns dos valores informados não correspondem ao tipo esperado, portanto, foram ignorados na pesquisa");
+			}
+		
+		try {
+			if(itemSelecionado[13] == 1)
+				Integer.parseInt(stringGeral[10]);
+		}
+		catch (Exception x) {
+			itemSelecionado[13] = 0;
+			JOptionPane.showMessageDialog(null, "Alguns dos valores informados não correspondem ao tipo esperado, portanto, foram ignorados na pesquisa");
+		}
 	}
 }
 

@@ -21,9 +21,10 @@ public class BaseDeDados {
 	public static ArrayList<Livro> lerBaseDeDados() throws Exception {
 	//Descobre quantos arquivos possui na pasta 
 		File file = new File("data/");
-		int count = file.listFiles().length;
-	//For que realiza leitura 
-		for (int i = 0; i < count ; ++i)
+
+		int qtdArquivos = file.listFiles().length;
+		
+		for (int i = 0; i < qtdArquivos ; ++i)
 		{
 			String path = "data/" + (i+1) + ".txt";
 			File arquivo = new File(path);
@@ -103,7 +104,7 @@ public class BaseDeDados {
 		}
 	}
 	//Responsavel por ler e "setar" todos os dados basicos  dos livros 
-private static void lerLivro(Livro livro) throws IOException 
+	private static void lerLivro(Livro livro) throws IOException 
 	{
 		/**
 		 * Titulo

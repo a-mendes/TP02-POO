@@ -79,7 +79,7 @@ public class DetalhesLivroDialog extends JDialog {
 		/**
 		 * Numero de colunas
 		 */
-		content += "<h1>Número de Colunas </h1> " + impresso.getNumeroColunas() + "<br/> <br/> <hr/>";
+		content += "<h1>Numero de Colunas </h1> " + impresso.getNumeroColunas() + "<br/> <br/> <hr/>";
 		
 		/**
 		 * Livrarias
@@ -120,7 +120,7 @@ public class DetalhesLivroDialog extends JDialog {
 		/**
 		 * T�tulo
 		 */
-		content += "<h1>Título </h1> " + livro.getTitulo() + "<br/> <br/> <hr/>";
+		content += "<h1>Titulo </h1> " + livro.getTitulo() + "<br/> <br/> <hr/>";
 		
 		/**
 		 * Escritores
@@ -135,7 +135,7 @@ public class DetalhesLivroDialog extends JDialog {
 		/**
 		 * Ano Publica��o
 		 */
-		content += "<h1>Ano de Publicação </h1> " + livro.getAnoDePublicacao() + "<br/> <br/> <hr/>";
+		content += "<h1>Ano de Publicacao </h1> " + livro.getAnoDePublicacao() + "<br/> <br/> <hr/>";
 
 		/**
 		 * Idioma 
@@ -146,7 +146,7 @@ public class DetalhesLivroDialog extends JDialog {
 		 * Capitulos
 		 */
 		
-		content += "<h1>Capítulos </h1> "; 
+		content += "<h1>Capitulos </h1> "; 
 		for (String capitulo : livro.getCapitulos()) {
 			content += "-  " + capitulo + "<br/>";
 		}

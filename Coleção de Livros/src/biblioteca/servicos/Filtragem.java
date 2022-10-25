@@ -265,7 +265,7 @@ public class Filtragem {
 			filtrado = filtraFormatoTexto(filtrado, stringGeral[9]);
 		
 		if(itemSelecionado[13] == 1 && itemSelecionado[2] == 1) //Duracao
-			filtrado = filtraDuracao(filtrado, Integer.parseInt(stringGeral[10])); //Nao vai lancar exeção porque ja for testado antes
+			filtrado = filtraDuracao(filtrado, Double.parseDouble(stringGeral[10])); //Nao vai lancar exeção porque ja for testado antes
 			
 		if(itemSelecionado[14] == 1 && itemSelecionado[2] == 1) //Formato Audio
 			filtrado = filtraFormatoAudio(filtrado, stringGeral[11]);
@@ -334,7 +334,7 @@ public class Filtragem {
 			resultado(filtradoCoisas, filtraFormatoTexto(filtradoTipo, stringGeral));
 		
 		if(itemSelecionado[13] == 1 && itemSelecionado[2] == 1) //Duracao
-			resultado(filtradoCoisas, filtraDuracao(filtradoTipo, Integer.parseInt(stringGeral)));
+			resultado(filtradoCoisas, filtraDuracao(filtradoTipo, Double.parseDouble(stringGeral)));
 		
 		if(itemSelecionado[14] == 1 && itemSelecionado[2] == 1) //Formato Audio
 			resultado(filtradoCoisas, filtraFormatoAudio(filtradoTipo, stringGeral));

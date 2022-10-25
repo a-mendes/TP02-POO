@@ -1,29 +1,29 @@
-ESPECIFICA��ES DA PESQUISA
-Tipo: --------------- Impresso Eletronico AudioBook 
-Nome: --------------- Hobbit
+ESPECIFICA��ES DA PESQUISA
+Tipo: --------------- Impresso AudioBook 
+Nome: --------------- Harry Potter e a pedra filosofal
 
 
 ------------------------------------------------------------------------------------
 
-Nome: --------------- O Hobbit
-Escritor: ----------- [John Ronald Reuel Tolkien]
-Ano: ---------------- 1937
+Nome: --------------- Harry Potter e a Pedra Filosofal
+Escritor: ----------- [J. K. Rowling]
+Ano: ---------------- 1997
 Idioma: ------------- Ingles
-Palavra Chave: ------ [idade media, historia, narrativa, ‎fantasia‎, literatura infantojuvenil]
-Capitulo: ----------- [Uma festa inesperada, Carneiro assado, Um breve descanso, Montanha acima, montanha adentro, Adivinhas no escuro, Da frigideira para o fogo, Estranhos alojamentos, Moscas e aranhas, Barris soltos, Uma acolhida calorosa, Na soleira da porta, Informacao de dentro, Fora de casa, Fogo e agua, Tempestade a vista, Um ladrao na noite, Explode a tempestade, A viagem de volta, A ultima etapa]
+Palavra Chave: ------ [bruxo, historia, narrativa]
+Capitulo: ----------- [O Menino que Sobreviveu, O Vidro que Sumiu, As Cartas de Ninguem, O Guardiao das Chaves, Beco Diagonal, O Embarque na Plataforma Nove e Meia, O Chapeu Seletor, O Mestre das Pocoes, O Duelo a Meia Noite, O Dia das Bruxas, Quadribol, O Espelho de Ojesed, Nicolau Flamel, Norberto, o Dragao Noruegues, A Floresta Proibida, No Alcapao, O Homem de Duas Caras]
 Tipo: --------------- AudioBook
-Duracao: ------------ 21.9
-Formato: ------------ wav
+Duracao: ------------ 15.5
+Formato: ------------ mp3
 
 
-Nome: --------------- O Hobbit
-Escritor: ----------- [John Ronald Reuel Tolkien]
-Ano: ---------------- 1937
+Nome: --------------- Harry Potter e a Pedra Filosofal
+Escritor: ----------- [J. K. Rowling]
+Ano: ---------------- 1997
 Idioma: ------------- Ingles
-Palavra Chave: ------ [idade media, historia, narrativa, ‎fantasia‎, literatura infantojuvenil]
-Capitulo: ----------- [Uma festa inesperada, Carneiro assado, Um breve descanso, Montanha acima, montanha adentro, Adivinhas no escuro, Da frigideira para o fogo, Estranhos alojamentos, Moscas e aranhas, Barris soltos, Uma acolhida calorosa, Na soleira da porta, Informacao de dentro, Fora de casa, Fogo e agua, Tempestade à vista, Um ladrao na noite, Explode a tempestade, A viagem de volta, A ultima etapa]
-Tipo: --------------- Eletronico
-URL: ---------------- http://lelivros.love/book/download-livro-o-hobbit-j-r-r-tolkien-em-epub-mobi-e-pdf/
-Formato Texto: ------ PDF
+Palavra Chave: ------ [bruxo, historia, narrativa]
+Capitulo: ----------- [O Menino que Sobreviveu, O Vidro que Sumiu, As Cartas de Ninguem, O Guardiao das Chaves, Beco Diagonal, O Embarque na Plataforma Nove e Meia, O Chapeu Seletor, O Mestre das Pocoes, O Duelo a Meia Noite, O Dia das Bruxas, Quadribol, O Espelho de Ojesed, Nicolau Flamel, Norberto, o Dragao Noruegues, A Floresta Proibida, No Alcapao, O Homem de Duas Caras]
+Tipo: --------------- Impresso
+Livrarias: ---------- [leitura, loja leitura, saraiva]
+Colunas: ------------ 2
 
 
