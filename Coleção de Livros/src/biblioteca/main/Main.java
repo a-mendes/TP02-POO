@@ -1,10 +1,12 @@
 package biblioteca.main;
 
+import java.io.File;
 import java.util.ArrayList;
 
 import biblioteca.gui.Tela;
 import biblioteca.modelo.Livro;
 import biblioteca.servicos.BaseDeDados;
+import biblioteca.servicos.Filtragem;
 
 
 public class Main {
@@ -29,12 +31,12 @@ public class Main {
 		tela = new Tela(livros);
 
 
-		System.out.println("--------------Completo--------------");
-		for (Livro livro : livros) {
-			System.out.println(livro.getClass());
-			System.out.println(livro.getTitulo());
-			System.out.println();
-		}
+//		System.out.println("--------------Completo--------------");
+//		for (Livro livro : livros) {
+//			System.out.println(livro.getClass());
+//			System.out.println(livro.getTitulo());
+//			System.out.println();
+//		}
 		
 		//Filtragem.testeFiltragem(livros);
 		//Relatorio.geradorRelatorio(livros);

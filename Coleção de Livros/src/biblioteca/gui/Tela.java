@@ -407,19 +407,36 @@ public class Tela extends JFrame {
 			}
 		}
 		
+		if(itemSelecionado[0] == 0 && itemSelecionado[1] == 0 && itemSelecionado[2] == 0) {
+			itemSelecionado[0] = 1; 
+			itemSelecionado[1] = 1;
+			itemSelecionado[2] = 1;
+		}
+		
 		if(todosNulos) {
 			String filtro = txtPesquisa.getText();
-		
+			for(int i = 3; i < itemSelecionado.length; i++)
+				itemSelecionado[i] = 1;
+			
+			try {
+				Integer.parseInt(filtro);
+			}
+			catch (Exception x) {
+				itemSelecionado[5] = 0; 
+				itemSelecionado[10] = 0;
+				itemSelecionado[13] = 0;
+			}
+			
 			listLivrosFiltro = Filtragem.pesquisaGeral(listLivrosOriginal, filtro, itemSelecionado);
 			listResultados.setListLivros(listLivrosFiltro);
 		}
 			
-			
-		String[] stringGeral = getStringFiltros();
-						 
-		listLivrosFiltro = Filtragem.pesquisaEspecifica(listLivrosOriginal, stringGeral, itemSelecionado);
-		listResultados.setListLivros(listLivrosFiltro);
-		
+		else {
+			String[] stringGeral = getStringFiltros();
+							 
+			listLivrosFiltro = Filtragem.pesquisaEspecifica(listLivrosOriginal, stringGeral, itemSelecionado);
+			listResultados.setListLivros(listLivrosFiltro);
+		}
 	}
 	
 	private String[] getStringFiltros() {

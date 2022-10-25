@@ -14,13 +14,13 @@ public class Filtragem {
 		
 		ArrayList<Livro> testeFiltrado = new ArrayList<Livro>();
 		
-		String[] stringGeral = new String[]{"o hobit","","","","","","","","","","","",};
-		int itemSelecionado[] = {1,1,1,1,0,0,0,0,0,0,0,0,0,0,0};
-		testeFiltrado = pesquisaEspecifica(livros, stringGeral, itemSelecionado);
+//		String[] stringGeral = new String[]{"o hobit","","","","","","","","","","","",};
+//		int itemSelecionado[] = {1,1,1,1,0,0,0,0,0,0,0,0,0,0,0};
+//		testeFiltrado = pesquisaEspecifica(livros, stringGeral, itemSelecionado);
 		
-//		String stringGeral = "O Senhor dos Aneis";
-//		int itemSelecionado[] = {1,1,1,1,1,0,1,1,1,1,0,1,1,0,1};
-//		testeFiltrado = pesquisaGeral(livros, stringGeral, itemSelecionado);
+		String stringGeral = "Hobbit";
+		int itemSelecionado[] = {1,1,1,1,1,0,1,1,1,1,0,1,1,0,1};
+		testeFiltrado = pesquisaGeral(livros, stringGeral, itemSelecionado);
 		
 		System.out.println("--------------Filtado--------------");
 		for (Livro livro : testeFiltrado) {
@@ -227,6 +227,16 @@ public class Filtragem {
 	
 	public static ArrayList<Livro> pesquisaEspecifica(ArrayList<Livro> livros, String[] stringGeral, int itemSelecionado[]){
 		ArrayList<Livro> filtrado = new ArrayList<Livro>();
+		
+		System.out.println("Especifica");
+		System.out.println("String Geral1");
+		for(String item : stringGeral) {
+			System.out.print(item + "*");
+		}
+		System.out.println("Item Selecionado");
+		for(int item : itemSelecionado) {
+			System.out.print(item + "*");
+		}
 							
 		//Filtrar Tipo
 		if(itemSelecionado[0] == 1) //Impresso
@@ -283,7 +293,14 @@ public class Filtragem {
 	public static ArrayList<Livro> pesquisaGeral(ArrayList<Livro> livros, String stringGeral, int itemSelecionado[]){
 		ArrayList<Livro> filtradoTipo = new ArrayList<Livro>();
 		ArrayList<Livro> filtradoCoisas = new ArrayList<Livro>();
-							
+		
+		System.out.println("Geral");
+		System.out.println("String Geral2: " + stringGeral);
+		System.out.println("Item Selecionado");
+		for(int item : itemSelecionado) {
+			System.out.print(item + "*");
+		}
+
 		//Filtrar Tipo
 		if(itemSelecionado[0] == 1) //Impresso
 			resultado(filtradoTipo, filtraTipo(livros, 0));
