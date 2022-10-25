@@ -387,13 +387,70 @@ public class Tela extends JFrame {
 		txtFormatoAudioBook.setText("");
 	}
 	
+	private boolean validaNumeros(int itemSelecionado[], String[] stringGeral) {
+		
+		try {
+			if(itemSelecionado[5] == 1)
+				Integer.parseInt(stringGeral[2]);
+			if(itemSelecionado[10] == 1)
+				Integer.parseInt(stringGeral[7]);
+			if(itemSelecionado[13] == 1)
+				Integer.parseInt(stringGeral[10]);
+		}
+		catch (Exception x) {
+			return false;
+		}
+		return true;
+	}
+	
 	private void emitirRelatorio() {
-		int[] itemSelecionado = getIndicesFiltrados();
-		String[] stringGeral = getStringFiltros();
+		int itemSelecionado[] = getIndicesFiltrados();
 		
-		Relatorio.geradorRelatorio(listLivrosOriginal, stringGeral, itemSelecionado);
+		boolean todosNulos = true;
+		for(int i = 3; i < itemSelecionado.length; i++) {
+			if(itemSelecionado[i] == 1) {
+				todosNulos = false;
+				break;
+			}
+		}
 		
-		JOptionPane.showMessageDialog(null, "O 'relatorio.txt' foi gerado com sucesso!");
+		if(itemSelecionado[0] == 0 && itemSelecionado[1] == 0 && itemSelecionado[2] == 0) {
+			itemSelecionado[0] = 1; 
+			itemSelecionado[1] = 1;
+			itemSelecionado[2] = 1;
+		}
+		
+		if(todosNulos) {
+			String filtro = txtPesquisa.getText();
+			for(int i = 3; i < itemSelecionado.length; i++)
+				itemSelecionado[i] = 1;
+			
+			try {
+				Integer.parseInt(filtro);
+			}
+			catch (Exception x) {
+				itemSelecionado[5] = 0; 
+				itemSelecionado[10] = 0;
+				itemSelecionado[13] = 0;
+			}
+			
+			listLivrosFiltro = Filtragem.pesquisaGeral(listLivrosOriginal, filtro, itemSelecionado);
+			Relatorio.geradorRelatorioGeral(listLivrosFiltro, filtro, itemSelecionado);
+			JOptionPane.showMessageDialog(null, "O 'relatorio.txt' foi gerado com sucesso!");
+		}
+			
+		else {
+			String[] stringGeral = getStringFiltros();
+							 
+			if(validaNumeros(itemSelecionado, stringGeral)) {
+				listLivrosFiltro = Filtragem.pesquisaEspecifica(listLivrosOriginal, stringGeral, itemSelecionado);
+				Relatorio.geradorRelatorio(listLivrosFiltro, stringGeral, itemSelecionado);
+				JOptionPane.showMessageDialog(null, "O 'relatorio.txt' foi gerado com sucesso!");
+			}
+			else
+				JOptionPane.showMessageDialog(null, "Digite uma valor numerico nos campo correspondentes");
+		}
+
 	}
 	
 	private void doPesquisa() {
@@ -433,9 +490,13 @@ public class Tela extends JFrame {
 			
 		else {
 			String[] stringGeral = getStringFiltros();
-							 
-			listLivrosFiltro = Filtragem.pesquisaEspecifica(listLivrosOriginal, stringGeral, itemSelecionado);
-			listResultados.setListLivros(listLivrosFiltro);
+			
+			if(validaNumeros(itemSelecionado, stringGeral)) {
+				listLivrosFiltro = Filtragem.pesquisaEspecifica(listLivrosOriginal, stringGeral, itemSelecionado);
+				listResultados.setListLivros(listLivrosFiltro);
+			}
+			else
+				JOptionPane.showMessageDialog(null, "Digite uma valor numerico nos campo correspondentes");
 		}
 	}
 	

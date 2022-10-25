@@ -1,12 +1,10 @@
 package biblioteca.main;
 
-import java.io.File;
 import java.util.ArrayList;
 
 import biblioteca.gui.Tela;
 import biblioteca.modelo.Livro;
 import biblioteca.servicos.BaseDeDados;
-import biblioteca.servicos.Filtragem;
 
 
 public class Main {

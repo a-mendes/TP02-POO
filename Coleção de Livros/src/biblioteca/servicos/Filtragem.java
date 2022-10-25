@@ -228,15 +228,15 @@ public class Filtragem {
 	public static ArrayList<Livro> pesquisaEspecifica(ArrayList<Livro> livros, String[] stringGeral, int itemSelecionado[]){
 		ArrayList<Livro> filtrado = new ArrayList<Livro>();
 		
-		System.out.println("Especifica");
-		System.out.println("String Geral1");
-		for(String item : stringGeral) {
-			System.out.print(item + "*");
-		}
-		System.out.println("Item Selecionado");
-		for(int item : itemSelecionado) {
-			System.out.print(item + "*");
-		}
+//		System.out.println("Especifica");
+//		System.out.println("String Geral1");
+//		for(String item : stringGeral) {
+//			System.out.print(item + "*");
+//		}
+//		System.out.println("Item Selecionado");
+//		for(int item : itemSelecionado) {
+//			System.out.print(item + "*");
+//		}
 							
 		//Filtrar Tipo
 		if(itemSelecionado[0] == 1) //Impresso
@@ -294,12 +294,12 @@ public class Filtragem {
 		ArrayList<Livro> filtradoTipo = new ArrayList<Livro>();
 		ArrayList<Livro> filtradoCoisas = new ArrayList<Livro>();
 		
-		System.out.println("Geral");
-		System.out.println("String Geral2: " + stringGeral);
-		System.out.println("Item Selecionado");
-		for(int item : itemSelecionado) {
-			System.out.print(item + "*");
-		}
+//		System.out.println("Geral");
+//		System.out.println("String Geral2: " + stringGeral);
+//		System.out.println("Item Selecionado");
+//		for(int item : itemSelecionado) {
+//			System.out.print(item + "*");
+//		}
 
 		//Filtrar Tipo
 		if(itemSelecionado[0] == 1) //Impresso
