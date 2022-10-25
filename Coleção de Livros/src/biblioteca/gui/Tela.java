@@ -518,8 +518,15 @@ public class Tela extends JFrame {
 				itemSelecionado[13] = 0;
 			}
 			
-			listLivrosFiltro = Filtragem.pesquisaGeral(listLivrosOriginal, filtro, itemSelecionado);
-			listResultados.setListLivros(listLivrosFiltro);
+			System.out.println(filtro);
+			System.out.println(itemSelecionado);
+			
+			if(filtro.equals("Ex.: 'Hobbit'"))
+				JOptionPane.showMessageDialog(null, "Digite Algo Valido nas caixa de texto");
+			else {
+				listLivrosFiltro = Filtragem.pesquisaGeral(listLivrosOriginal, filtro, itemSelecionado);
+				listResultados.setListLivros(listLivrosFiltro);
+			}
 		}
 			
 		else {
