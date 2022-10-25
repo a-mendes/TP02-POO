@@ -451,9 +451,14 @@ public class Tela extends JFrame {
 				itemSelecionado[13] = 0;
 			}
 			
-			listLivrosFiltro = Filtragem.pesquisaGeral(listLivrosOriginal, filtro, itemSelecionado);
-			Relatorio.geradorRelatorioGeral(listLivrosFiltro, filtro, itemSelecionado);
-			JOptionPane.showMessageDialog(null, "O 'relatorio.txt' foi gerado com sucesso!");
+			if(filtro.equals("Ex.: 'Hobbit'"))
+				JOptionPane.showMessageDialog(null, "Digite Algo Valido nas caixa de texto");
+			else {
+				listLivrosFiltro = Filtragem.pesquisaGeral(listLivrosOriginal, filtro, itemSelecionado);
+				Relatorio.geradorRelatorioGeral(listLivrosFiltro, filtro, itemSelecionado);
+				JOptionPane.showMessageDialog(null, "O 'relatorio.txt' foi gerado com sucesso!");
+			}
+			
 		}
 			
 		else {
@@ -465,7 +470,7 @@ public class Tela extends JFrame {
 				JOptionPane.showMessageDialog(null, "O 'relatorio.txt' foi gerado com sucesso!");
 			}
 			else
-				JOptionPane.showMessageDialog(null, "Digite uma valor numerico nos campo correspondentes");
+				JOptionPane.showMessageDialog(null, "Digite um valor numerico nos campo correspondentes");
 		}
 
 	}
@@ -537,7 +542,7 @@ public class Tela extends JFrame {
 				listResultados.setListLivros(listLivrosFiltro);
 			}
 			else
-				JOptionPane.showMessageDialog(null, "Digite uma valor numerico nos campo correspondentes");
+				JOptionPane.showMessageDialog(null, "Digite um valor numerico nos campo correspondentes");
 		}
 	}
 	
