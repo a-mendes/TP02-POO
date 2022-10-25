@@ -210,7 +210,7 @@ public class Filtragem {
 	//Filtra os livros dado quais itens estão marcados e as strings correspondentes 
 	public static ArrayList<Livro> pesquisaEspecifica(ArrayList<Livro> livros, String[] stringGeral, int itemSelecionado[]){
 		ArrayList<Livro> filtrado = new ArrayList<Livro>();
-			
+		
 		/*
 		A relação entre a filtragem de Tipos é ||
 		Ou seja, tendo 2 tipos marcados o resultado da filtragem pode estar em um OU em outro

@@ -406,6 +406,29 @@ public class Tela extends JFrame {
 	private void emitirRelatorio() {
 		int itemSelecionado[] = getIndicesFiltrados();
 		
+		if(itemSelecionado[0] == 0 && itemSelecionado[1] == 0 && itemSelecionado[2] == 0) {
+			itemSelecionado[0] = 1; 
+			itemSelecionado[1] = 1;
+			itemSelecionado[2] = 1;
+			JOptionPane.showMessageDialog(null, "Nenhum tipo Marcado. Todos foram marcados internamente");
+		}
+		
+		if((itemSelecionado[0] == 0) && (itemSelecionado[9] == 1 || itemSelecionado[10] == 1)) {
+			itemSelecionado[9] = 0;
+			itemSelecionado[10] = 0;
+			JOptionPane.showMessageDialog(null, "Item Especificos de tipo impresso digitados sem marcar tipo impresso. \nEles foram desmarcados internamente");
+		}
+		if((itemSelecionado[1] == 0) && (itemSelecionado[11] == 1 || itemSelecionado[12] == 1)) {
+			itemSelecionado[11] = 0;
+			itemSelecionado[12] = 0;
+			JOptionPane.showMessageDialog(null, "Item Especificos de tipo eletronico digitados sem marcar tipo impresso. \nEles foram desmarcados internamente");
+		}
+		if((itemSelecionado[2] == 0) && (itemSelecionado[13] == 1 || itemSelecionado[14] == 1)) {
+			itemSelecionado[13] = 0;
+			itemSelecionado[14] = 0;
+			JOptionPane.showMessageDialog(null, "Item Especificos de tipo audioBook digitados sem marcar tipo impresso. \nEles foram desmarcados internamente");
+		}
+
 		boolean todosNulos = true;
 		for(int i = 3; i < itemSelecionado.length; i++) {
 			if(itemSelecionado[i] == 1) {
@@ -414,15 +437,9 @@ public class Tela extends JFrame {
 			}
 		}
 		
-		if(itemSelecionado[0] == 0 && itemSelecionado[1] == 0 && itemSelecionado[2] == 0) {
-			itemSelecionado[0] = 1; 
-			itemSelecionado[1] = 1;
-			itemSelecionado[2] = 1;
-		}
-		
 		if(todosNulos) {
 			String filtro = txtPesquisa.getText();
-			for(int i = 3; i < itemSelecionado.length; i++)
+			for(int i = 0; i < itemSelecionado.length; i++)
 				itemSelecionado[i] = 1;
 			
 			try {
@@ -455,19 +472,36 @@ public class Tela extends JFrame {
 	
 	private void doPesquisa() {
 		int itemSelecionado[] = getIndicesFiltrados();
+	
+		if(itemSelecionado[0] == 0 && itemSelecionado[1] == 0 && itemSelecionado[2] == 0) {
+			itemSelecionado[0] = 1; 
+			itemSelecionado[1] = 1;
+			itemSelecionado[2] = 1;
+			JOptionPane.showMessageDialog(null, "Nenhum tipo Marcado. Todos foram marcados internamente");
+		}
 		
+		if((itemSelecionado[0] == 0) && (itemSelecionado[9] == 1 || itemSelecionado[10] == 1)) {
+			itemSelecionado[9] = 0;
+			itemSelecionado[10] = 0;
+			JOptionPane.showMessageDialog(null, "Item Especificos de tipo impresso digitados sem marcar tipo impresso. \nEles foram desmarcados internamente");
+		}
+		if((itemSelecionado[1] == 0) && (itemSelecionado[11] == 1 || itemSelecionado[12] == 1)) {
+			itemSelecionado[11] = 0;
+			itemSelecionado[12] = 0;
+			JOptionPane.showMessageDialog(null, "Item Especificos de tipo eletronico digitados sem marcar tipo impresso. \nEles foram desmarcados internamente");
+		}
+		if((itemSelecionado[2] == 0) && (itemSelecionado[13] == 1 || itemSelecionado[14] == 1)) {
+			itemSelecionado[13] = 0;
+			itemSelecionado[14] = 0;
+			JOptionPane.showMessageDialog(null, "Item Especificos de tipo audioBook digitados sem marcar tipo impresso. \nEles foram desmarcados internamente");
+		}
+
 		boolean todosNulos = true;
 		for(int i = 3; i < itemSelecionado.length; i++) {
 			if(itemSelecionado[i] == 1) {
 				todosNulos = false;
 				break;
 			}
-		}
-		
-		if(itemSelecionado[0] == 0 && itemSelecionado[1] == 0 && itemSelecionado[2] == 0) {
-			itemSelecionado[0] = 1; 
-			itemSelecionado[1] = 1;
-			itemSelecionado[2] = 1;
 		}
 		
 		if(todosNulos) {
