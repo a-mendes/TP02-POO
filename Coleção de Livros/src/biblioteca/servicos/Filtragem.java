@@ -11,16 +11,20 @@ import biblioteca.modelo.Livro;
 public class Filtragem {
 	
 	public static void resultado (ArrayList<Livro> filtrada, ArrayList<Livro> tmp){
+		//Hash set para não permitir duplicados 
 		HashSet<Livro> hashSetTeste = new HashSet<Livro>(filtrada);
 		
+		//Os itens do arrayList tmp são adicionados no HashSet
 		for (Livro element : tmp)
         	hashSetTeste.add(element); 
 		
+		//ArrayList é limpo por precaução e os elementos do hashSetTeste são adicionados a ele 
 		filtrada.clear();
 		filtrada.addAll(hashSetTeste);
 	}
 	
 	//Filtros retornam os elementos do arrayList "livros" que contei o atributo desejado 
+	
 	public static ArrayList<Livro> filtraTipo(ArrayList<Livro> livros, int tipo){
 		ArrayList<Livro> retorno = new ArrayList<Livro>();
 		
@@ -203,10 +207,15 @@ public class Filtragem {
 		return retorno;
 	}
 	
-	//Filtra os elementos 
+	//Filtra os livros dado quais itens estão marcados e as strings correspondentes 
 	public static ArrayList<Livro> pesquisaEspecifica(ArrayList<Livro> livros, String[] stringGeral, int itemSelecionado[]){
 		ArrayList<Livro> filtrado = new ArrayList<Livro>();
-							
+			
+		/*
+		A relação entre a filtragem de Tipos é ||
+		Ou seja, tendo 2 tipos marcados o resultado da filtragem pode estar em um OU em outro
+		*/
+		
 		//Filtrar Tipo
 		if(itemSelecionado[0] == 1) //Impresso
 			resultado(filtrado, filtraTipo(livros, 0));
@@ -217,7 +226,13 @@ public class Filtragem {
 		if(itemSelecionado[2] == 1) //Audio Book
 			resultado(filtrado, filtraTipo(livros, 2));
 		
-		//Filtrar Coisas Gerais
+		/*
+		É feito um && a cada filtragem
+		Os livros resultante devem atender a todos os itens marcados
+		Ou seja, tendo "nome" e "Escritor" marcado, os livros resultantes devem ter o nome E o escritor determinado
+		*/
+		
+		//Filtrar Campos Gerais
 		if(itemSelecionado[3] == 1) //Nome 
 			filtrado = filtraNome(filtrado, stringGeral[0]);
 		
@@ -259,9 +274,15 @@ public class Filtragem {
 		return filtrado;		
 	}
 	
+	//Filtra os livros em todos os campo, dadado uma string 
 	public static ArrayList<Livro> pesquisaGeral(ArrayList<Livro> livros, String stringGeral, int itemSelecionado[]){
 		ArrayList<Livro> filtradoTipo = new ArrayList<Livro>();
 		ArrayList<Livro> filtradoCoisas = new ArrayList<Livro>();
+		
+		/*
+		A relação entre a filtragem de Tipos é ||
+		Ou seja, tendo 2 tipos marcados o resultado da filtragem pode estar em um OU em outro
+		*/
 		
 		//Filtrar Tipo
 		if(itemSelecionado[0] == 1) //Impresso
@@ -273,6 +294,11 @@ public class Filtragem {
 		if(itemSelecionado[2] == 1) //Audio Book
 			resultado(filtradoTipo, filtraTipo(livros, 2));
 		
+		/*
+		Todos os campos dos livros são verificados menos o Ano, Colunas e duração, se a string digitada for um valor não numerico
+		É feito um || a cada filtragem
+		Ou seja, se a string dada casar com o nome OU algum dos escritores do livro, este é selecioando 
+		*/
 		
 		//Filtrar Coisas Gerais
 		if(itemSelecionado[3] == 1) //Nome 

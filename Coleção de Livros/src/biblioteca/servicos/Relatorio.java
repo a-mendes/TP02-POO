@@ -3,14 +3,13 @@ package biblioteca.servicos;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import biblioteca.modelo.AudioBook;
 import biblioteca.modelo.Eletronico;
 import biblioteca.modelo.Impresso;
 import biblioteca.modelo.Livro;
 import biblioteca.servicos.Relatorio;
-
-import java.util.ArrayList;
 
 
 public class Relatorio {

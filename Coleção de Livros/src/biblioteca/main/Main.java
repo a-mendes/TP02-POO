@@ -1,12 +1,10 @@
 package biblioteca.main;
 
-import java.io.File;
 import java.util.ArrayList;
 
 import biblioteca.gui.Tela;
 import biblioteca.modelo.Livro;
 import biblioteca.servicos.BaseDeDados;
-import biblioteca.servicos.AlteraBiblioteca;
 
 
 public class Main {
@@ -28,9 +26,7 @@ public class Main {
 		/**
 		 * Instancia da interface gráfica
 		 */
-		//tela = new Tela(livros);
-		
-		AlteraBiblioteca.testa(livros);
+		tela = new Tela(livros);
 
 	}
 

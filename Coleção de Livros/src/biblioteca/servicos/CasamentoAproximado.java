@@ -2,7 +2,18 @@ package biblioteca.servicos;
 
 import java.util.*;
 
+
+/*
+Fonte algoritimo (levenshtein-distance)
+https://www.geeksforgeeks.org/java-program-to-implement-levenshtein-distance-computing-algorithm/
+*/
+
 class CasamentoAproximado{
+	/*
+	Classe usada para determinar a distancia entre duas strings 
+	A quantidade de erros permitido pelo programa é = (Floor)tamanhoDaString/2 - 1
+	Caso o valor de negativo o quantidade é erros permitido será 0
+	*/
 
  static int computeLevenshtein(String str1, String str2){
 

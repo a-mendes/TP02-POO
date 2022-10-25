@@ -8,43 +8,12 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
-import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.Arrays;
 
-import biblioteca.modelo.AudioBook;
-import biblioteca.modelo.Eletronico;
-import biblioteca.modelo.Impresso;
 import biblioteca.modelo.Livro;
 
 public class AlteraBiblioteca extends BaseDeDados {
-	
-	public static void testa(ArrayList<Livro> livros) {
-//		String stringToda[] = new String[8];
-//		stringToda[0] = "O Leao, a Feiticeira e o Guarda-Roupa 17";
-//		stringToda[1] = "Clive Staples Lewis";
-//		stringToda[2] = "1950";
-//		stringToda[3] = "Ingles";
-//		stringToda[4] = "romance;infantojuvenil;ficcao;narnia";
-//		stringToda[5] = "Uma Estranha Descoberta;O Que Lucia Descobriu;Edmundo e o Guarda-Roupa;Manjar Turco;Outra Vez do Lado de Ca;Na Floresta;Um Dia com os Castores;Depois do Jantar;Na Casa da Feiticeira;O Encantamento Começa a Quebrar-se;A Aproximacao de Aslam;A Primeira Batalha de Pedro;Magia Profunda na Aurora do Tempo;O Triunfo da Feiticeira;Magia Ainda Mais Profunda de Antes da Aurora do Tempo;O Que Aconteceu com as Estatuas;A Cacada ao Veado Branco";
-//		stringToda[6] = "saraiva;leitura";
-//		stringToda[7] = "1";
-//		
-//		Exec(livros, stringToda, 1, 1);
-		
-		String stringToda[] = new String[8];
-		stringToda[0] = "Harry Potter e a Pedra Filosofal";
-		stringToda[1] = "J. K. Rowling";
-		stringToda[2] = "1950";
-		stringToda[3] = "Ingles";
-		stringToda[4] = "romance;infantojuvenil;ficcao;narnia";
-		stringToda[5] = "Uma Estranha Descoberta;O Que Lucia Descobriu;Edmundo e o Guarda-Roupa;Manjar Turco;Outra Vez do Lado de Ca;Na Floresta;Um Dia com os Castores;Depois do Jantar;Na Casa da Feiticeira;O Encantamento Começa a Quebrar-se;A Aproximacao de Aslam;A Primeira Batalha de Pedro;Magia Profunda na Aurora do Tempo;O Triunfo da Feiticeira;Magia Ainda Mais Profunda de Antes da Aurora do Tempo;O Que Aconteceu com as Estatuas;A Cacada ao Veado Branco";
-		stringToda[6] = "saraiva;leitura";
-		stringToda[7] = "1";
-		
-		Exec(livros, stringToda, 2, 1);
-	}
 	
 	public static void Exec(ArrayList<Livro> livros, String []stringToda, int op,int tipo) {
 		//Filtrar Comando
