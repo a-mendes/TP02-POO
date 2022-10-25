@@ -12,7 +12,6 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
 
-import javax.management.relation.Relation;
 import javax.swing.BorderFactory;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
@@ -96,11 +95,13 @@ public class Tela extends JFrame {
 	/**
 	 * Lista contendo os livros fornecidos
 	 */
-	private ArrayList<Livro> listLivros;
+	private ArrayList<Livro> listLivrosOriginal;
+	private ArrayList<Livro> listLivrosFiltro;
 	
 	public Tela(ArrayList<Livro> livros) {
         
-		listLivros = livros;
+		listLivrosOriginal = livros;
+		listLivrosFiltro = listLivrosOriginal;
 
 		/**
 		 * Configuração de panels
@@ -354,7 +355,7 @@ public class Tela extends JFrame {
 		pnlResultados.setLayout(new FlowLayout());
 		pnlResultados.setBorder(BorderFactory.createTitledBorder("Resultados da Pesquisa"));
 		
-		listResultados = new ListagemPaginada(5, listLivros);
+		listResultados = new ListagemPaginada(5, listLivrosFiltro);
 		pnlResultados.add(listResultados);
 		
 		pnlPrincipal.add(pnlResultados);
@@ -390,7 +391,7 @@ public class Tela extends JFrame {
 		int[] itemSelecionado = getIndicesFiltrados();
 		String[] stringGeral = getStringFiltros();
 		
-		Relatorio.geradorRelatorio(listLivros, stringGeral, itemSelecionado);
+		Relatorio.geradorRelatorio(listLivrosOriginal, stringGeral, itemSelecionado);
 		
 		JOptionPane.showMessageDialog(null, "O 'relatorio.txt' foi gerado com sucesso!");
 	}
@@ -409,15 +410,15 @@ public class Tela extends JFrame {
 		if(todosNulos) {
 			String filtro = txtPesquisa.getText();
 		
-			listLivros = Filtragem.pesquisaGeral(listLivros, filtro, itemSelecionado);
-			listResultados.setListLivros(listLivros);
+			listLivrosFiltro = Filtragem.pesquisaGeral(listLivrosOriginal, filtro, itemSelecionado);
+			listResultados.setListLivros(listLivrosFiltro);
 		}
 			
 			
 		String[] stringGeral = getStringFiltros();
 						 
-		listLivros = Filtragem.pesquisaEspecifica(listLivros, stringGeral, itemSelecionado);
-		listResultados.setListLivros(listLivros);
+		listLivrosFiltro = Filtragem.pesquisaEspecifica(listLivrosOriginal, stringGeral, itemSelecionado);
+		listResultados.setListLivros(listLivrosFiltro);
 		
 	}
 	
