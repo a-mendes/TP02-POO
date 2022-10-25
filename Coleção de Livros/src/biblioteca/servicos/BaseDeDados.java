@@ -14,15 +14,15 @@ import biblioteca.modelo.Impresso;
 import biblioteca.modelo.Livro;
 
 public class BaseDeDados {
-
+	//Responsavel pela leitura do arquivo
 	private static BufferedReader reader;
 	static ArrayList<Livro> livros = new ArrayList<Livro>();
+	//Responsavel por ler arquivos com as descrições dos livros 
 	public static ArrayList<Livro> lerBaseDeDados() throws Exception {
-	
+	//Descobre quantos arquivos possui na pasta 
 		File file = new File("data/");
 		int count = file.listFiles().length;
-		
-		
+	//For que realiza leitura 
 		for (int i = 0; i < count ; ++i)
 		{
 			String path = "data/" + (i+1) + ".txt";
@@ -41,9 +41,9 @@ public class BaseDeDados {
 			strTipoLivro = reader.readLine();
 		
 			int tipoLivro = Integer.parseInt(strTipoLivro);
-			
+			//Adiciona Livros ao Array
 			adicionaLivro(tipoLivro);
-			
+			//Fecha arquivos 
 			reader.close();
 		}
 		
@@ -62,7 +62,6 @@ public class BaseDeDados {
 				try {
 					lerImpresso(livro);
 				} catch (Exception e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 				livros.add(livro);
@@ -103,7 +102,7 @@ public class BaseDeDados {
 			break;
 		}
 	}
-	
+	//Responsavel por ler e "setar" todos os dados basicos  dos livros 
 private static void lerLivro(Livro livro) throws IOException 
 	{
 		/**
@@ -151,7 +150,7 @@ private static void lerLivro(Livro livro) throws IOException
 		ArrayList<String> capitulos = new ArrayList<String>(Arrays.asList(strCapitulos.split(";")));
 		livro.setCapitulos(capitulos);
 	}
-	
+	//"Seta" Caracteristicas especiais 
 	private static void lerAudioBook(AudioBook audioBook) throws Exception
 	{
 		lerLivro(audioBook);

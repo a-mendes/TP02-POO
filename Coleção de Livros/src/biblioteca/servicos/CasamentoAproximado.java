@@ -8,6 +8,7 @@ Fonte algoritimo (levenshtein-distance)
 https://www.geeksforgeeks.org/java-program-to-implement-levenshtein-distance-computing-algorithm/
 */
 
+//Utilizada para pesquisar por livros mesmo com pequenas diferenças do digitado com o que existe na base de dados
 class CasamentoAproximado{
 	/*
 	Classe usada para determinar a distancia entre duas strings 
