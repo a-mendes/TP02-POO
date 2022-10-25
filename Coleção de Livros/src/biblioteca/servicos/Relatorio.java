@@ -14,11 +14,10 @@ import java.util.ArrayList;
 
 
 public class Relatorio {
-	public static void geradorRelatorio(ArrayList<Livro> livros/*, String[] stringGeral, int itemSelecionado[]*/){
-
-		String[] stringGeral = new String[]{"Harry Potter e a Pedra Filosofal","teste","","","","","","","","","","",};
-		int itemSelecionado[] = {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1};
-		String caminhoArquivoPadrao = "arquivo.txt";
+	
+	
+	public static void geradorRelatorio(ArrayList<Livro> livros, String[] stringGeral, int itemSelecionado[]){
+		String caminhoArquivoPadrao = "relatorio.txt";
 
 		try {
 		    BufferedWriter writer = new BufferedWriter(new FileWriter(caminhoArquivoPadrao));

@@ -3,6 +3,7 @@ package biblioteca.gui;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
+import java.awt.Label;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -39,13 +40,11 @@ public class ListagemPaginada extends JPanel {
 	private int qtdItensPagina;
 	private ArrayList<Livro> listLivros;
 	
+
 	public ListagemPaginada(int qtdItensPagina, ArrayList<Livro> listLivros) {
 
 		this.qtdItensPagina = (qtdItensPagina <= 0) ? (1) : (qtdItensPagina);
 		this.listLivros = listLivros;
-		int paginaIncompleta = (listLivros.size() % qtdItensPagina >= 1) ? (1) : (0);
-		this.maxPage = listLivros.size() / qtdItensPagina + paginaIncompleta;
-		
 		
 		setLayout(new FlowLayout()); 
 		setPreferredSize(new Dimension(700, 500));
@@ -64,6 +63,14 @@ public class ListagemPaginada extends JPanel {
 	
 	private void atualizarElementos() {
 		pnlElementos.removeAll();
+		
+		int paginaIncompleta = (listLivros.size() % qtdItensPagina >= 1) ? (1) : (0);
+		this.maxPage = listLivros.size() / qtdItensPagina + paginaIncompleta;
+		
+		if(listLivros.size() == 0) {
+			pnlElementos.add(new Label("Não foram encontradas correspondências", SwingConstants.CENTER));
+			return;
+		}
 		
 		/**
 		 * Recupera os livros a serem exibidos de acordo com a paginação
@@ -95,6 +102,9 @@ public class ListagemPaginada extends JPanel {
 		if(pnlNavegacao != null)
 			remove(pnlNavegacao);
 		initPnlNavegacao();
+		
+		validate();
+		repaint();
 	}
 	
 	private String getIconLivro(Livro livro) {
@@ -186,4 +196,11 @@ public class ListagemPaginada extends JPanel {
 		repaint();
 	}
 
+	public void setListLivros(ArrayList<Livro> listLivros) {
+		this.listLivros = listLivros;
+		int paginaIncompleta = (listLivros.size() % qtdItensPagina >= 1) ? (1) : (0);
+		this.maxPage = listLivros.size() / qtdItensPagina + paginaIncompleta;
+		
+		atualizarElementos();
+	}
 }

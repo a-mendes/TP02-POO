@@ -12,6 +12,7 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
 
+import javax.management.relation.Relation;
 import javax.swing.BorderFactory;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
@@ -19,12 +20,15 @@ import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
 import biblioteca.modelo.Livro;
+import biblioteca.servicos.Filtragem;
+import biblioteca.servicos.Relatorio;
 
 public class Tela extends JFrame {
 
@@ -41,7 +45,7 @@ public class Tela extends JFrame {
 	/**
 	 * Botões
 	 */
-	private JButton btnPesquisaEspecifica;
+	private JButton btnPesquisa;
 	private JButton btnRelatorio;
 	private JButton btnLimpar;
 	private JButton btnAjuda;
@@ -157,14 +161,24 @@ public class Tela extends JFrame {
 		/**
 		 * Botão Pesquisa
 		 */
-		btnPesquisaEspecifica = new JButton("Pesquisar");
-		btnPesquisaEspecifica.setPreferredSize(new Dimension(100, 50));
-		//TODO Add actionListeners 
-		pnlPesquisa.add(btnPesquisaEspecifica);
+		btnPesquisa = new JButton("Pesquisar");
+		btnPesquisa.setPreferredSize(new Dimension(100, 50));
+		btnPesquisa.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				doPesquisa();	
+				validate();
+				repaint();
+			}
+		});
+		pnlPesquisa.add(btnPesquisa);
 		
 		btnRelatorio = new JButton("Relatório");
 		btnRelatorio.setPreferredSize(new Dimension(100, 50));
-		//TODO Add actionListeners 
+		btnRelatorio.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				emitirRelatorio();
+			}
+		});
 		pnlPesquisa.add(btnRelatorio);
 		
 		/**
@@ -172,11 +186,7 @@ public class Tela extends JFrame {
 		 */
 		btnLimpar = new JButton("Limpar");
 		btnLimpar.setPreferredSize(new Dimension(100, 50));
-		btnLimpar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				limparPesquisa();
-			}
-		});
+		btnLimpar.addActionListener((ActionEvent e) -> limparPesquisa());
 		pnlPesquisa.add(btnLimpar);
 		
 		/**
@@ -374,10 +384,88 @@ public class Tela extends JFrame {
 		txtFormatoEletronico.setText("");
 		txtDuracao.setText("");
 		txtFormatoAudioBook.setText("");
+	}
+	
+	private void emitirRelatorio() {
+		int[] itemSelecionado = getIndicesFiltrados();
+		String[] stringGeral = getStringFiltros();
 		
+		Relatorio.geradorRelatorio(listLivros, stringGeral, itemSelecionado);
+		
+		JOptionPane.showMessageDialog(null, "O 'relatorio.txt' foi gerado com sucesso!");
+	}
+	
+	private void doPesquisa() {
+		int itemSelecionado[] = getIndicesFiltrados();
+		
+		boolean todosNulos = true;
+		for(int i = 3; i < itemSelecionado.length; i++) {
+			if(itemSelecionado[i] == 1) {
+				todosNulos = false;
+				break;
+			}
+		}
+		
+		if(todosNulos) {
+			String filtro = txtPesquisa.getText();
+		
+			listLivros = Filtragem.pesquisaGeral(listLivros, filtro, itemSelecionado);
+			listResultados.setListLivros(listLivros);
+		}
+			
+			
+		String[] stringGeral = getStringFiltros();
+						 
+		listLivros = Filtragem.pesquisaEspecifica(listLivros, stringGeral, itemSelecionado);
+		listResultados.setListLivros(listLivros);
+		
+	}
+	
+	private String[] getStringFiltros() {
 		/**
-		 * TODO: Limpar tabela de resultados mostrando todos os registros
+		 * Cria um vetor indicando com os valores dos campos a serem pesquisados
 		 */
+		String[] stringGeral = new String[12];
+				 stringGeral[0] = txtNome.getText();
+				 stringGeral[1] = txtEscritores.getText();
+				 stringGeral[2] = txtAnoPublicacao.getText();
+				 stringGeral[3] = txtIdioma.getText();
+				 stringGeral[4] = txtKeywords.getText();
+				 stringGeral[5] = txtCapitulo.getText();
+				 stringGeral[6] = txtLivrarias.getText();
+				 stringGeral[7] = txtColunas.getText();
+				 stringGeral[8] = txtURL.getText();
+				 stringGeral[9] = txtFormatoEletronico.getText();
+				 stringGeral[10] = txtDuracao.getText();
+				 stringGeral[11] = txtFormatoAudioBook.getText();
+	
+		return stringGeral;
+	}
+	
+	private int[] getIndicesFiltrados() {
+
+		/**
+		 * Cria um vetor indicando com "1" os campos a serem pesquisados e 0
+		 * campos a ignorar
+		 */
+		int[] itemSelecionado = new int[15];
+			itemSelecionado[0] = (cbxTipoImpresso.isSelected()) ? (1) : (0);
+			itemSelecionado[1] = (cbxTipoEletronico.isSelected()) ? (1) : (0);
+			itemSelecionado[2] = (cbxTipoAudioBook.isSelected()) ? (1) : (0);
+			itemSelecionado[3] = (!txtNome.getText().isEmpty())? (1) : (0);
+			itemSelecionado[4] = (!txtEscritores.getText().isEmpty())? (1) : (0);
+			itemSelecionado[5] = (!txtAnoPublicacao.getText().isEmpty())? (1) : (0);
+			itemSelecionado[6] = (!txtIdioma.getText().isEmpty())? (1) : (0);
+			itemSelecionado[7] = (!txtKeywords.getText().isEmpty())? (1) : (0);
+			itemSelecionado[8] = (!txtCapitulo.getText().isEmpty())? (1) : (0);
+			itemSelecionado[9] = (!txtLivrarias.getText().isEmpty())? (1) : (0);
+			itemSelecionado[10] = (!txtColunas.getText().isEmpty())? (1) : (0);
+			itemSelecionado[11] = (!txtURL.getText().isEmpty())? (1) : (0);
+			itemSelecionado[12] = (!txtFormatoEletronico.getText().isEmpty())? (1) : (0);
+			itemSelecionado[13] = (!txtDuracao.getText().isEmpty())? (1) : (0);
+			itemSelecionado[14] = (!txtFormatoAudioBook.getText().isEmpty())? (1) : (0);
+		
+		return itemSelecionado;
 	}
 }
 
