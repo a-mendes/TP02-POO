@@ -42,7 +42,7 @@ public class Tela extends JFrame {
 	private JTextField txtPesquisa;
 	
 	/**
-	 * Botï¿½es
+	 * Botões
 	 */
 	private JButton btnPesquisa;
 	private JButton btnRelatorio;
@@ -67,7 +67,7 @@ public class Tela extends JFrame {
 	private JTextField txtCapitulo;
 	
 	/**
-	 * Campos Especï¿½ficos
+	 * Campos Específicos
 	 */
 	private JTextField txtLivrarias;
 	private JTextField txtColunas;
@@ -128,7 +128,7 @@ public class Tela extends JFrame {
 		getContentPane().add(scrollPane);
 		
 		/**
-		 * Configuraï¿½ï¿½es de exibiï¿½ï¿½o do JFrame
+		 * Configuração de exibição do JFrame
 		 */
 		setPreferredSize(new Dimension(WIDTH, HEIGHT));
 		pack();
@@ -212,7 +212,7 @@ public class Tela extends JFrame {
 				if (Desktop.isDesktopSupported() && Desktop.getDesktop().isSupported(Desktop.Action.BROWSE)) {
 				    try {
 				    	//TODO set url 
-						Desktop.getDesktop().browse(new URI("http://www.google.com"));
+						Desktop.getDesktop().browse(new URI("https://www.youtube.com/watch?v=z8difIMPnvA"));
 					} catch (IOException|URISyntaxException e1) {
 						e1.printStackTrace();
 					} 
@@ -536,11 +536,16 @@ public class Tela extends JFrame {
 			String filtro = txtPesquisa.getText();
 			for(int i = 3; i < itemSelecionado.length; i++)
 				itemSelecionado[i] = 1;
-		
-			validaNumeros(itemSelecionado, filtro);
-			listLivrosFiltro = Filtragem.pesquisaGeral(listLivrosOriginal, filtro, itemSelecionado);
-			listResultados.setListLivros(listLivrosFiltro);
 			
+			System.out.println(filtro);
+			if(filtro.equals("Ex.: 'Hobbit'")) {
+				JOptionPane.showMessageDialog(null, "Digite algo nas caixas de texto");
+			}
+			else {
+				validaNumeros(itemSelecionado, filtro);
+				listLivrosFiltro = Filtragem.pesquisaGeral(listLivrosOriginal, filtro, itemSelecionado);
+				listResultados.setListLivros(listLivrosFiltro);				
+			}
 			return 'G';
 		}
 		

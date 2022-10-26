@@ -61,9 +61,9 @@ public class DetalhesLivroDialog extends JDialog {
 		String content = detalhesLivro(audiobook);
 		
 		/**
-		 * Duraï¿½ï¿½o
+		 * Duração
 		 */
-		content += "<h1>DuraÃ§Ã£o </h1> " + audiobook.getDuracao() + "<br/> <br/> <hr/>";
+		content += "<h1>Duração </h1> " + audiobook.getDuracao() + "<br/> <br/> <hr/>";
 		
 		/**
 		 * Formato
@@ -113,7 +113,7 @@ public class DetalhesLivroDialog extends JDialog {
 	private String detalhesLivro(Livro livro) {
 		
 		/**
-		 * Usamos HTML para fazer a formataï¿½ï¿½o correta da String de exibiï¿½ï¿½o dos detalhes 
+		 * Usamos HTML para fazer a formatação correta da String de exibição dos detalhes 
 		 */
 		String content = "<html><body>";
 		
@@ -133,7 +133,7 @@ public class DetalhesLivroDialog extends JDialog {
 		content += "<br/> <hr/>";
 		
 		/**
-		 * Ano Publicaï¿½ï¿½o
+		 * Ano Publicação
 		 */
 		content += "<h1>Ano de Publicacao </h1> " + livro.getAnoDePublicacao() + "<br/> <br/> <hr/>";
 
